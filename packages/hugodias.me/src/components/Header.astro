@@ -1,0 +1,30 @@
+---
+import Link from '@components/Link.astro'
+import { SITE } from '@consts'
+import { Image } from 'astro:assets'
+---
+
+<header class="Header">
+  <Link href="/" class:list={['Header-logo']}>
+    <div>
+      <Image
+        src="/favicon.png"
+        alt={SITE.NAME}
+        width={48}
+        height={48}
+        style={{ borderRadius: '9999px' }}
+      />
+    </div>
+  </Link>
+  <nav>
+    <Link href="/blog"> blog</Link>
+    <span>
+      {`/`}
+    </span>
+    <Link href="/work">work</Link>
+    <span>
+      {`/`}
+    </span>
+    <Link href="/projects">projects</Link>
+  </nav>
+</header>

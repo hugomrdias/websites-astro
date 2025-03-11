@@ -1,0 +1,32 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import { Image } from 'astro:assets'
+
+type Props = {
+  entry: CollectionEntry<'blog'> | CollectionEntry<'projects'>
+}
+
+const { entry } = Astro.props
+---
+
+<a href={`/${entry.collection}/${entry.id}`} class="Item">
+  {
+    entry.data && 'cover' in entry.data && entry.data.cover && (
+      <div class="Item-cover">
+        <Image src={entry.data.cover} alt={entry.data.title} width={400} />
+      </div>
+    )
+  }
+  <div class="Item-content">
+    <div>
+      <b>{entry.data.title}</b>
+    </div>
+    <small>
+      {entry.data.description}
+    </small>
+  </div>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <line x1="5" y1="12" x2="19" y2="12"></line>
+    <polyline points="12 5 19 12 12 19"></polyline>
+  </svg>
+</a>

@@ -1,0 +1,185 @@
+---
+import '../styles/global.css'
+import { ClientRouter } from 'astro:transitions'
+// @ts-expect-error - no types
+import { pwaInfo } from 'virtual:pwa-info'
+// @ts-expect-error - no types
+import { pwaAssetsHead } from 'virtual:pwa-assets/head'
+import { SITE } from '@consts'
+import type { ImageMetadata } from 'astro'
+import defaultOgImage from '../images/og-image2.jpg'
+import { getImage } from 'astro:assets'
+
+interface Props {
+  title: string
+  description: string
+  image?: ImageMetadata
+  type?: 'article' | 'website'
+}
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site)
+
+const {
+  title,
+  description,
+  image = defaultOgImage,
+  type = 'website',
+} = Astro.props
+
+const ogImage = await getImage({
+  src: image,
+  width: 1200,
+  height: 630,
+  fit: 'cover',
+})
+---
+
+<!-- Global Metadata -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+
+<meta name="generator" content={Astro.generator} />
+
+<!-- Canonical URL -->
+<link rel="canonical" href={canonicalURL} />
+
+<!-- Primary Meta Tags -->
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:site_name" content={SITE.NAME} />
+<meta property="og:locale" content="en_us" />
+<meta property="og:type" content={type} />
+<meta property="og:url" content={Astro.url} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={new URL(ogImage.src, Astro.url)} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+
+<!-- Twitter -->
+<meta content="@hugomrdias" name="twitter:creator" />
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={Astro.url} />
+<meta property="twitter:title" content={title} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={new URL(ogImage.src, Astro.url)} />
+
+<!-- RSS -->
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title={`${SITE.NAME}`}
+  href={new URL('rss.xml', Astro.site)}
+/>
+
+<!-- PWA -->
+{
+  pwaAssetsHead.themeColor && (
+    <meta name="theme-color" content={pwaAssetsHead.themeColor.content} />
+  )
+}
+{
+  pwaAssetsHead.links.map(
+    (
+      link: astroHTML.JSX.IntrinsicAttributes & astroHTML.JSX.LinkHTMLAttributes
+    ) => <link {...link} />
+  )
+}
+{pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
+<script src="/src/lib/pwa.ts"></script>
+<ClientRouter />
+
+<script>
+  import PhotoSwipeLightbox from 'photoswipe/lightbox'
+
+  let lightbox: PhotoSwipeLightbox
+  let lightbox2: PhotoSwipeLightbox
+
+  document.addEventListener('astro:page-load', () => {
+    lightbox = new PhotoSwipeLightbox({
+      gallery: '.Lightbox img',
+      thumbSelector: 'img',
+      pswpModule: () => import('photoswipe'),
+    })
+    lightbox.addFilter('domItemData', (itemData, element) => {
+      if (!itemData.element) {
+        return itemData
+      }
+
+      return {
+        src: itemData.element.attributes?.getNamedItem('src')?.value as string,
+        width: itemData.element.attributes?.getNamedItem('width')
+          ?.value as unknown as number,
+        height: itemData.element.attributes.getNamedItem('height')
+          ?.value as unknown as number,
+        alt: itemData.element.attributes.getNamedItem('alt')?.value as string,
+        element: element,
+        msrc: itemData.element.attributes?.getNamedItem('src')?.value as string,
+      }
+    })
+
+    lightbox.init()
+
+    lightbox2 = new PhotoSwipeLightbox({
+      gallery: '.Gallery',
+      children: 'a',
+      pswpModule: () => import('photoswipe'),
+    })
+    lightbox2.init()
+  })
+
+  document.addEventListener('astro:before-swap', () => {
+    lightbox.destroy()
+    lightbox2.destroy()
+  })
+</script>
+
+<script is:inline>
+  function init() {
+    onScroll()
+    animate()
+
+    const backToTop = document.getElementById('back-to-top')
+    backToTop?.addEventListener('click', (event) => scrollToTop(event))
+
+    const backToPrev = document.getElementById('back-to-prev')
+    backToPrev?.addEventListener('click', () => window.history.back())
+
+    document.addEventListener('scroll', onScroll)
+  }
+
+  function animate() {
+    const animateElements = document.querySelectorAll('.animate')
+
+    animateElements.forEach((element, index) => {
+      setTimeout(() => {
+        element.classList.add('show')
+      }, index * 150)
+    })
+  }
+
+  function onScroll() {
+    if (window.scrollY > 300) {
+      document.documentElement.classList.add('scrolled')
+    } else {
+      document.documentElement.classList.remove('scrolled')
+    }
+  }
+
+  /**
+   * @param {MouseEvent} event
+   */
+  function scrollToTop(event) {
+    event.preventDefault()
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    })
+  }
+
+  document.addEventListener('DOMContentLoaded', () => init())
+  document.addEventListener('astro:after-swap', () => init())
+</script>

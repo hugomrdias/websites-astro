@@ -1,0 +1,25 @@
+---
+import { type CollectionEntry, render } from 'astro:content'
+import { dateRange } from '@lib/utils'
+import Link from './Link.astro'
+import Gallery from './Gallery.astro'
+
+type Props = {
+  entry: CollectionEntry<'work'>
+}
+const { entry } = Astro.props
+const { Content } = await render(entry)
+---
+
+<li class="animate">
+  <small>{dateRange(entry.data.dateStart, entry.data.dateEnd)}</small>
+  <h4 class="m-0">
+    <Link href="https://google.com">
+      {entry.data.role} at {entry.data.company}
+    </Link>
+  </h4>
+  <article>
+    <Content />
+    <Gallery images={entry.data.images} />
+  </article>
+</li>

@@ -1,0 +1,288 @@
+---
+import PageLayout from '@layouts/PageLayout.astro'
+import { Image, Picture } from 'astro:assets'
+import * as md from '@content/md.md'
+import * as mdx from '@content/mdx.mdx'
+import lighthouse from '../../images/lighthouse.png'
+---
+
+<PageLayout title="Reference" description="HTML Reference">
+  <h1 class="animate">HTML Reference</h1>
+
+  <h2>Tables</h2>
+  <table>
+    <caption> Table with caption </caption>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Number</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Jackie</td>
+        <td>012345</td>
+      </tr>
+      <tr>
+        <td>Lucy</td>
+        <td>112346</td>
+      </tr>
+      <tr>
+        <td>David</td>
+        <td>493029</td>
+      </tr>
+      <tr>
+        <td>Kerry</td>
+        <td>395499</td>
+      </tr>
+      <tr>
+        <td>Steve</td>
+        <td>002458</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td>Total</td>
+        <td>100</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <figure>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Number</th>
+          <th>Opinion on cheese</th>
+          <th>Favourite tea</th>
+          <th>Colour of choice</th>
+          <th>Unusual fact</th>
+          <th>Horse?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Jackie</td>
+          <td>012345</td>
+          <td>Sometimes</td>
+          <td>Earl grey, hot</td>
+          <td>Blue</td>
+          <td>Communicates exclusively in metaphors</td>
+          <td>Aye</td>
+        </tr>
+        <tr>
+          <td>Lucy</td>
+          <td>112346</td>
+          <td>Only on Tuesdays</td>
+          <td>The green one</td>
+          <td>The green one</td>
+          <td>Caught a glimpse of an Australian badger</td>
+          <td>Aye</td>
+        </tr>
+        <tr>
+          <td>David</td>
+          <td>493029</td>
+          <td>Always eat the rind</td>
+          <td>London fog</td>
+          <td>Purple</td>
+          <td>Has never been to London</td>
+          <td>Aye</td>
+        </tr>
+        <tr>
+          <td>Kerry</td>
+          <td>395499</td>
+          <td>It's on the moon</td>
+          <td>Camomile</td>
+          <td>Yellow</td>
+          <td>Has been to the moon</td>
+          <td>Aye</td>
+        </tr>
+        <tr>
+          <td>Steve</td>
+          <td>002458</td>
+          <td>No</td>
+          <td>Black tea brewed using ISO 3103</td>
+          <td>Chestnut</td>
+          <td>Has a 350° field of view</td>
+          <td>Neigh</td>
+        </tr>
+      </tbody>
+    </table>
+    <figcaption>A wide table showing horizontal scroll behavior.</figcaption>
+  </figure>
+
+  <h2>Figure and Image</h2>
+  <figure class="Lightbox">
+    <Image src={lighthouse} alt="A starry night sky." /><figcaption>
+      A starry night sky.
+    </figcaption>
+  </figure>
+
+  <Picture src={lighthouse} alt="A description of my image." />
+  <h2>Links and Buttons</h2>
+  <button>I'm a button</button>
+  <button class="Button-variant">Variant</button>
+  <button class="Button-variant Button--small">Variant</button><br />
+  <button disabled>I'm a disabled button</button><br />
+
+  <a class="button" href="https://example.com">I'm a link button</a>
+  <a class="button Button-variant" href="https://example.com">Variant</a>
+
+  <a class="button" href="https://example.com" aria-disabled="true"
+    >I'm a small link button</a
+  ><br />
+
+  <h2>Dialog and Popover</h2>
+  <button popovertarget="dialog-1">Open Dialog</button>
+  <dialog id="dialog-1" popover>
+    <header>This is a sample dialog</header>
+    <p>This is a dialog box.</p>
+    <input />
+    <footer>
+      <button popovertarget="dialog-1" popovertargetaction="hide">Close</button>
+    </footer>
+  </dialog>
+
+  <h2>Details & Accordions</h2>
+
+  <details>
+    <summary>Spoiler alert!</summary>
+    <p>You smell. 🙂</p>
+  </details>
+
+  <details name="faq">
+    <summary>FAQ 1</summary>
+    <p>Can you smell that?</p>
+  </details>
+
+  <details name="faq">
+    <summary>FAQ 2</summary>
+    <p>Something really stinks.</p>
+  </details>
+
+  <details name="faq">
+    <summary>FAQ 3</summary>
+    <p>Oh, it's you. 🙂</p>
+  </details>
+
+  <h2>Forms</h2>
+  <p>
+    Forms are useful for all kinds of things on webpages. Contact forms,
+    newsletter sign ups etc. Forms also look pretty good on Simple.css:
+  </p>
+
+  <fieldset>
+    <legend> Fielset Legend</legend>
+    <form>
+      <p><strong>This is just a test form. It doesn't do anything.</strong></p>
+
+      <p>
+        <select>
+          <option selected="selected" value="1">Title</option>
+          <option value="2">Mr</option>
+          <option value="3">Miss</option>
+          <option value="4">Mrs</option>
+          <option value="5">Other</option>
+        </select>
+      </p>
+
+      <p>
+        <label>First name</label>
+        <input type="text" name="first_name" placeholder="John Doe" />
+      </p>
+
+      <p>
+        <label>Surname</label>
+        <input type="text" name="surname" />
+      </p>
+
+      <p>
+        <label>Email</label>
+        <input type="email" name="email" required="" />
+      </p>
+
+      <p>
+        <label>Enquiry type:</label>
+        <label
+          ><input checked="checked" name="type" type="radio" value="sales" /> Sales</label
+        >
+        <label><input name="type" type="radio" value="support" /> Support</label
+        >
+        <label><input name="type" type="radio" value="billing" /> Billing</label
+        >
+      </p>
+
+      <p>
+        <label>Message</label>
+        <textarea rows="6"></textarea>
+      </p>
+
+      <p>
+        <label for="cars">Choose a car:</label>
+        <select name="cars" id="cars" multiple>
+          <option value="volvo">Volvo</option>
+          <option value="saab">Saab</option>
+          <option value="opel">Opel</option>
+          <option value="audi">Audi</option>
+        </select>
+      </p>
+
+      <p>
+        <label for="color">Color:</label>
+        <input type="color" />
+      </p>
+
+      <p>
+        <label for="file">File:</label>
+        <input type="file" />
+      </p>
+
+      <p>
+        <label for="range">Range:</label>
+        <input type="range" name="volume" min="0" max="11" />
+      </p>
+
+      <p>
+        <label for="temp">Choose a comfortable temperature:</label>
+        <input type="range" id="temp" name="temp" list="markers" />
+
+        <datalist id="markers">
+          <option value="0"></option>
+          <option value="25"></option>
+          <option value="50"></option>
+          <option value="75"></option>
+          <option value="100"></option>
+        </datalist>
+      </p>
+
+      <p>
+        <label>
+          <input type="checkbox" id="checkbox" value="terms" />I agree to the <a
+            href="#">terms and conditions</a
+          >
+        </label>
+      </p>
+
+      <p>
+        <label for="file">File progress:</label>
+
+        <progress id="file" max="100" value="70">70%</progress>
+      </p>
+
+      <button>Send</button>
+      <button type="reset">Reset</button>
+      <button disabled="disabled">Disabled</button>
+    </form>
+  </fieldset>
+  <section class="Section animate">
+    <article>
+      <md.Content />
+    </article>
+  </section>
+  <section class="Section animate">
+    <article>
+      <mdx.Content />
+    </article>
+  </section>
+</PageLayout>

@@ -1,0 +1,46 @@
+---
+import { getImage } from 'astro:assets'
+
+type Props = {
+  images: string[]
+}
+const { images } = Astro.props
+
+const imagesProcessed = []
+for (const file of images) {
+  const original = await getImage({ src: file, inferSize: true })
+  if (!original.options.height || !original.options.width) {
+    continue
+  }
+  const aspectRatio = original.options.width / original.options.height
+  const thumbnail = await getImage({
+    src: file,
+    width: Math.round(120 * aspectRatio),
+    height: 120,
+  })
+
+  imagesProcessed.push({ original, thumbnail })
+}
+---
+
+{
+  imagesProcessed.length > 0 && (
+    <div class="Gallery">
+      {imagesProcessed.map((image) => {
+        return (
+          <a
+            href={image.original.src}
+            data-pswp-width={image.original.options.width}
+            data-pswp-height={image.original.options.height}
+          >
+            <img
+              src={image.thumbnail.src}
+              alt=""
+              {...image.thumbnail.attributes}
+            />
+          </a>
+        )
+      })}
+    </div>
+  )
+}

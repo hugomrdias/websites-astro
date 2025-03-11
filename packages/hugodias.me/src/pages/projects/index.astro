@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content'
+import PageLayout from '@layouts/PageLayout.astro'
+import ArrowCard from '@components/ArrowCard.astro'
+import { PROJECTS } from '@consts'
+
+const projects = (await getCollection('projects'))
+  .filter((project) => !project.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+---
+
+<PageLayout title={PROJECTS.TITLE} description={PROJECTS.DESCRIPTION}>
+  <div class="Section">
+    <h1>Projects</h1>
+    <ul class="Items">
+      {
+        projects.map((project) => (
+          <li class="animate">
+            <ArrowCard entry={project} />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</PageLayout>

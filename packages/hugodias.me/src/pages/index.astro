@@ -1,0 +1,159 @@
+---
+import { getCollection, render } from 'astro:content'
+import { Icon } from 'astro-icon/components'
+import { SITE, HOME, SOCIALS } from '@consts'
+import PageLayout from '@layouts/PageLayout.astro'
+import ArrowCard from '@components/ArrowCard.astro'
+import Link from '@components/Link.astro'
+import { formatDate } from '@lib/utils'
+import * as intro from '@content/intro.mdx'
+import WorkItem from '@components/WorkItem.astro'
+import ThumbGalleryNotion from '@components/ThumbGalleryNotion.astro'
+
+const blog = (await getCollection('blog'))
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, SITE.NUM_POSTS_ON_HOMEPAGE)
+
+const projects = (await getCollection('projects'))
+  .filter((project) => !project.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, SITE.NUM_PROJECTS_ON_HOMEPAGE)
+
+const work = (await getCollection('work'))
+  .sort(
+    (a, b) =>
+      new Date(b.data.dateStart).valueOf() -
+      new Date(a.data.dateStart).valueOf()
+  )
+  .slice(0, SITE.NUM_WORKS_ON_HOMEPAGE)
+
+const speakingRaw = await getCollection('speaking')
+
+const speaking = (
+  await Promise.all(
+    speakingRaw.map(async (item) => {
+      const { Content } = await render(item)
+
+      return { ...item, Content }
+    })
+  )
+)
+  .sort(
+    (a, b) =>
+      new Date(b.data.properties.date).valueOf() -
+      new Date(a.data.properties.date).valueOf()
+  )
+  .slice(0, SITE.NUM_TALKS_ON_HOMEPAGE)
+---
+
+<PageLayout title={HOME.TITLE} description={HOME.DESCRIPTION}>
+  <h3 class="animate">Hi, I'm Hugo Dias 👋🏻</h3>
+  <section class="Section animate">
+    <article>
+      <intro.Content />
+    </article>
+  </section>
+
+  <section class="animate Section">
+    <div class="Section-header">
+      <h3 class="m-0">Latest posts</h3>
+      <Link href="/blog"> See all posts </Link>
+    </div>
+    <ul class="Items">
+      {
+        blog.map((post) => (
+          <li>
+            <ArrowCard entry={post} />
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="animate Section">
+    <div class="Section-header">
+      <h3 class="m-0">Recent projects</h3>
+      <Link href="/projects"> See all projects </Link>
+    </div>
+    <ul class="Items">
+      {
+        projects.map((project) => (
+          <li>
+            <ArrowCard entry={project} />
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="animate Section">
+    <div class="Section-header">
+      <h3 class="m-0">Latest work</h3>
+      <Link href="/work"> See all work </Link>
+    </div>
+    <ul class="Items gap-2">
+      {work.map((entry) => <WorkItem entry={entry} />)}
+    </ul>
+  </section>
+
+  <section class="animate Section">
+    <div class="Section-header">
+      <h3 class="m-0">Latest talks</h3>
+      <Link href="/talks"> See all talks </Link>
+    </div>
+    <ul class="Items gap-2">
+      {
+        speaking.map((entry) => (
+          <li>
+            <small>{formatDate(entry.data.properties.date)}</small>
+            <h4 class="m-0">
+              <Link href={entry.data.properties.url as string}>
+                {entry.data.properties.Name} at {entry.data.properties.event}
+              </Link>
+            </h4>
+            {entry.data.properties.location}
+            <article>
+              <entry.Content />
+              <ThumbGalleryNotion images={entry.data.properties.images} />
+            </article>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="animate Section">
+    <h3 class="m-0">Let's Connect</h3>
+    <article>
+      <p>
+        If you want to get in touch with me about something or just to say hi,
+        reach out on social media or send me an email.
+      </p>
+    </article>
+    <ul class="Socials">
+      {
+        SOCIALS.map((SOCIAL, index, arr) => (
+          <li>
+            <Link
+              href={SOCIAL.HREF}
+              external
+              aria-label={`${SITE.NAME} on ${SOCIAL.NAME}`}
+              icon={`lucide:${SOCIAL.NAME}`}
+            >
+              {SOCIAL.NAME}
+            </Link>
+            {arr.length - 1 !== index && '/'}
+          </li>
+        ))
+      }
+    </ul>
+    <p><pre>hugomrdias<Icon name='lucide:at-sign' />gmail.com</pre></p>
+    <p>
+      If you enjoy my work consider sponsoring me on <a
+        href="https://github.com/sponsors/hugomrdias">Github</a
+      > or <a href="https://opencollective.com/hugomrdias">Open Collective</a>.
+      Thank you!
+    </p>
+  </section>
+</PageLayout>

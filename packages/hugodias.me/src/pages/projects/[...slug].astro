@@ -1,0 +1,60 @@
+---
+import { type CollectionEntry, getCollection, render } from 'astro:content'
+import PageLayout from '@layouts/PageLayout.astro'
+import FormattedDate from '@components/FormattedDate.astro'
+import BackToPrev from '@components/BackToPrev.astro'
+import Link from '@components/Link.astro'
+
+export async function getStaticPaths() {
+  const projects = (await getCollection('projects'))
+    .filter((post) => !post.data.draft)
+    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: project,
+  }))
+}
+type Props = CollectionEntry<'projects'>
+
+const project = Astro.props
+const { Content, remarkPluginFrontmatter } = await render(project)
+---
+
+<PageLayout
+  title={project.data.title}
+  description={project.data.description}
+  image={project.data.cover}
+  type="article"
+>
+  <section class="Section">
+    <h1>
+      {project.data.title}
+    </h1>
+    <small>
+      <FormattedDate date={project.data.date} /> &bull; {
+        remarkPluginFrontmatter.minutesRead
+      }
+    </small>
+    {
+      (project.data.demoURL || project.data.repoURL) && (
+        <nav class="animate">
+          {project.data.demoURL && (
+            <Link href={project.data.demoURL} external>
+              demo
+            </Link>
+          )}
+          {project.data.demoURL && project.data.repoURL && <span>/</span>}
+          {project.data.repoURL && (
+            <Link href={project.data.repoURL} external>
+              repo
+            </Link>
+          )}
+        </nav>
+      )
+    }
+  </section>
+  <article class="animate">
+    <Content />
+  </article>
+  <BackToPrev href="/projects"> Back to projects </BackToPrev>
+</PageLayout>

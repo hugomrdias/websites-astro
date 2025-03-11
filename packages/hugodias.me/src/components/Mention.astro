@@ -1,0 +1,136 @@
+---
+import { Image } from 'astro:assets'
+import { JSDOM } from 'jsdom'
+
+async function fetchMetaTags(url: string | URL | Request) {
+  try {
+    // Make the request to get the HTML content
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent':
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+      },
+    })
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`)
+    }
+
+    const html = await response.text()
+
+    // Parse the HTML
+    const dom = new JSDOM(html)
+    const document = dom.window.document
+
+    // Get the title
+    const title: string = document.querySelector('title')?.textContent || ''
+
+    // Get the description meta tag
+    const descriptionMeta = document.querySelector(
+      'meta[name="description"], meta[property="og:description"]'
+    )
+    const description: string = descriptionMeta
+      ? descriptionMeta.getAttribute('content') || ''
+      : ''
+
+    return {
+      title,
+      description,
+    }
+  } catch (error) {
+    console.error('Error fetching meta tags.')
+    return {
+      title: '',
+      description: '',
+    }
+  }
+}
+
+function faviconUrl(domain: string) {
+  return `https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${domain}&size=128`
+}
+
+type Props = {
+  id: string
+  aboveTheFold?: boolean
+  text?: string
+  title?: string
+}
+
+let { id, text, title, aboveTheFold, ...rest } = Astro.props
+const [type, selector] = id.split(':')
+
+let _img = ''
+
+let _text = ''
+let _href = ''
+let _title = ''
+
+let meta: { title: string; description: string } = {
+  title: '',
+  description: '',
+}
+
+// github
+if (type === 'gh') {
+  _text = selector
+  _href = 'https://github.com/' + selector
+  const idParts = selector.split('/')
+  meta = await fetchMetaTags(_href)
+  _title = meta.title
+  if (idParts.length === 2) {
+    _img = 'https://github.com/' + idParts[0] + '.png'
+  } else {
+    _img = 'https://github.com/' + selector + '.png'
+  }
+}
+
+//npm
+if (type === 'npm') {
+  const parts = selector.split('/')
+  _text = selector
+  _img = faviconUrl('https://npmjs.com')
+
+  if (parts.length === 1 && selector.startsWith('@')) {
+    // org
+    _href = 'https://www.npmjs.com/org/' + selector.replace('@', '')
+    _title = `${selector} | npm org`
+  } else if (parts.length === 1 && selector.startsWith('~')) {
+    // user
+    _href = 'https://www.npmjs.com/' + selector
+    _title = `${selector} | npm user`
+  } else {
+    // package
+    _href = 'https://www.npmjs.com/package/' + selector
+    meta = await fetchMetaTags(_href)
+    _title = `${meta.title} | ${meta.description}`
+  }
+}
+
+// https
+
+if (type === 'https') {
+  const url = new URL(id)
+  _href = id
+  _text = url.hostname
+  meta = await fetchMetaTags(_href)
+  _title = `${meta.title} | ${meta.description}`
+  _img = faviconUrl(id)
+}
+---
+
+<a
+  href={_href}
+  title={title ?? _title}
+  target="_blank"
+  class="rds-link"
+  {...rest}
+>
+  <Image
+    src={_img}
+    alt={title ?? _title}
+    title={title ?? _title}
+    inferSize
+    loading={aboveTheFold ? 'eager' : 'lazy'}
+  />{' '}{text ?? _text}</a
+>

@@ -1,0 +1,24 @@
+---
+import { Icon } from 'astro-icon/components'
+
+type Props = {
+  href: string
+  external?: boolean
+  icon?: string
+}
+
+let { href, external, icon, ...rest } = Astro.props
+if (href.startsWith('http') || href.startsWith('https')) {
+  external = true
+}
+---
+
+<a href={href} target={external ? '_blank' : '_self'} {...rest}>
+  {
+    icon && (
+      <>
+        <Icon name={icon} />{' '}
+      </>
+    )
+  }<slot />{external && !icon && <Icon name="lucide:arrow-up-right" />}</a
+>

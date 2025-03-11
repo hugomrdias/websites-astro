@@ -1,0 +1,27 @@
+---
+import type { ImageMetadata } from 'astro'
+import { Image } from 'astro:assets'
+
+type Props = {
+  images: ImageMetadata[]
+}
+const { images } = Astro.props
+---
+
+{
+  images.length > 0 && (
+    <div class="Gallery">
+      {images.map((image) => {
+        return (
+          <a
+            href={image.src}
+            data-pswp-width={image.width}
+            data-pswp-height={image.height}
+          >
+            <Image src={image} alt="" height={120} />
+          </a>
+        )
+      })}
+    </div>
+  )
+}
