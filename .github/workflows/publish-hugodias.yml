@@ -1,0 +1,27 @@
+name: Publish hugodias.me
+env:
+  CI: true
+  FORCE_COLOR: 1
+on:
+  workflow_dispatch:
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    if: github.ref_name == 'master'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: latest
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: pnpm
+      - run: pnpm install
+      - run: pnpx playwright install --with-deps chromium
+      - run: pnpm -r --filter hugodias.me run build
+      - name: Deploy to Cloudflare Pages
+        run: pnpx wrangler pages deploy packages/hugodias.me/dist --project-name website --branch main
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
