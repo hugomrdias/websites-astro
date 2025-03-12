@@ -4,6 +4,10 @@ env:
   FORCE_COLOR: 1
 on:
   workflow_dispatch:
+  # Allows external webhook trigger
+  repository_dispatch:
+    types:
+      - webhook
 jobs:
   publish:
     runs-on: ubuntu-latest
