@@ -20,6 +20,9 @@ jobs:
       - run: pnpm install
       - run: pnpx playwright install --with-deps chromium
       - run: pnpm -r --filter hugodias.me run build
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
       - name: Deploy to Cloudflare Pages
         run: pnpx wrangler pages deploy packages/hugodias.me/dist --project-name website --branch main
         env:
