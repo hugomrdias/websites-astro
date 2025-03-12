@@ -33,6 +33,7 @@ const work = defineCollection({
   schema: ({ image }) =>
     z.object({
       company: z.string(),
+      website: z.string().url(),
       role: z.string(),
       dateStart: z.coerce.date(),
       dateEnd: z.union([z.coerce.date(), z.string()]),

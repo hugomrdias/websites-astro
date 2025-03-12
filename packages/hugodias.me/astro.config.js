@@ -1,4 +1,4 @@
-import { defineConfig } from 'astro/config'
+import { defineConfig, envField } from 'astro/config'
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
 import { h } from 'hastscript'
@@ -13,6 +13,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeExternalLinks from 'rehype-external-links'
 import embeds from 'astro-embed/integration'
 import AstroPWA from '@vite-pwa/astro'
+import rehypeMermaid from 'rehype-mermaid'
 
 import icon from 'astro-icon'
 
@@ -29,6 +30,16 @@ export default defineConfig({
       },
     ],
   },
+  env: {
+    schema: {
+      NOTION_TOKEN: envField.string({ context: 'server', access: 'secret' }),
+      NOTION_DATABASE_ID: envField.string({
+        context: 'server',
+        access: 'secret',
+      }),
+    },
+    validateSecrets: true,
+  },
   integrations: [
     embeds(),
     expressiveCode({
@@ -43,7 +54,7 @@ export default defineConfig({
         },
       },
     }),
-    mdx({}),
+    mdx(),
     sitemap(),
     icon(),
     AstroPWA({
@@ -100,6 +111,7 @@ export default defineConfig({
       ],
     ],
     rehypePlugins: [
+      [rehypeMermaid, { strategy: 'img-svg', dark: true }],
       [
         rehypeExternalLinks,
         {

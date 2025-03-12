@@ -23,8 +23,7 @@ const projects = (await getCollection('projects'))
 const work = (await getCollection('work'))
   .sort(
     (a, b) =>
-      new Date(b.data.dateStart).valueOf() -
-      new Date(a.data.dateStart).valueOf()
+      new Date(b.data.dateEnd).valueOf() - new Date(a.data.dateEnd).valueOf()
   )
   .slice(0, SITE.NUM_WORKS_ON_HOMEPAGE)
 

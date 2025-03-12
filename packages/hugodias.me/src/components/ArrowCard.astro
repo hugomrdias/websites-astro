@@ -13,7 +13,7 @@ const { entry } = Astro.props
   {
     entry.data && 'cover' in entry.data && entry.data.cover && (
       <div class="Item-cover">
-        <Image src={entry.data.cover} alt={entry.data.title} width={400} />
+        <Image src={entry.data.cover} alt={entry.data.title} height={92 * 2} />
       </div>
     )
   }

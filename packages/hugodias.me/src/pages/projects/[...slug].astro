@@ -40,7 +40,7 @@ const { Content, remarkPluginFrontmatter } = await render(project)
         <nav class="animate">
           {project.data.demoURL && (
             <Link href={project.data.demoURL} external>
-              demo
+              website
             </Link>
           )}
           {project.data.demoURL && project.data.repoURL && <span>/</span>}
@@ -53,7 +53,7 @@ const { Content, remarkPluginFrontmatter } = await render(project)
       )
     }
   </section>
-  <article class="animate">
+  <article class="animate Section">
     <Content />
   </article>
   <BackToPrev href="/projects"> Back to projects </BackToPrev>

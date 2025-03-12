@@ -6,13 +6,13 @@ import WorkItem from '@components/WorkItem.astro'
 
 const collection = (await getCollection('work')).sort(
   (a, b) =>
-    new Date(b.data.dateStart).valueOf() - new Date(a.data.dateStart).valueOf()
+    new Date(b.data.dateEnd).valueOf() - new Date(a.data.dateEnd).valueOf()
 )
 ---
 
 <PageLayout title={WORK.TITLE} description={WORK.DESCRIPTION}>
   <h1 class="animate">Work Experience</h1>
-  <ul class="Items gap2">
+  <ul class="Items gap-2">
     {collection.map((entry) => <WorkItem entry={entry} />)}
   </ul>
 </PageLayout>
