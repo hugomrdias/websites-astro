@@ -73,8 +73,20 @@ export default defineConfig({
             form_factor: 'wide',
           },
           {
-            src: '/screen-1080x1920.jpg',
-            sizes: '1080x1920',
+            src: '/screenshot-narrow1.png',
+            sizes: '864x1738',
+            type: 'image/png',
+            form_factor: 'narrow',
+          },
+          {
+            src: '/screenshot-narrow2.png',
+            sizes: '864x1732',
+            type: 'image/png',
+            form_factor: 'narrow',
+          },
+          {
+            src: '/screenshot-narrow3.png',
+            sizes: '864x1734',
             type: 'image/png',
             form_factor: 'narrow',
           },
