@@ -74,7 +74,7 @@ export default defineConfig({
           },
           {
             src: '/screenshot-narrow1.png',
-            sizes: '864x1738',
+            sizes: '864x1732',
             type: 'image/png',
             form_factor: 'narrow',
           },
@@ -86,7 +86,7 @@ export default defineConfig({
           },
           {
             src: '/screenshot-narrow3.png',
-            sizes: '864x1734',
+            sizes: '864x1732',
             type: 'image/png',
             form_factor: 'narrow',
           },
