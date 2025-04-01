@@ -10,6 +10,7 @@ import * as intro from '@content/intro.mdx'
 import WorkItem from '@components/WorkItem.astro'
 import ThumbGalleryNotion from '@components/ThumbGalleryNotion.astro'
 
+
 const blog = (await getCollection('blog'))
   .filter((post) => !post.data.draft)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
@@ -146,8 +147,16 @@ const speaking = (
           </li>
         ))
       }
+      <li>
+        / <Link
+          href="/vcard"
+        >
+          vCard
+        </Link>
+      </li>
     </ul>
     <p><pre>hugomrdias<Icon name='lucide:at-sign' />gmail.com</pre></p>
+
     <p>
       If you enjoy my work consider sponsoring me on <a
         href="https://github.com/sponsors/hugomrdias">Github</a
