@@ -1,6 +1,6 @@
 ---
 title: 'New in iso-filecoin: Ledger, Wallet Support & React Integration'
-description: 'Discover the latest updates to the iso-filecoin Javascript package! This release introduces Ledger wallet support, streamlined React integration with the FilecoinProvider component and hooks, unified wallet adapters, and a new documentation website. Learn about the improvements for Filecoin developers.'
+description: 'Discover the latest updates to the iso-filecoin Javascript package! This release introduces Ledger wallet support, streamlined React integration with the FilecoinProvider component and hooks, unified wallet adapters, and a new documentation website.'
 date: 2025-04-01
 cover: ./cover.png
 ---
@@ -11,7 +11,7 @@ We're thrilled to announce a significant update to the `iso-filecoin` Javascript
 
 ### Enhanced Wallet Support with Ledger Integration
 
-A major addition is the introduction of Ledger support! You can now seamlessly integrate the Filecoin Ledger app into your applications. For more detailed information, refer to the client documentation: https://filecoin.hugomrdias.dev/packages/core/#ledger
+A major addition is the introduction of Ledger support! You can now seamlessly integrate the Filecoin Ledger app into your applications. For more detailed information, refer to the client [documentation](https://filecoin.hugomrdias.dev/packages/core/#ledger).
 
 ### Streamlined React Integration
 
@@ -28,7 +28,7 @@ The React integration uses `@tanstack/react-query` for data fetching and mutatio
 - `useSendMessage`
 - `useSign`
 
-Explore the React integration documentation for further details: https://filecoin.hugomrdias.dev/packages/react/
+Explore the React integration [documentation](https://filecoin.hugomrdias.dev/packages/react/) for further details.
 
 ### Introducing Unified Wallet Adapters
 
@@ -39,7 +39,7 @@ We've implemented a new unified interface for Filecoin wallets, providing a more
 - In-memory Hierarchical Deterministic (HD) Wallet
 - In-memory Private Key wallet
 
-You can find more information about these adapters in the documentation: https://filecoin.hugomrdias.dev/packages/adapters/
+You can find more information about these adapters in the [documentation](https://filecoin.hugomrdias.dev/packages/adapters/).
 
 ### New Documentation Website
 
