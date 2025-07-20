@@ -85,7 +85,7 @@ export const ui = {
       'Aceito a política de privacidade e autorizo o tratamento dos meus dados pessoais.',
     'contact.form.submit': 'Enviar Pedido de Consulta',
     'footer.company': 'IVS Legal',
-    'footer.tagline': 'Justiça com rigor',
+    'footer.tagline': 'Proximidade com rigor',
     'footer.description':
       'Oferecemos serviços jurídicos em diversas áreas do Direito.',
     'footer.quickLinks': 'Links Rápidos',
@@ -172,7 +172,7 @@ export const ui = {
       'I accept the privacy policy and authorize the processing of my personal data.',
     'contact.form.submit': 'Send Consultation Request',
     'footer.company': 'IVS Legal',
-    'footer.tagline': 'Justice with rigor',
+    'footer.tagline': 'Proximity with rigor',
     'footer.description': 'We offer legal services in various areas of law.',
     'footer.quickLinks': 'Quick Links',
     'footer.contact': 'Contact',
