@@ -1,0 +1,55 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Header from '@components/Header.astro';
+import Footer from '@components/Footer.astro';
+import QR from '@components/qr'
+---
+
+<Layout title="Virtual Card - IVS Legal" description="Add our vCard to your contacts.">
+  <Header />
+  
+  <main>
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-navy-900 to-navy-800 text-white py-20">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto text-center">
+          <h1 class="text-5xl font-serif font-bold mb-6">
+            Virtual <span class="text-gold-400">Card</span>
+          </h1>
+          <p class="text-xl text-gray-300 leading-relaxed">
+            Add our vCard to your contacts.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content -->
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto prose prose-lg">
+            <QR />
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .prose h2 {
+    @apply border-b border-gold-200 pb-2;
+  }
+  
+  .prose h3 {
+    @apply text-navy-800;
+  }
+  
+  .prose ul {
+    @apply text-gray-700;
+  }
+  
+  .prose strong {
+    @apply text-navy-900;
+  }
+</style>

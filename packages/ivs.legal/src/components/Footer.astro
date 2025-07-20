@@ -1,0 +1,82 @@
+---
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components'
+import { CONTACTS } from '@consts';
+import { getLangFromUrl, useTranslations, translatePath } from '../i18n/utils';
+import logo from '../assets/mono-queen.png';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<footer class="bg-navy-900 text-white">
+  <div class="container mx-auto px-4 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <!-- Company Info -->
+      <div class="lg:col-span-2">
+        <div class="flex items-center space-x-3 mb-4">
+          <Image src={logo} alt="IVS Legal" class="h-10 w-auto brightness-0 invert" />
+          <div>
+            <h3 class="text-xl font-serif font-semibold">{t('footer.company')}</h3>
+            <p class="text-gold-400 text-sm">{t('footer.tagline')}</p>
+          </div>
+        </div>
+        <p class="text-gray-300 mb-4 max-w-md">
+          {t('footer.description')}
+        </p>
+        <div class="flex space-x-4">
+          <a href="#" class="text-gray-400 hover:text-gold-400 transition-colors">
+            <Icon name="lucide:twitter" class="w-5 min-w-5 h-5" />
+          </a>
+          <a href={translatePath(lang, 'vcard')} class="text-gray-400 hover:text-gold-400 transition-colors">
+            <Icon name="lucide:qr-code" class="w-5 min-w-5 h-5" />
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h4 class="text-lg font-semibold mb-4 text-gold-400">{t('footer.quickLinks')}</h4>
+        <ul class="space-y-2">
+          <li><a href={translatePath(lang, 'sobre')} class="text-gray-300 hover:text-gold-400 transition-colors">{t('nav.about')}</a></li>
+          <li><a href={translatePath(lang, '#areas-pratica')} class="text-gray-300 hover:text-gold-400 transition-colors">{t('nav.practice-areas')}</a></li>
+          <!-- <li><a href={translatePath(lang, 'blog')} class="text-gray-300 hover:text-gold-400 transition-colors">{t('nav.blog')}</a></li> -->
+          <li><a href={translatePath(lang, 'contacto')} class="text-gray-300 hover:text-gold-400 transition-colors">{t('nav.contact')}</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact Info -->
+      <div>
+        <h4 class="text-lg font-semibold mb-4 text-gold-400">{t('footer.contact')}</h4>
+        <div class="space-y-3 text-gray-300">
+          <div class="flex items-center gap-2">
+            <Icon name="lucide:map-pin" class="w-5 min-w-5 h-5 text-gold-400" />
+            <p>{CONTACTS.ADDRESS}</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <Icon name="lucide:phone" class="w-5 min-w-5 h-5 text-gold-400" />
+            <p>{CONTACTS.PHONE}</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <Icon name="lucide:mail" class="w-5 min-w-5 h-5 text-gold-400" />
+            <p>{CONTACTS.EMAIL}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="border-t border-gray-700 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+      <p class="text-gray-400 text-sm">
+        {t('footer.copyright')}
+      </p>
+      <div class="flex space-x-6 mt-4 md:mt-0">
+        <a href={translatePath(lang, 'politica-privacidade')} class="text-gray-400 hover:text-gold-400 text-sm transition-colors">
+          {t('footer.privacy')}
+        </a>
+        <a href={translatePath(lang, 'termos-condicoes')} class="text-gray-400 hover:text-gold-400 text-sm transition-colors">
+          {t('footer.terms')}
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>

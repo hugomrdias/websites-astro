@@ -1,0 +1,283 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+// Mock blog posts data
+const blogPosts = [
+  {
+    id: 1,
+    title: "Novas Alterações ao Código do Trabalho em 2024",
+    excerpt: "Análise detalhada das principais mudanças legislativas que afetam as relações laborais em Portugal.",
+    category: "Direito Laboral",
+    date: "15 de Janeiro, 2024",
+    readTime: "5 min",
+    image: "https://images.pexels.com/photos/5668858/pexels-photo-5668858.jpeg?auto=compress&cs=tinysrgb&w=800",
+    slug: "alteracoes-codigo-trabalho-2024"
+  },
+  {
+    id: 2,
+    title: "Guia Completo para Constituição de Empresas",
+    excerpt: "Passo a passo para criar a sua empresa em Portugal, incluindo documentação necessária e custos envolvidos.",
+    category: "Direito Comercial",
+    date: "8 de Janeiro, 2024",
+    readTime: "8 min",
+    image: "https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=800",
+    slug: "guia-constituicao-empresas"
+  },
+  {
+    id: 3,
+    title: "Direitos do Consumidor: O que Precisa de Saber",
+    excerpt: "Conheça os seus direitos como consumidor e como proceder em caso de conflitos comerciais.",
+    category: "Direito Civil",
+    date: "2 de Janeiro, 2024",
+    readTime: "6 min",
+    image: "https://images.pexels.com/photos/5668473/pexels-photo-5668473.jpeg?auto=compress&cs=tinysrgb&w=800",
+    slug: "direitos-consumidor"
+  },
+  {
+    id: 4,
+    title: "Planeamento Fiscal para 2024: Estratégias Legais",
+    excerpt: "Como otimizar a sua carga fiscal de forma legal e eficiente no novo ano fiscal.",
+    category: "Direito Fiscal",
+    date: "28 de Dezembro, 2023",
+    readTime: "7 min",
+    image: "https://images.pexels.com/photos/6863183/pexels-photo-6863183.jpeg?auto=compress&cs=tinysrgb&w=800",
+    slug: "planeamento-fiscal-2024"
+  },
+  {
+    id: 5,
+    title: "Compra e Venda de Imóveis: Cuidados Essenciais",
+    excerpt: "Aspetos jurídicos fundamentais a considerar em transações imobiliárias para evitar problemas futuros.",
+    category: "Direito Imobiliário",
+    date: "20 de Dezembro, 2023",
+    readTime: "9 min",
+    image: "https://images.pexels.com/photos/280229/pexels-photo-280229.jpeg?auto=compress&cs=tinysrgb&w=800",
+    slug: "compra-venda-imoveis"
+  },
+  {
+    id: 6,
+    title: "Proteção de Dados Pessoais: RGPD em Prática",
+    excerpt: "Como as empresas podem garantir o cumprimento do Regulamento Geral de Proteção de Dados.",
+    category: "Direito Digital",
+    date: "15 de Dezembro, 2023",
+    readTime: "6 min",
+    image: "https://images.pexels.com/photos/60504/security-protection-anti-virus-software-60504.jpeg?auto=compress&cs=tinysrgb&w=800",
+    slug: "protecao-dados-rgpd"
+  }
+];
+
+const categories = ["Todos", "Direito Civil", "Direito Comercial", "Direito Laboral", "Direito Fiscal", "Direito Imobiliário", "Direito Digital"];
+---
+
+<Layout title="Blog Jurídico - IVS Legal" description="Artigos e análises jurídicas atualizadas. Mantenha-se informado sobre as últimas novidades do direito português.">
+  <Header />
+  
+  <main>
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-navy-900 to-navy-800 text-white py-20">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto text-center">
+          <h1 class="text-5xl font-serif font-bold mb-6">
+            Blog <span class="text-gold-400">Jurídico</span>
+          </h1>
+          <p class="text-xl text-gray-300 leading-relaxed">
+            Mantenha-se atualizado com as últimas novidades, análises e insights 
+            do mundo jurídico português.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Search and Filter -->
+    <section class="py-12 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <!-- Search Bar -->
+          <div class="mb-8">
+            <div class="relative">
+              <input
+                type="text"
+                id="search-input"
+                placeholder="Pesquisar artigos..."
+                class="w-full px-6 py-4 pl-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-transparent text-lg"
+              />
+              <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Category Filter -->
+          <div class="flex flex-wrap gap-3 justify-center">
+            {categories.map((category) => (
+              <button
+                class={`category-filter px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                  category === "Todos" 
+                    ? "bg-gold-500 text-white" 
+                    : "bg-white text-gray-700 hover:bg-gold-100 hover:text-gold-700"
+                }`}
+                data-category={category}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog Posts -->
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-4">
+        <div id="blog-posts" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {blogPosts.map((post) => (
+            <article class="blog-post bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 group" data-category={post.category}>
+              <div class="relative overflow-hidden">
+                <img 
+                  src={post.image} 
+                  alt={post.title}
+                  class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div class="absolute top-4 left-4">
+                  <span class="bg-gold-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                    {post.category}
+                  </span>
+                </div>
+              </div>
+              
+              <div class="p-6">
+                <div class="flex items-center text-sm text-gray-500 mb-3">
+                  <span>{post.date}</span>
+                  <span class="mx-2">•</span>
+                  <span>{post.readTime} de leitura</span>
+                </div>
+                
+                <h2 class="text-xl font-semibold text-navy-900 mb-3 group-hover:text-gold-600 transition-colors">
+                  <a href={`/blog/${post.slug}`} class="hover:underline">
+                    {post.title}
+                  </a>
+                </h2>
+                
+                <p class="text-gray-600 mb-4 line-clamp-3">
+                  {post.excerpt}
+                </p>
+                
+                <a 
+                  href={`/blog/${post.slug}`}
+                  class="inline-flex items-center text-gold-600 hover:text-gold-700 font-medium group-hover:translate-x-1 transition-transform"
+                >
+                  Ler mais
+                  <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <!-- Load More Button -->
+        <div class="text-center mt-12">
+          <button class="bg-gold-500 hover:bg-gold-600 text-white px-8 py-4 rounded-md font-semibold text-lg transition-all duration-300 transform hover:scale-105">
+            Carregar Mais Artigos
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter Signup -->
+    <section class="py-20 bg-navy-900 text-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-2xl mx-auto text-center">
+          <h2 class="text-3xl font-serif font-bold mb-4">
+            Mantenha-se <span class="text-gold-400">Informado</span>
+          </h2>
+          <p class="text-xl text-gray-300 mb-8">
+            Subscreva a nossa newsletter e receba as últimas atualizações jurídicas 
+            diretamente no seu email.
+          </p>
+          
+          <form class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+            <input
+              type="email"
+              placeholder="O seu email"
+              class="flex-1 px-4 py-3 rounded-md text-navy-900 focus:ring-2 focus:ring-gold-500 focus:outline-none"
+              required
+            />
+            <button
+              type="submit"
+              class="bg-gold-500 hover:bg-gold-600 text-white px-6 py-3 rounded-md font-semibold transition-colors whitespace-nowrap"
+            >
+              Subscrever
+            </button>
+          </form>
+          
+          <p class="text-sm text-gray-400 mt-4">
+            Não enviamos spam. Pode cancelar a subscrição a qualquer momento.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<script>
+  // Search functionality
+  const searchInput = document.getElementById('search-input') as HTMLInputElement;
+  const blogPosts = document.querySelectorAll('.blog-post');
+  const categoryFilters = document.querySelectorAll('.category-filter');
+
+  let currentCategory = 'Todos';
+
+  // Search function
+  function filterPosts() {
+    const searchTerm = searchInput.value.toLowerCase();
+    
+    blogPosts.forEach(post => {
+      const title = post.querySelector('h2')?.textContent?.toLowerCase() || '';
+      const excerpt = post.querySelector('p')?.textContent?.toLowerCase() || '';
+      const category = post.getAttribute('data-category') || '';
+      
+      const matchesSearch = title.includes(searchTerm) || excerpt.includes(searchTerm);
+      const matchesCategory = currentCategory === 'Todos' || category === currentCategory;
+      
+      if (matchesSearch && matchesCategory) {
+        post.style.display = 'block';
+      } else {
+        post.style.display = 'none';
+      }
+    });
+  }
+
+  // Category filter
+  categoryFilters.forEach(filter => {
+    filter.addEventListener('click', () => {
+      // Update active filter
+      categoryFilters.forEach(f => {
+        f.classList.remove('bg-gold-500', 'text-white');
+        f.classList.add('bg-white', 'text-gray-700');
+      });
+      
+      filter.classList.remove('bg-white', 'text-gray-700');
+      filter.classList.add('bg-gold-500', 'text-white');
+      
+      currentCategory = filter.getAttribute('data-category') || 'Todos';
+      filterPosts();
+    });
+  });
+
+  // Search input
+  searchInput.addEventListener('input', filterPosts);
+</script>
+
+<style>
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

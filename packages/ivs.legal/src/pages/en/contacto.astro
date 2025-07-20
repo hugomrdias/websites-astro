@@ -1,0 +1,292 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { useTranslations, getLangFromUrl } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<Layout title="Contact - IVS Legal" description="Get in touch with us. We are here to help with your legal questions. Free consultation available." lang="en">
+  <Header />
+  
+  <main>
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-navy-900 to-navy-800 text-white py-20">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto text-center">
+          <h1 class="text-5xl font-serif font-bold mb-6">
+            <span class="text-gold-400">Contact Us</span>
+          </h1>
+          <p class="text-xl text-gray-300 leading-relaxed">
+            We are here to help. Schedule a consultation and discover 
+            how we can resolve your legal situation.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Information -->
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          <!-- Office Info -->
+          <div class="text-center">
+            <div class="w-20 h-20 bg-gold-500 rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-navy-900 mb-4">Office</h3>
+            <p class="text-gray-600 mb-2">{t('contact.address1')}</p>
+            <p class="text-gray-600 mb-4">{t('contact.address2')}</p>
+            <p class="text-sm text-gray-500">
+              {t('contact.hours.data')}
+            </p>
+          </div>
+
+          <!-- Phone Info -->
+          <div class="text-center">
+            <div class="w-20 h-20 bg-gold-500 rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-navy-900 mb-4">Phone</h3>
+            <p class="text-gray-600 mb-2">{t('contact.phone.data')}</p>
+            <p class="text-sm text-gray-500">
+              Direct line available
+            </p>
+          </div>
+
+          <!-- Email Info -->
+          <div class="text-center">
+            <div class="w-20 h-20 bg-gold-500 rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-navy-900 mb-4">Email</h3>
+            <p class="text-gray-600 mb-2">{t('contact.email.data')}</p>
+            <p class="text-sm text-gray-500">
+              Guaranteed response<br>
+              within 24 hours
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section class="py-20 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <div class="text-center mb-12">
+            <h2 class="text-4xl font-serif font-bold text-navy-900 mb-4">
+              Request a <span class="text-gold-600">Consultation</span>
+            </h2>
+            <p class="text-xl text-gray-600">
+              Fill out the form below and we will contact you shortly.
+            </p>
+          </div>
+
+          <div class="bg-white rounded-xl shadow-lg p-8">
+            <form id="contact-form" class="space-y-6" action="https://api.web3forms.com/submit" method="POST" data-astro-reload>
+              <input type="hidden" name="access_key" value="725c412a-39a9-47ee-8935-fa46f76576e5" />
+              <input type="checkbox" name="botcheck" id="" style="display: none;"/>
+              <input type="hidden" name="subject" value="New Consultation Request">
+              <input type="hidden" name="from_name" value="IVS Legal">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label for="firstName" class="block text-sm font-medium text-gray-700 mb-2">
+                    First Name *
+                  </label>
+                  <input
+                    type="text"
+                    id="firstName"
+                    name="firstName"
+                    required
+                    class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-gold-500 focus:border-transparent transition-colors"
+                    placeholder="John"
+                  />
+                </div>
+                <div>
+                  <label for="lastName" class="block text-sm font-medium text-gray-700 mb-2">
+                    Last Name *
+                  </label>
+                  <input
+                    type="text"
+                    id="lastName"
+                    name="lastName"
+                    required
+                    class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-gold-500 focus:border-transparent transition-colors"
+                    placeholder="Smith"
+                  />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+                    Email *
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-gold-500 focus:border-transparent transition-colors"
+                    placeholder="john.smith@email.com"
+                  />
+                </div>
+                <div>
+                  <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">
+                    Phone
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-gold-500 focus:border-transparent transition-colors"
+                    placeholder="+351 912 345 678"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">
+                  Legal Area *
+                </label>
+                <select
+                  id="area"
+                  name="area"
+                  required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-gold-500 focus:border-transparent transition-colors"
+                >
+                  <option value="" disabled selected hidden class="text-gold-300">Select an area</option>
+                  {Object.entries(t('contact.form.subject.options')).map(([key, value]) => (
+                    <option value={key}>{value}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label for="urgency" class="block text-sm font-medium text-gray-700 mb-2">
+                  Urgency
+                </label>
+                <select
+                  id="urgency"
+                  name="urgency"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-gold-500 focus:border-transparent transition-colors"
+                >
+                  <option value="normal">Normal</option>
+                  <option value="urgent">Urgent</option>
+                  <option value="very-urgent">Very Urgent</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="message" class="block text-sm font-medium text-gray-700 mb-2">
+                  Message *
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="6"
+                  required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-gold-500 focus:border-transparent transition-colors resize-vertical"
+                  placeholder="Describe your legal situation in detail, including relevant dates and available documents..."
+                ></textarea>
+              </div>
+
+              <div class="flex items-start space-x-3">
+                <input
+                  type="checkbox"
+                  id="privacy"
+                  name="privacy"
+                  required
+                  class="mt-1 w-4 h-4 text-gold-600 border-gray-300 rounded focus:ring-gold-500"
+                />
+                <label for="privacy" class="text-sm text-gray-600">
+                  I accept the <a href="/en/politica-privacidade" class="text-gold-600 hover:text-gold-700 underline">privacy policy</a> 
+                  and authorize the processing of my personal data for contact and legal service purposes. *
+                </label>
+              </div>
+              <div class="h-captcha" data-captcha="true" id="hcaptcha"></div>
+              <!-- <div class="flex items-start space-x-3">
+                <input
+                  type="checkbox"
+                  id="newsletter"
+                  name="newsletter"
+                  class="mt-1 w-4 h-4 text-gold-600 border-gray-300 rounded focus:ring-gold-500"
+                />
+                <label for="newsletter" class="text-sm text-gray-600">
+                  I wish to receive information about legal updates and IVS Legal services.
+                </label>
+              </div> -->
+
+              <button
+                type="submit"
+                class="w-full bg-gold-500 hover:bg-gold-600 text-white font-semibold py-4 px-6 rounded-md transition-all duration-300 transform hover:scale-105 focus:ring-4 focus:ring-gold-200"
+              >
+                Send Consultation Request
+              </button>
+            </form>
+
+            <div id="form-success" class="hidden mt-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-md">
+              <div class="flex items-center">
+                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                </svg>
+                <div>
+                  <h4 class="font-semibold">Request sent successfully!</h4>
+                  <p class="text-sm">We will contact you within 24 hours. Thank you for your trust.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-4xl font-serif font-bold text-navy-900 mb-4">
+            How to <span class="text-gold-600">Get Here</span>
+          </h2>
+          <p class="text-xl text-gray-600">
+            We are located in Leça da Palmeira, Matosinhos, with easy access and parking.
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <!-- Map Placeholder -->
+          
+          <div class="bg-gray-200 rounded-xl h-96 flex items-center justify-center overflow-hidden">
+            <gmp-map center="41.201019287109375,-8.706390380859375" zoom="12" map-id="DEMO_MAP_ID">
+              <gmp-advanced-marker position="41.201019287109375,-8.706390380859375" title="IVS Legal"></gmp-advanced-marker>
+            </gmp-map>
+          </div>
+
+          <!-- Directions -->
+          <div class="space-y-6">
+            <div class="bg-gold-50 p-6 rounded-lg">
+              <h4 class="font-semibold text-navy-900 mb-2">Important Tip</h4>
+              <p class="text-sm text-gray-700">
+                We recommend confirming your consultation by phone or email. 
+                For urgent consultations, contact us directly by phone.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+<script src="../../contact-form.ts"></script>

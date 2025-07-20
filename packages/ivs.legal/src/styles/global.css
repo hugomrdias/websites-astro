@@ -1,0 +1,11 @@
+select:required:invalid {
+    color: #9DA3AF;
+  }
+  option[value=""][disabled] {
+    display: none;
+  }
+
+  gmp-map {
+    height: 24rem;
+    border-radius: inherit;
+  }

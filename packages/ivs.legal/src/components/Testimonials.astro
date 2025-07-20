@@ -1,0 +1,125 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<section class="py-20 bg-white">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-serif font-bold text-navy-900 mb-4">
+        {t('testimonials.title')} <span class="text-gold-600">{t('testimonials.title.highlight')}</span>
+      </h2>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+        {t('testimonials.subtitle')}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Testimonial 1 -->
+      <div class="bg-gray-50 rounded-xl p-8 relative">
+        <div class="absolute -top-4 left-8">
+          <div class="w-8 h-8 bg-gold-500 rounded-full flex items-center justify-center">
+            <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
+            </svg>
+          </div>
+        </div>
+        <div class="pt-4">
+          <p class="text-gray-700 mb-6 italic">
+            {lang === 'pt' 
+              ? '"Excelente profissionalismo e dedicação. Resolveram o meu caso de forma rápida e eficiente. Recomendo vivamente os serviços da IVS Legal."'
+              : '"Excellent professionalism and dedication. They resolved my case quickly and efficiently. I highly recommend IVS Legal\'s services."'
+            }
+          </p>
+          <div class="flex items-center">
+            <div class="w-12 h-12 bg-gold-100 rounded-full flex items-center justify-center mr-4">
+              <span class="text-gold-600 font-semibold text-lg">MR</span>
+            </div>
+            <div>
+              <h4 class="font-semibold text-navy-900">Maria Rodrigues</h4>
+              <p class="text-gray-500 text-sm">{lang === 'pt' ? 'Empresária' : 'Entrepreneur'}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonial 2 -->
+      <div class="bg-gray-50 rounded-xl p-8 relative">
+        <div class="absolute -top-4 left-8">
+          <div class="w-8 h-8 bg-gold-500 rounded-full flex items-center justify-center">
+            <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
+            </svg>
+          </div>
+        </div>
+        <div class="pt-4">
+          <p class="text-gray-700 mb-6 italic">
+            {lang === 'pt' 
+              ? '"Apoio jurídico de primeira qualidade. A equipa é muito competente e sempre disponível para esclarecer todas as dúvidas. Muito satisfeito com o resultado."'
+              : '"First-class legal support. The team is very competent and always available to clarify all doubts. Very satisfied with the result."'
+            }
+          </p>
+          <div class="flex items-center">
+            <div class="w-12 h-12 bg-gold-100 rounded-full flex items-center justify-center mr-4">
+              <span class="text-gold-600 font-semibold text-lg">JS</span>
+            </div>
+            <div>
+              <h4 class="font-semibold text-navy-900">João Silva</h4>
+              <p class="text-gray-500 text-sm">{lang === 'pt' ? 'Diretor Comercial' : 'Commercial Director'}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonial 3 -->
+      <div class="bg-gray-50 rounded-xl p-8 relative">
+        <div class="absolute -top-4 left-8">
+          <div class="w-8 h-8 bg-gold-500 rounded-full flex items-center justify-center">
+            <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
+            </svg>
+          </div>
+        </div>
+        <div class="pt-4">
+          <p class="text-gray-700 mb-6 italic">
+            {lang === 'pt' 
+              ? '"Profissionais de confiança que nos acompanharam em todo o processo. Transparência total e resultados excepcionais. Obrigada por tudo!"'
+              : '"Trustworthy professionals who accompanied us throughout the entire process. Total transparency and exceptional results. Thank you for everything!"'
+            }
+          </p>
+          <div class="flex items-center">
+            <div class="w-12 h-12 bg-gold-100 rounded-full flex items-center justify-center mr-4">
+              <span class="text-gold-600 font-semibold text-lg">AC</span>
+            </div>
+            <div>
+              <h4 class="font-semibold text-navy-900">Ana Costa</h4>
+              <p class="text-gray-500 text-sm">{lang === 'pt' ? 'Arquiteta' : 'Architect'}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rating Summary -->
+    <div class="text-center mt-12 p-8 bg-gold-50 rounded-xl">
+      <div class="flex justify-center items-center mb-4">
+        <div class="flex space-x-1">
+          {[...Array(5)].map((_, i) => (
+            <svg key={i} class="w-6 h-6 text-gold-500" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          ))}
+        </div>
+        <span class="ml-3 text-2xl font-bold text-navy-900">4.9/5</span>
+      </div>
+      <p class="text-gray-600">
+        {lang === 'pt' 
+          ? 'Baseado em mais de 200 avaliações de clientes satisfeitos'
+          : 'Based on over 200 satisfied client reviews'
+        }
+      </p>
+    </div>
+  </div>
+</section>

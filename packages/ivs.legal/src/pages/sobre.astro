@@ -1,0 +1,289 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { Image } from 'astro:assets';
+import logo from '../assets/mono-queen.png';
+---
+
+<Layout title="Sobre Nós - IVS Legal" description="Conheça a história, missão e equipa da IVS Legal. Mais de 20 anos de excelência jurídica em Portugal.">
+  <Header />
+  
+  <main>
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-navy-900 to-navy-800 text-white py-20">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto text-center">
+          <h1 class="text-5xl font-serif font-bold mb-6">
+            Sobre a <span class="text-gold-400">IVS Legal</span>
+          </h1>
+          <p class="text-xl text-gray-300 leading-relaxed">
+            Garantimos ética transparência e proximidade na relação com os clientes.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mission & Values -->
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div>
+            <h2 class="text-4xl font-serif font-bold text-navy-900 mb-6">
+              A Nossa <span class="text-gold-600">Missão</span>
+            </h2>
+            <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+              Esta parceria visa criar conceito inovador no exercício da atividade que é advocacia, em prol de uma melhor defesa dos direitos e interesses dos nossos Clientes, tendo por base uma relação de proximidade, com as pessoas e com os seus problemas, primando sempre pela confidencialidade, tão importante nos dias que correm.
+            </p>
+            <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+              No nosso escritório, pretendemos prestar um serviço jurídico baseado na confiança, rompendo com o conservadorismo de outros tempos, sempre aliado à qualidade e rigor que se impõem ao nosso trabalho.
+            </p>
+            <p class="text-lg text-gray-700 leading-relaxed">
+              Nessa medida, a dinâmica da relação entre Advogado e Cliente passará pela confiança mútua que, em nossa opinião, é chave para o sucesso.
+            </p>
+          </div>
+          <div class="relative">
+            <div class="bg-gold-50 rounded-2xl p-8">
+              <Image src={logo} alt="IVS Legal" class="w-full max-w-sm mx-auto" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Values -->
+    <section class="py-20 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl font-serif font-bold text-navy-900 mb-4">
+            Os Nossos <span class="text-gold-600">Valores</span>
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="text-center">
+            <div class="w-20 h-20 bg-gold-500 rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-navy-900 mb-4">Integridade</h3>
+            <p class="text-gray-600">
+              Atuamos sempre com transparência, honestidade e ética profissional 
+              em todas as nossas relações.
+            </p>
+          </div>
+
+          <div class="text-center">
+            <div class="w-20 h-20 bg-gold-500 rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-navy-900 mb-4">Compromisso</h3>
+            <p class="text-gray-600">
+            Priorizar a satisfação, proteção dos direitos e interesses dos nossos clientes.               
+            </p>
+          </div>
+
+          <div class="text-center">
+            <div class="w-20 h-20 bg-gold-500 rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-navy-900 mb-4">Dedicação</h3>
+            <p class="text-gray-600">
+              Cada cliente é único e merece toda a nossa atenção e empenho 
+              na resolução dos seus desafios jurídicos.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team -->
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl font-serif font-bold text-navy-900 mb-4">
+            A Nossa <span class="text-gold-600">Equipa</span>
+          </h2>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+            Profissionais experientes e especializados, unidos pela paixão 
+            pelo direito e pelo compromisso com a excelência.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+          <!-- Team Member 1 -->
+          <div class="text-center group">
+            <div class="relative mb-6">
+              <div class="w-48 h-48 bg-gradient-to-br from-gold-100 to-gold-200 rounded-full mx-auto flex items-center justify-center">
+                <div class="w-32 h-32 bg-gold-500 rounded-full flex items-center justify-center">
+                  <span class="text-3xl font-bold text-white">IV</span>
+                </div>
+              </div>
+            </div>
+            <h3 class="text-xl font-semibold text-navy-900 mb-2">Dra. Isabel Veiga</h3>
+            <p class="text-gold-600 font-medium mb-3">Sócia Fundadora</p>
+            <p class="text-gray-600 text-sm mb-4">
+              Advogada com mais de 10 anos de experiência. 
+              Mestrado em Direito pela Universidade Católica Portuguesa Porto.
+            </p>
+            <div class="flex justify-center space-x-3">
+              <span class="px-3 py-1 bg-gold-100 text-gold-700 text-xs rounded-full">Direito Comercial</span>
+              <span class="px-3 py-1 bg-gold-100 text-gold-700 text-xs rounded-full">Direito Laboral</span>
+              <span class="px-3 py-1 bg-gold-100 text-gold-700 text-xs rounded-full">Direito Imobiliário</span>
+              <span class="px-3 py-1 bg-gold-100 text-gold-700 text-xs rounded-full">Migração</span>
+            </div>
+          </div>
+
+          <!-- Team Member 2 -->
+          <div class="text-center group">
+            <div class="relative mb-6">
+              <div class="w-48 h-48 bg-gradient-to-br from-gold-100 to-gold-200 rounded-full mx-auto flex items-center justify-center">
+                <div class="w-32 h-32 bg-gold-500 rounded-full flex items-center justify-center">
+                  <span class="text-3xl font-bold text-white">LP</span>
+                </div>
+              </div>
+            </div>
+            <h3 class="text-xl font-semibold text-navy-900 mb-2">Dra. Luísa Pinho</h3>
+            <p class="text-gold-600 font-medium mb-3">Sócia</p>
+            <p class="text-gray-600 text-sm mb-4">
+              Advogada com mais de 10 anos de experiência. 
+              Mestrado em Direito pela Universidade Católica Portuguesa Porto.
+            </p>
+            <div class="flex justify-center space-x-3">
+              <span class="px-3 py-1 bg-gold-100 text-gold-700 text-xs rounded-full">Direito Civil</span>
+              <span class="px-3 py-1 bg-gold-100 text-gold-700 text-xs rounded-full">Direito Penal</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- History -->
+    <!-- <section class="py-20 bg-navy-900 text-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <div class="text-center mb-16">
+            <h2 class="text-4xl font-serif font-bold mb-4">
+              A Nossa <span class="text-gold-400">História</span>
+            </h2>
+          </div>
+
+          <div class="space-y-12">
+            <div class="flex items-start space-x-6">
+              <div class="flex-shrink-0 w-16 h-16 bg-gold-500 rounded-full flex items-center justify-center">
+                <span class="text-white font-bold">2003</span>
+              </div>
+              <div>
+                <h3 class="text-xl font-semibold text-gold-400 mb-2">Fundação</h3>
+                <p class="text-gray-300">
+                  A IVS Legal foi fundada pelo Dr. Vítor Santos com o objetivo de prestar 
+                  serviços jurídicos de excelência, focados nas necessidades específicas de cada cliente.
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-6">
+              <div class="flex-shrink-0 w-16 h-16 bg-gold-500 rounded-full flex items-center justify-center">
+                <span class="text-white font-bold">2010</span>
+              </div>
+              <div>
+                <h3 class="text-xl font-semibold text-gold-400 mb-2">Expansão</h3>
+                <p class="text-gray-300">
+                  Integração da Dra. Ana Silva como sócia, expandindo as áreas de especialização 
+                  para Direito Laboral e Penal, consolidando a posição no mercado jurídico.
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-6">
+              <div class="flex-shrink-0 w-16 h-16 bg-gold-500 rounded-full flex items-center justify-center">
+                <span class="text-white font-bold">2018</span>
+              </div>
+              <div>
+                <h3 class="text-xl font-semibold text-gold-400 mb-2">Modernização</h3>
+                <p class="text-gray-300">
+                  Implementação de tecnologias avançadas e processos digitais, 
+                  mantendo sempre o foco na qualidade do atendimento personalizado.
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-6">
+              <div class="flex-shrink-0 w-16 h-16 bg-gold-500 rounded-full flex items-center justify-center">
+                <span class="text-white font-bold">2024</span>
+              </div>
+              <div>
+                <h3 class="text-xl font-semibold text-gold-400 mb-2">Presente</h3>
+                <p class="text-gray-300">
+                  Mais de 20 anos de experiência, centenas de casos resolvidos com sucesso 
+                  e uma reputação sólida como referência em excelência jurídica.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section> -->
+
+    <!-- Certifications -->
+    <!-- <section class="py-20 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl font-serif font-bold text-navy-900 mb-4">
+            Certificações e <span class="text-gold-600">Membros</span>
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div class="text-center p-6 bg-white rounded-xl shadow-sm">
+            <div class="w-16 h-16 bg-gold-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-gold-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+              </svg>
+            </div>
+            <h3 class="font-semibold text-navy-900 mb-2">Ordem dos Advogados</h3>
+            <p class="text-sm text-gray-600">Membros registados e em pleno exercício</p>
+          </div>
+
+          <div class="text-center p-6 bg-white rounded-xl shadow-sm">
+            <div class="w-16 h-16 bg-gold-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-gold-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2V6"></path>
+              </svg>
+            </div>
+            <h3 class="font-semibold text-navy-900 mb-2">ISO 9001</h3>
+            <p class="text-sm text-gray-600">Certificação de qualidade em serviços</p>
+          </div>
+
+          <div class="text-center p-6 bg-white rounded-xl shadow-sm">
+            <div class="w-16 h-16 bg-gold-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-gold-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+              </svg>
+            </div>
+            <h3 class="font-semibold text-navy-900 mb-2">UIA</h3>
+            <p class="text-sm text-gray-600">União Internacional de Advogados</p>
+          </div>
+
+          <div class="text-center p-6 bg-white rounded-xl shadow-sm">
+            <div class="w-16 h-16 bg-gold-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-gold-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <h3 class="font-semibold text-navy-900 mb-2">CCILA</h3>
+            <p class="text-sm text-gray-600">Câmara de Comércio Luso-Alemã</p>
+          </div>
+        </div>
+      </div>
+    </section> -->
+  </main>
+
+  <Footer />
+</Layout>

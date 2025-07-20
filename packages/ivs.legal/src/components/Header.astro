@@ -1,0 +1,92 @@
+---
+import { getLangFromUrl, useTranslations, translatePath } from '../i18n/utils';
+import { Image } from 'astro:assets';
+import logo from '../assets/mono-queen.png';
+
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const currentPath = Astro.url.pathname;
+
+// Get the route without language prefix for comparison
+const route = currentPath.replace(/^\/(en|pt)/, '') || '/';
+---
+
+<header class="bg-white shadow-sm sticky top-0 z-40">
+  <nav class="container mx-auto px-4 py-4">
+    <div class="flex items-center justify-between">
+      <!-- Logo -->
+      <a href={translatePath(lang)} class="flex items-center space-x-3">
+        <Image src={logo} alt="IVS Legal" class="h-12 w-auto" loading="eager" />
+        <div class=" sm:block">
+          <h1 class="text-xl font-serif font-semibold text-navy-900">{t('footer.company')}</h1>
+          <!-- <p class="text-sm text-gold-600">{t('footer.tagline')}</p> -->
+        </div>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden lg:flex items-center space-x-8">
+        <a href={translatePath(lang)} class={`hover:text-gold-600 transition-colors ${route === '/' ? 'text-gold-600 font-medium' : 'text-navy-700'}`}>
+          {t('nav.home')}
+        </a>
+        <!-- <a href={translatePath(lang, 'blog')} class={`hover:text-gold-600 transition-colors ${route === '/blog' ? 'text-gold-600 font-medium' : 'text-navy-700'}`}>
+          {t('nav.blog')}
+        </a> -->
+        <a href={translatePath(lang, 'sobre')} class={`hover:text-gold-600 transition-colors ${route === '/sobre' ? 'text-gold-600 font-medium' : 'text-navy-700'}`}>
+          {t('nav.about')}
+        </a>
+        <!-- <a href={translatePath(lang, 'areas-pratica')} class={`hover:text-gold-600 transition-colors ${route === '/areas-pratica' ? 'text-gold-600 font-medium' : 'text-navy-700'}`}>
+          {t('nav.practice-areas')}
+        </a> -->
+        <a href={translatePath(lang, 'contacto')} class="bg-gold-500 hover:bg-gold-600 text-white px-6 py-2 rounded-md font-medium transition-colors">
+          {t('nav.contact')}
+        </a>
+      </div>
+
+      <!-- Language Toggle -->
+      <div class="hidden lg:flex items-center space-x-2">
+        <a href={translatePath('pt', route.slice(1))} class={`text-sm transition-colors ${lang === 'pt' ? 'text-gold-600 font-medium' : 'text-navy-600 hover:text-gold-600'}`}>PT</a>
+        <span class="text-navy-300">|</span>
+        <a href={translatePath('en', route.slice(1))} class={`text-sm transition-colors ${lang === 'en' ? 'text-gold-600 font-medium' : 'text-navy-600 hover:text-gold-600'}`}>EN</a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-btn" class="lg:hidden p-2">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="lg:hidden hidden mt-4 pb-4 border-t border-gray-200">
+      <div class="flex flex-col space-y-4 pt-4">
+        <a href={translatePath(lang)} class="text-navy-700 hover:text-gold-600 transition-colors">{t('nav.home')}</a>
+        <!-- <a href={translatePath(lang, 'blog')} class="text-navy-700 hover:text-gold-600 transition-colors">{t('nav.blog')}</a> -->
+        <a href={translatePath(lang, 'sobre')} class="text-navy-700 hover:text-gold-600 transition-colors">{t('nav.about')}</a>
+        <a href={translatePath(lang, 'contacto')} class="text-navy-700 hover:text-gold-600 transition-colors">{t('nav.contact')}</a>
+        <div class="flex items-center space-x-2 pt-2">
+          <a href={translatePath('pt', route.slice(1))} class={`text-sm transition-colors ${lang === 'pt' ? 'text-gold-600 font-medium' : 'text-navy-600 hover:text-gold-600'}`}>PT</a>
+          <span class="text-navy-300">|</span>
+          <a href={translatePath('en', route.slice(1))} class={`text-sm transition-colors ${lang === 'en' ? 'text-gold-600 font-medium' : 'text-navy-600 hover:text-gold-600'}`}>EN</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<script is:inline>
+  function toggleMobileMenu() {
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuBtn?.addEventListener('click', () => {
+      mobileMenu?.classList.toggle('hidden');
+
+    });
+  }
+
+  document.addEventListener("astro:page-load", () => {
+    toggleMobileMenu();
+  });
+
+</script>
