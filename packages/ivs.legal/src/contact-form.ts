@@ -1,4 +1,5 @@
 ///<reference types="@hcaptcha/types"/>
+import { HCAPTCHA } from 'astro:env/client'
 
 export function contactForm() {
   const form = document.getElementById('contact-form') as HTMLFormElement
@@ -8,14 +9,16 @@ export function contactForm() {
     return
   }
 
+  console.log(HCAPTCHA)
+
   hcaptcha.render('hcaptcha', {
-    sitekey: '50b2fe65-b00b-4b9e-ad62-3ba471098be2',
+    sitekey: HCAPTCHA,
   })
   form?.addEventListener('submit', async (e) => {
     e.preventDefault()
-    // @ts-ignore
     const hCaptcha = form.querySelector(
       'textarea[name=h-captcha-response]'
+      // @ts-ignore
     )?.value
 
     if (!hCaptcha) {

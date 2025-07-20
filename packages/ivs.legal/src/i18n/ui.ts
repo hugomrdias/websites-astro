@@ -73,11 +73,11 @@ export const ui = {
     'contact.form.subject': 'Área Jurídica',
     'contact.form.subject.options': {
       'direito-civil': 'Direito Civil',
-      'direito-comercial': 'Direito Comercial',
+      'direito-comercial': 'Sociedades Comerciais',
       'direito-laboral': 'Direito Laboral',
       'direito-imobiliario': 'Direito Imobiliário',
       'direito-penal': 'Direito Penal',
-      'direito-migração': 'Migração',
+      'direito-migração': 'Imigração',
       outro: 'Outro',
     },
     'contact.form.message': 'Mensagem',
@@ -160,7 +160,7 @@ export const ui = {
     'contact.form.subject': 'Legal Area',
     'contact.form.subject.options': {
       'direito-civil': 'Civil Law',
-      'direito-comercial': 'Commercial Law',
+      'direito-comercial': 'Commercial Companies',
       'direito-laboral': 'Labor Law',
       'direito-imobiliario': 'Real Estate Law',
       'direito-penal': 'Criminal Law',

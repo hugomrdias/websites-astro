@@ -32,6 +32,8 @@ const ogImage = await getImage({
   fit: 'cover',
 })
 
+const googleMapsUrl = `https://maps.googleapis.com/maps/api/js?key=${import.meta.env.GOOGLE_MAPS}&callback=console.debug&libraries=maps,marker&v=beta&loading=async`
+
 ---
 
 <!doctype html>
@@ -97,7 +99,7 @@ const ogImage = await getImage({
   <body class="font-sans text-navy-900 bg-white">
     <slot />
   </body>
-  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMXYD6Y79NSfyefyyFjlGXAKiuKBWSoUk&callback=console.debug&libraries=maps,marker&v=beta&loading=async">
+  <script async src={googleMapsUrl}>
     </script>
 
     <script is:inline src="https://js.hcaptcha.com/1/api.js?hl=en&render=explicit&recaptchacompat=off" async defer></script>

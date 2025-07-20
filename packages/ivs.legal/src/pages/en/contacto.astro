@@ -94,7 +94,7 @@ const t = useTranslations(lang);
 
           <div class="bg-white rounded-xl shadow-lg p-8">
             <form id="contact-form" class="space-y-6" action="https://api.web3forms.com/submit" method="POST" data-astro-reload>
-              <input type="hidden" name="access_key" value="725c412a-39a9-47ee-8935-fa46f76576e5" />
+              <input type="hidden" name="access_key" value={import.meta.env.WEB3FORMS} />
               <input type="checkbox" name="botcheck" id="" style="display: none;"/>
               <input type="hidden" name="subject" value="New Consultation Request">
               <input type="hidden" name="from_name" value="IVS Legal">

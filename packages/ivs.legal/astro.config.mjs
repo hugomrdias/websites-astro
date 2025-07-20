@@ -1,4 +1,4 @@
-import { defineConfig } from 'astro/config';
+import { defineConfig, envField } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 import icon from 'astro-icon';
@@ -8,6 +8,12 @@ import AstroPWA from '@vite-pwa/astro'
 
 export default defineConfig({
   site: 'https://dev.ivs.legal',
+  env:{
+    schema: {
+      WEB3FORMS: envField.string({context: 'client', access: 'public'}),
+      HCAPTCHA: envField.string({context: 'client', access: 'public'}),
+    }
+  },
   integrations: [
     tailwind(),
     sitemap(),
