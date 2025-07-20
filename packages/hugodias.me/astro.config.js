@@ -14,10 +14,8 @@ import rehypeExternalLinks from 'rehype-external-links'
 import embeds from 'astro-embed/integration'
 import AstroPWA from '@vite-pwa/astro'
 import rehypeMermaid from 'rehype-mermaid'
-
 import icon from 'astro-icon'
-
-import react from '@astrojs/react';
+import react from '@astrojs/react'
 
 // https://astro.build/config
 
@@ -42,67 +40,75 @@ export default defineConfig({
     },
     validateSecrets: true,
   },
-  integrations: [embeds(), expressiveCode({
-    plugins: [ecTwoSlash()],
-    themes: ['slack-dark', 'one-light'],
-    styleOverrides: {
-      twoSlash: {
-        cursorColor: 'red',
+  integrations: [
+    embeds(),
+    expressiveCode({
+      plugins: [ecTwoSlash()],
+      themes: ['slack-dark', 'one-light'],
+      styleOverrides: {
+        twoSlash: {
+          cursorColor: 'red',
+        },
+        frames: {
+          frameBoxShadowCssValue: 'none',
+        },
       },
-      frames: {
-        frameBoxShadowCssValue: 'none',
+    }),
+    mdx(),
+    sitemap(),
+    icon(),
+    AstroPWA({
+      /* your pwa options */
+      registerType: 'autoUpdate',
+      manifest: {
+        name: 'Hugo Dias - Writing code for Web3.',
+        short_name: 'Hugo Dias',
+        theme_color: '#25201a',
+        background_color: '#191918',
+        screenshots: [
+          {
+            src: '/bg-1280x720.jpg',
+            sizes: '1280x720',
+            type: 'image/png',
+            form_factor: 'wide',
+          },
+          {
+            src: '/screenshot-narrow1.png',
+            sizes: '864x1732',
+            type: 'image/png',
+            form_factor: 'narrow',
+          },
+          {
+            src: '/screenshot-narrow2.png',
+            sizes: '864x1732',
+            type: 'image/png',
+            form_factor: 'narrow',
+          },
+          {
+            src: '/screenshot-narrow3.png',
+            sizes: '864x1732',
+            type: 'image/png',
+            form_factor: 'narrow',
+          },
+        ],
       },
-    },
-  }), mdx(), sitemap(), icon(), AstroPWA({
-    /* your pwa options */
-    registerType: 'autoUpdate',
-    manifest: {
-      name: 'Hugo Dias - Writing code for Web3.',
-      short_name: 'Hugo Dias',
-      theme_color: '#25201a',
-      background_color: '#191918',
-      screenshots: [
-        {
-          src: '/bg-1280x720.jpg',
-          sizes: '1280x720',
-          type: 'image/png',
-          form_factor: 'wide',
-        },
-        {
-          src: '/screenshot-narrow1.png',
-          sizes: '864x1732',
-          type: 'image/png',
-          form_factor: 'narrow',
-        },
-        {
-          src: '/screenshot-narrow2.png',
-          sizes: '864x1732',
-          type: 'image/png',
-          form_factor: 'narrow',
-        },
-        {
-          src: '/screenshot-narrow3.png',
-          sizes: '864x1732',
-          type: 'image/png',
-          form_factor: 'narrow',
-        },
-      ],
-    },
-    includeAssets: ['*.webp', '*.png', '*.jpg', '*.svg'],
-    workbox: {
-      navigateFallback: '/',
-      globPatterns: ['**/*.{css,js,html,svg,png,ico,webp,jpg}'],
-    },
-    pwaAssets: {
-      image: 'public/favicon.png',
-    },
-    experimental: {
-      directoryAndTrailingSlashHandler: true,
-    },
-    devOptions: {
-      enabled: false,
-    },
-  }), react()],
+      includeAssets: ['*.webp', '*.png', '*.jpg', '*.svg'],
+      workbox: {
+        navigateFallback: '/',
+        globPatterns: ['**/*.{css,js,html,svg,png,ico,webp,jpg}'],
+      },
+      pwaAssets: {
+        image: 'public/favicon.png',
+      },
+      experimental: {
+        directoryAndTrailingSlashHandler: true,
+      },
+      devOptions: {
+        enabled: false,
+      },
+    }),
+    react(),
+  ],
   markdown: {
     remarkPlugins: [
       remarkReadingTime,
