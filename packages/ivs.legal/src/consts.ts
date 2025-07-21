@@ -10,7 +10,7 @@ export const CONTACTS = {
 export const SITE = {
   NAME: 'IVS Legal',
   DESCRIPTION:
-    'Escritório de Advocacia IVS Legal - Excelência jurídica em Portugal',
+    'Escritório de Advocacia IVS Legal - Ética, proximidade e transparência',
   URL: 'https://ivs.legal',
   IMAGE: 'https://ivs.legal/og.png',
   KEYWORDS:
