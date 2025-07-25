@@ -29,7 +29,7 @@ export const ui = {
       'Oferecemos serviços jurídicos em diversas áreas do Direito.',
     'practice.civil.title': 'Direito Civil',
     'practice.civil.description':
-      'Contratos, responsabilidade civil, cobrança de dívidas, direito de família e sucessões. Protegemos os seus direitos em todas as situações da vida civil.',
+      'Contratos, responsabilidade civil, cobrança de dívidas, direito de família e sucessões. Registos e Notariado.',
     'practice.commercial.title': 'Sociedades Comerciais',
     'practice.commercial.description':
       'Constituição de empresas, contratos e fusões. Apoiamos o crescimento do seu negócio com segurança jurídica.',
@@ -116,7 +116,7 @@ export const ui = {
     'practice.subtitle': 'We offer legal services in various areas of law.',
     'practice.civil.title': 'Civil Law',
     'practice.civil.description':
-      'Contracts, civil liability, debt collection, family law and succession. We protect your rights in all civil life situations.',
+      'Contracts, civil liability, debt collection, family law and succession. Registers and Notary.',
     'practice.commercial.title': 'Commercial Companies',
     'practice.commercial.description':
       'Company formation, commercial contracts and mergers. We support your business growth with legal security.',
