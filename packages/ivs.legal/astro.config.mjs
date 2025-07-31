@@ -7,7 +7,10 @@ import AstroPWA from '@vite-pwa/astro'
 
 
 export default defineConfig({
-  site: 'https://dev.ivs.legal',
+  site: 'https://ivs.legal',
+  image: {
+    responsiveStyles: true,
+  },
   env:{
     schema: {
       WEB3FORMS: envField.string({context: 'client', access: 'public'}),

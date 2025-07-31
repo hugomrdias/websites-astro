@@ -17,7 +17,7 @@ const route = currentPath.replace(/^\/(en|pt)/, '') || '/';
     <div class="flex items-center justify-between">
       <!-- Logo -->
       <a href={translatePath(lang)} class="flex items-center space-x-3">
-        <Image src={logo} alt="IVS Legal" class="h-12 w-auto" loading="eager" />
+        <Image src={logo} alt="Logo" class="h-12 w-auto" loading="eager" layout='constrained' width={100} height={100}/>
         <div class=" sm:block">
           <h1 class="text-xl font-serif font-semibold text-navy-900">{t('footer.company')}</h1>
           <!-- <p class="text-sm text-gold-600">{t('footer.tagline')}</p> -->
@@ -51,7 +51,7 @@ const route = currentPath.replace(/^\/(en|pt)/, '') || '/';
       </div>
 
       <!-- Mobile Menu Button -->
-      <button id="mobile-menu-btn" class="lg:hidden p-2">
+      <button id="mobile-menu-btn" class="lg:hidden p-2" title="Menu">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
         </svg>

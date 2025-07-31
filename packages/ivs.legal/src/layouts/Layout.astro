@@ -95,14 +95,15 @@ const googleMapsUrl = `https://maps.googleapis.com/maps/api/js?key=${import.meta
     
     <ClientRouter />
 
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://newassets.hcaptcha.com" />
+
   </head>
   <body class="font-sans text-navy-900 bg-white">
     <slot />
   </body>
-  <script async src={googleMapsUrl}>
-    </script>
-
-    <script is:inline src="https://js.hcaptcha.com/1/api.js?hl=en&render=explicit&recaptchacompat=off" async defer></script>
+  <script is:inline async defer src={googleMapsUrl}></script>
+  <script is:inline async defer src="https://js.hcaptcha.com/1/api.js?hl=en&render=explicit&recaptchacompat=off" ></script>
 
 
 </html>

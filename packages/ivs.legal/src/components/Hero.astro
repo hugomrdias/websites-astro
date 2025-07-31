@@ -36,7 +36,7 @@ const t = useTranslations(lang);
       <!-- Image/Visual -->
       <div class="relative mx-auto">
         <div class="relative z-10 bg-white rounded-2xl p-8 shadow-2xl max-w-md">
-          <Image src={hero} alt="IVS Legal" class="w-full rounded-2xl" loading="eager" />
+          <Image src={hero} alt="IVS Legal" class="w-full rounded-2xl" loading="eager" fetchpriority="high" layout='constrained' width={384} height={552}/>
           <!-- <div class="text-center mt-6">
             <h3 class="text-lg font-serif font-semibold text-navy-900 italic">{t('hero.quote')}</h3>
             <p class="text-sm text-gold-600 font-medium ">{t('hero.quote.author')}</p>
