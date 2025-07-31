@@ -47,79 +47,21 @@ If you're using FEVM, the Snap can also show your 0x address info and its equiva
 You can install and use filsnap using the Metamask provider.
 
 ```ts twoslash
-import { getProvider } from 'filsnap-adapter'
+import { FilsnapAdapter, getProvider } from 'filsnap-adapter'
 
 const provider = await getProvider()
+const snap = await FilsnapAdapter.connect({ provider, snapId: 'npm:filsnap', config: { network: 'testnet' } })
 
-// Install filsnap
-try {
-  const result = await provider.request({
-    method: 'wallet_requestSnaps',
-    params: {
-      'npm:filsnap': {
-        version: '^0.4.0', // Optional, defaults to latest
-      },
-    },
-  })
-
+const { error, result } = await snap.getAddress()
+if (error) {
+  console.error(error)
+} else {
   console.log(result)
-  /**
-{
-  'npm:filsnap': {
-    version: '1.0.0',
-    id: 'npm:filsnap',
-    enabled: true,
-    blocked: false,
-  },
-}
-   */
-
-  // Get filsnap metadata
-  const snap = await provider.request({ method: 'wallet_getSnaps' })
-
-  // Get balance
-  const balance = await provider.request({
-    method: 'wallet_invokeSnap',
-    params: { snapId: 'npm:filsnap', method: 'fil_getBalance' },
-  })
-
-  /**
-{
-  result: '100699819802794525019',
-  error: null
-}
- */
-} catch (error) {
-  console.log(error)
+  // t1d2xrzcslx7xlbbylc5c3d5lvandqw4iwl6epxba
 }
 ```
 
-We recommend using [`filsnap-adapter`](../adapter) to interact with filsnap for a simpler interface. Check the full API documentation [here](https://filecoin-project.github.io/filsnap/).
-
-## Architecture
-
-```mermaid
-sequenceDiagram
-    participant Dapp
-    box rgb(76, 86, 106) Metamask Extension
-    participant Metamask
-    participant filsnap
-    end
-    Dapp-)Metamask: connect('npm:filsnap', '0.4.0')
-    Note over Dapp,Metamask: `wallet_requestSnaps`
-    Metamask--> Metamask: Install filsnap
-    Metamask--)filsnap: Connect Dapp to filsnap
-    activate filsnap
-    filsnap--)Metamask: Connected
-    Metamask-)Dapp: filsnap metadata
-    Dapp-)filsnap: configure({network: 'mainnet'})
-    Note over Dapp,Metamask: `wallet_invokeSnap` method `fil_configure`
-    filsnap-)Dapp: filsnap configuration
-    Dapp-)filsnap: getBalance()
-    Note over Dapp,Metamask: `wallet_invokeSnap` method `fil_getBalance`
-    filsnap-)Dapp: 100 FIL (balance)
-    deactivate filsnap
-```
+We recommend using [`filsnap-adapter`]([../adapter](https://github.com/filecoin-project/filsnap/tree/master/packages/adapter)) to interact with filsnap for a simpler interface. Check the full API [documentation](https://filecoin-project.github.io/filsnap/).
 
 ## Security Audits
 

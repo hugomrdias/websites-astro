@@ -22,7 +22,6 @@ jobs:
           node-version: lts/*
           cache: pnpm
       - run: pnpm install
-      - run: pnpx playwright install --with-deps chromium
       - run: pnpm -r --filter hugodias.me run build
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}

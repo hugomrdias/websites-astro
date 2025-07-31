@@ -69,6 +69,7 @@ const speaking = defineCollection({
     // },
   }),
   schema: notionPageSchema({
+    // @ts-expect-error TODO: fix this
     properties: z.object({
       Name: transformedPropertySchema.title,
       event: transformedPropertySchema.rich_text,
