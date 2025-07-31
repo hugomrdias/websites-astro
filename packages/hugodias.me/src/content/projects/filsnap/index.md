@@ -61,7 +61,7 @@ if (error) {
 }
 ```
 
-We recommend using [`filsnap-adapter`]([../adapter](https://github.com/filecoin-project/filsnap/tree/master/packages/adapter)) to interact with filsnap for a simpler interface. Check the full API [documentation](https://filecoin-project.github.io/filsnap/).
+We recommend using [`filsnap-adapter`](https://github.com/filecoin-project/filsnap/tree/master/packages/adapter) to interact with filsnap for a simpler interface. Check the full API [documentation](https://filecoin-project.github.io/filsnap/).
 
 ## Security Audits
 

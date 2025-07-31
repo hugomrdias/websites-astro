@@ -60,14 +60,14 @@ export default defineConfig({
       includeAssets: ['*.webp', '*.png', '*.jpg', '*.svg'],
       workbox: {
         navigateFallback: '/',
-        globPatterns: ['**/*.{css,js,html,svg,png,ico,webp,jpg}'],
+        globPatterns: ['**/*.{css,js,html,svg,png,ico,webp,jpg,txt,xml}'],
       },
       pwaAssets: {
         image: 'public/favicon.png',
       },
-      experimental: {
-        directoryAndTrailingSlashHandler: true,
-      },
+      // experimental: {
+      //   directoryAndTrailingSlashHandler: true,
+      // },
       devOptions: {
         enabled: false,
       },
