@@ -73,6 +73,7 @@ const speaking = defineCollection({
     properties: z.object({
       Name: transformedPropertySchema.title,
       event: transformedPropertySchema.rich_text,
+      // @ts-expect-error TODO: fix this
       date: transformedPropertySchema.date.transform((prop) => {
         return prop ? new Date(prop.start) : new Date()
       }),
