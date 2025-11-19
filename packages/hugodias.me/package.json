@@ -23,7 +23,7 @@
     "@iconify-json/lucide": "^1.2.59",
     "@types/react": "^19.1.9",
     "@types/react-dom": "^19.1.7",
-    "astro": "^5.12.6",
+    "astro": "^5.15.9",
     "astro-expressive-code": "^0.41.3",
     "astro-icon": "^1.1.5",
     "cuer": "^0.0.2",
