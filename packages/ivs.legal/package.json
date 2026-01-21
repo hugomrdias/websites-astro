@@ -32,6 +32,6 @@
     "@vite-pwa/astro": "^1.1.0",
     "astro-icon": "^1.1.5",
     "workbox-window": "^7.3.0",
-    "wrangler": "^4.26.1"
+    "wrangler": "^4.59.1"
   }
 }
