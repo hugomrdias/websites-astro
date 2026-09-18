@@ -1,0 +1,15 @@
+/*
+  cache-control: public,max-age=300
+  X-Frame-Options: SAMEORIGIN
+  X-XSS-Protection: 1; mode=block
+
+/_astro/*
+  Cache-Control: public
+  Cache-Control: max-age=31536000
+  Cache-Control: immutable
+
+/favicon.ico
+  cache-control: public,max-age=3600
+
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex

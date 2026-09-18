@@ -1,0 +1,41 @@
+---
+import { Icon } from 'astro-icon/components'
+import { SITE, HOME, SOCIALS } from '@consts'
+import PageLayout from '@layouts/PageLayout.astro'
+import Link from '@components/Link.astro'
+import Logo from '@images/logo.svg'
+---
+
+<PageLayout title={HOME.TITLE} description={HOME.DESCRIPTION}>
+  <div class="animate Section">
+    <div id="wrapper">
+      <div>
+        <div class="image">
+          <Logo width={64} height={64} fill="currentColor" />
+        </div>
+        <h1>Decentralised Experience</h1>
+        <p>Web3 Software Development</p>
+        <ul class="Socials">
+          {
+            SOCIALS.map((SOCIAL, index, arr) => (
+              <li>
+                <Link
+                  href={SOCIAL.HREF}
+                  external
+                  aria-label={`${SITE.NAME} on ${SOCIAL.NAME}`}
+                  icon={`lucide:${SOCIAL.NAME}`}
+                >
+                  {SOCIAL.NAME}
+                </Link>
+                {arr.length - 1 !== index && '/'}
+              </li>
+            ))
+          }
+        </ul>
+        <p><pre>hello<Icon name='lucide:at-sign' />decentralised.dev</pre></p>
+      </div>
+    </div>
+  </div>
+
+  <section class="animate Section"></section>
+</PageLayout>

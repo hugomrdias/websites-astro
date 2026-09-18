@@ -1,0 +1,30 @@
+---
+import Head from '@components/Head.astro'
+import { SITE } from '@consts'
+
+type Props = {
+  title: string
+  description: string
+  image?: ImageMetadata
+  type?: 'article' | 'website'
+}
+
+const { title, description, image, type } = Astro.props
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <Head
+      title={`${title} | ${SITE.NAME}`}
+      description={description}
+      image={image}
+      type={type}
+    />
+  </head>
+  <body>
+    <main class="Prose">
+      <slot />
+    </main>
+  </body>
+</html>
