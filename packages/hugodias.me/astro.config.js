@@ -13,6 +13,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeExternalLinks from 'rehype-external-links'
 import embeds from 'astro-embed/integration'
 import AstroPWA from '@vite-pwa/astro'
+import umami from '@yeskunall/astro-umami'
 import rehypeMermaid from 'rehype-mermaid'
 import icon from 'astro-icon'
 import react from '@astrojs/react'
@@ -41,6 +42,10 @@ export default defineConfig({
     validateSecrets: true,
   },
   integrations: [
+    umami({
+      id: '91ac9edd-ca63-48a9-a93a-d2694fd4614d',
+      endpointUrl: 'https://stats.hugomrdias.dev',
+    }),
     embeds(),
     expressiveCode({
       plugins: [ecTwoSlash()],
