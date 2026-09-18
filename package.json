@@ -3,6 +3,18 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "packageManager": "pnpm@12.4.1+sha512.LoHjmdc/6DkNqyXgaqeIq3pZCCSNL1o3D4K0gRR6ano2e/gEj5pv22Rg8hpm8FQt7bi5TKLIcjWWdBkgsWVtTA==",
+  "engines": {
+    "node": "^24.21.0",
+    "pnpm": "^12.4.1"
+  },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": "^24.21.0",
+      "onFail": "download"
+    }
+  },
   "workspaces": [
     "packages/*"
   ],
@@ -29,13 +41,10 @@
     "wrangler": "^4.33.2"
   },
   "simple-git-hooks": {
-    "pre-commit": "npx lint-staged"
+    "pre-commit": "pnpm exec lint-staged"
   },
   "lint-staged": {
     "*.{js,ts,yml,json}": "prettier --write",
     "*.{js,ts,jsx,tsx,astro}": "eslint --fix"
-  },
-  "engines": {
-    "node": ">=18"
   }
 }

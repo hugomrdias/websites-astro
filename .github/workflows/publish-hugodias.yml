@@ -13,15 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref_name == 'master'
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
+      - uses: actions/checkout@v7
+      - uses: pnpm/setup@v2
         with:
-          version: latest
-      - uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-          cache: pnpm
-      - run: pnpm install
+          cache: true
       - run: pnpm -r --filter hugodias.me run build
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
