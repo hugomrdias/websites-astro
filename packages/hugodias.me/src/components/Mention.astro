@@ -1,6 +1,9 @@
 ---
 import { Image } from 'astro:assets'
-import { JSDOM } from 'jsdom'
+import { JSDOM, VirtualConsole } from 'jsdom'
+
+const virtualConsole = new VirtualConsole()
+virtualConsole.sendTo(console, { omitJSDOMErrors: true })
 
 async function fetchMetaTags(url: string | URL | Request) {
   try {
@@ -19,7 +22,7 @@ async function fetchMetaTags(url: string | URL | Request) {
     const html = await response.text()
 
     // Parse the HTML
-    const dom = new JSDOM(html)
+    const dom = new JSDOM(html, { virtualConsole })
     const document = dom.window.document
 
     // Get the title
@@ -75,11 +78,7 @@ if (type === 'gh') {
   const idParts = selector.split('/')
   meta = await fetchMetaTags(_href)
   _title = meta.title
-  if (idParts.length === 2) {
-    _img = 'https://github.com/' + idParts[0] + '.png'
-  } else {
-    _img = 'https://github.com/' + selector + '.png'
-  }
+  _img = `https://avatars.githubusercontent.com/${idParts[0]}.png`
 }
 
 //npm
