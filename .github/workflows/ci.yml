@@ -1,0 +1,96 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+  # Notion (and other) webhook deploys
+  repository_dispatch:
+    types:
+      - webhook
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+
+env:
+  CI: true
+  FORCE_COLOR: 1
+  NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+  NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+  WEB3FORMS: ${{ secrets.WEB3FORMS }}
+  HCAPTCHA: ${{ secrets.HCAPTCHA }}
+  GOOGLE_MAPS: ${{ secrets.GOOGLE_MAPS }}
+
+jobs:
+  check:
+    name: Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/setup@v2
+        with:
+          cache: true
+      - name: Install Playwright Chromium
+        run: pnpm --filter hugodias.me exec playwright install --with-deps chromium
+      - run: pnpm lint
+      - run: pnpm build
+      - name: Upload hugodias.me
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
+        uses: actions/upload-artifact@v7
+        with:
+          name: hugodias.me
+          path: packages/hugodias.me/dist
+          retention-days: 1
+      - name: Upload ivs.legal
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
+        uses: actions/upload-artifact@v7
+        with:
+          name: ivs.legal
+          path: packages/ivs.legal/dist
+          retention-days: 1
+      - name: Upload decentralised.dev
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
+        uses: actions/upload-artifact@v7
+        with:
+          name: decentralised.dev
+          path: packages/decentralised.dev/dist
+          retention-days: 1
+
+  deploy:
+    name: Deploy ${{ matrix.site }}
+    needs: check
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - site: hugodias.me
+            dir: packages/hugodias.me
+          - site: ivs.legal
+            dir: packages/ivs.legal
+          - site: decentralised.dev
+            dir: packages/decentralised.dev
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/setup@v2
+        with:
+          cache: true
+      - uses: actions/download-artifact@v8
+        with:
+          name: ${{ matrix.site }}
+          path: ${{ matrix.dir }}/dist
+      - name: Deploy to Cloudflare Workers
+        working-directory: ${{ matrix.dir }}
+        run: pnpm exec wrangler deploy --env production
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
