@@ -12,6 +12,7 @@
             "custom_domain": true
         }
     ],
+    "preview_urls": false,
     "env": {
         "production": {
             "name": "ivs-legal",

@@ -17,8 +17,9 @@
     "@fontsource-variable/playfair-display": "^5.2.6",
     "@hcaptcha/react-hcaptcha": "^1.12.0",
     "@hcaptcha/types": "^1.0.4",
-    "astro": "^5.12.6",
-    "cuer": "^0.0.2",
+    "@yeskunall/astro-umami": "0.0.7",
+    "astro": "^5.13.5",
+    "cuer": "^0.0.3",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "sharp": "^0.34.3",
@@ -27,11 +28,11 @@
   },
   "devDependencies": {
     "@astrojs/react": "^4.3.0",
-    "@iconify-json/lucide": "^1.2.59",
+    "@iconify-json/lucide": "^1.2.66",
     "@vite-pwa/assets-generator": "^1.0.0",
     "@vite-pwa/astro": "^1.1.0",
     "astro-icon": "^1.1.5",
     "workbox-window": "^7.3.0",
-    "wrangler": "^4.26.1"
+    "wrangler": "^4.33.2"
   }
 }

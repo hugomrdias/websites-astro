@@ -1,24 +1,28 @@
-import { defineConfig, envField } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
-import sitemap from '@astrojs/sitemap';
-import icon from 'astro-icon';
-import react from '@astrojs/react';
+import { defineConfig, envField } from 'astro/config'
+import tailwind from '@astrojs/tailwind'
+import umami from '@yeskunall/astro-umami'
+import sitemap from '@astrojs/sitemap'
+import icon from 'astro-icon'
+import react from '@astrojs/react'
 import AstroPWA from '@vite-pwa/astro'
-
 
 export default defineConfig({
   site: 'https://ivs.legal',
   image: {
     responsiveStyles: true,
   },
-  env:{
+  env: {
     schema: {
-      WEB3FORMS: envField.string({context: 'client', access: 'public'}),
-      HCAPTCHA: envField.string({context: 'client', access: 'public'}),
-    }
+      WEB3FORMS: envField.string({ context: 'client', access: 'public' }),
+      HCAPTCHA: envField.string({ context: 'client', access: 'public' }),
+    },
   },
   integrations: [
     tailwind(),
+    umami({
+      id: 'ccd49192-101e-4047-82f5-275fbbd2b877',
+      endpointUrl: 'https://stats.hugomrdias.dev',
+    }),
     sitemap(),
     icon(),
     react(),
@@ -71,13 +75,13 @@ export default defineConfig({
       devOptions: {
         enabled: false,
       },
-    })
+    }),
   ],
   i18n: {
     defaultLocale: 'pt',
     locales: ['pt', 'en'],
     routing: {
-      prefixDefaultLocale: false
-    }
-  }
-});
+      prefixDefaultLocale: false,
+    },
+  },
+})

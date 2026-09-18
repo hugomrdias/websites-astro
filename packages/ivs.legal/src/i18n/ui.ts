@@ -41,7 +41,7 @@ export const ui = {
       'Compra e venda de imóveis, arrendamento, licenciamento urbanístico. Garantimos segurança em todos os seus investimentos imobiliários.',
     'practice.criminal.title': 'Direito Penal',
     'practice.criminal.description':
-      'Aconselhamento e patrocínio  nas  diversas fases dos processos criminais e contra ordenações.',
+      'Aconselhamento, patrocínio e defesa nas  diversas fases dos processos criminais e contra ordenações.',
     'practice.tax.title': 'Imigração',
     'practice.tax.description':
       'Assessoria jurídica para obtenção de vistos, autorizações de residência, reagrupamento familiar e processos de nacionalidade.',
@@ -128,7 +128,7 @@ export const ui = {
       'Property buying and selling, leasing, urban licensing. We ensure security in all your real estate investments.',
     'practice.criminal.title': 'Criminal Law',
     'practice.criminal.description':
-      'Advice and representation in all phases of criminal and disciplinary proceedings.',
+      'Advice, representation and defense in all phases of criminal and disciplinary proceedings.',
     'practice.tax.title': 'Immigration',
     'practice.tax.description':
       'Legal advice for obtaining visas, residence permits, family reunification and nationality processes.',
