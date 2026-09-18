@@ -25,22 +25,20 @@ const speaking = (
 <PageLayout title={TALKS.TITLE} description={TALKS.DESCRIPTION}>
   <h1 class="animate">Talks</h1>
   <ul class="Items gap-2">
-    {
-      speaking.map((entry) => (
-        <li class="animate">
-          <small>{formatDate(entry.data.properties.date)}</small>
-          <h4 class="m-0">
-            <Link href={entry.data.properties.url as string}>
-              {entry.data.properties.Name} at {entry.data.properties.event}
-            </Link>
-          </h4>
-          {entry.data.properties.location}
-          <article>
-            <entry.Content />
-            <ThumbGalleryNotion images={entry.data.properties.images} />
-          </article>
-        </li>
-      ))
-    }
+    {speaking.map((entry) => (
+      <li class="animate">
+        <small>{formatDate(entry.data.properties.date)}</small>
+        <h4 class="m-0">
+          <Link href={entry.data.properties.url as string}>
+            {entry.data.properties.Name} at {entry.data.properties.event}
+          </Link>
+        </h4>
+        {entry.data.properties.location}
+        <article>
+          <entry.Content />
+          <ThumbGalleryNotion images={entry.data.properties.images} />
+        </article>
+      </li>
+    ))}
   </ul>
 </PageLayout>

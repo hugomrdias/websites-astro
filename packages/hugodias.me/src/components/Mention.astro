@@ -37,7 +37,7 @@ async function fetchMetaTags(url: string | URL | Request) {
       title,
       description,
     }
-  } catch (error) {
+  } catch {
     console.error('Error fetching meta tags.')
     return {
       title: '',
@@ -66,10 +66,7 @@ let _text = ''
 let _href = ''
 let _title = ''
 
-let meta: { title: string; description: string } = {
-  title: '',
-  description: '',
-}
+let meta: { title: string; description: string } | undefined
 
 // github
 if (type === 'gh') {
@@ -130,7 +127,9 @@ if (type === 'https') {
     src={_img}
     alt={title ?? _title}
     title={title ?? _title}
-    inferSize
+    width={14}
+    height={14}
     loading={aboveTheFold ? 'eager' : 'lazy'}
-  />{' '}{text ?? _text}</a
->
+  />{' '}
+  {text ?? _text}
+</a>

@@ -27,31 +27,26 @@ const { Content, remarkPluginFrontmatter } = await render(project)
   type="article"
 >
   <section class="Section">
-    <h1>
-      {project.data.title}
-    </h1>
+    <h1>{project.data.title}</h1>
     <small>
-      <FormattedDate date={project.data.date} /> &bull; {
-        remarkPluginFrontmatter.minutesRead
-      }
+      <FormattedDate date={project.data.date} /> &bull;{' '}
+      {remarkPluginFrontmatter.minutesRead}
     </small>
-    {
-      (project.data.demoURL || project.data.repoURL) && (
-        <nav class="animate">
-          {project.data.demoURL && (
-            <Link href={project.data.demoURL} external>
-              website
-            </Link>
-          )}
-          {project.data.demoURL && project.data.repoURL && <span>/</span>}
-          {project.data.repoURL && (
-            <Link href={project.data.repoURL} external>
-              repo
-            </Link>
-          )}
-        </nav>
-      )
-    }
+    {(project.data.demoURL || project.data.repoURL) && (
+      <nav class="animate">
+        {project.data.demoURL && (
+          <Link href={project.data.demoURL} external>
+            website
+          </Link>
+        )}
+        {project.data.demoURL && project.data.repoURL && <span>/</span>}
+        {project.data.repoURL && (
+          <Link href={project.data.repoURL} external>
+            repo
+          </Link>
+        )}
+      </nav>
+    )}
   </section>
   <article class="animate Section">
     <Content />

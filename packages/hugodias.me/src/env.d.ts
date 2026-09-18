@@ -1,6 +1,11 @@
-/// <reference path="../.astro/types.d.ts" />
-/// <reference types="astro/client" />
 /// <reference types="vite-plugin-pwa/info" />
 /// <reference types="vite-plugin-pwa/pwa-assets" />
 /// <reference types="vite-plugin-pwa/vanillajs" />
-/// <reference types="astro/astro-jsx" />
+
+declare module 'virtual:pwa-register' {
+  export function registerSW(options?: {
+    immediate?: boolean
+    onRegisteredSW?: (swScriptUrl: string) => void
+    onOfflineReady?: () => void
+  }): (reloadPage?: boolean) => Promise<void>
+}

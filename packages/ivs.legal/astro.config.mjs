@@ -1,5 +1,5 @@
 import { defineConfig, envField } from 'astro/config'
-import tailwind from '@astrojs/tailwind'
+import tailwindcss from '@tailwindcss/vite'
 import umami from '@yeskunall/astro-umami'
 import sitemap from '@astrojs/sitemap'
 import icon from 'astro-icon'
@@ -15,10 +15,10 @@ export default defineConfig({
     schema: {
       WEB3FORMS: envField.string({ context: 'client', access: 'public' }),
       HCAPTCHA: envField.string({ context: 'client', access: 'public' }),
+      GOOGLE_MAPS: envField.string({ context: 'client', access: 'public' }),
     },
   },
   integrations: [
-    tailwind(),
     umami({
       id: 'ccd49192-101e-4047-82f5-275fbbd2b877',
       endpointUrl: 'https://stats.hugomrdias.dev',
@@ -83,5 +83,8 @@ export default defineConfig({
     routing: {
       prefixDefaultLocale: false,
     },
+  },
+  vite: {
+    plugins: [tailwindcss()],
   },
 })

@@ -13,6 +13,8 @@ const collection = (await getCollection('work')).sort(
 <PageLayout title={WORK.TITLE} description={WORK.DESCRIPTION}>
   <h1 class="animate">Work Experience</h1>
   <ul class="Items gap-2">
-    {collection.map((entry) => <WorkItem entry={entry} />)}
+    {collection.map((entry) => (
+      <WorkItem entry={entry} />
+    ))}
   </ul>
 </PageLayout>

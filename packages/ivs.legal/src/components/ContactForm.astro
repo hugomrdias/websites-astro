@@ -1,11 +1,11 @@
 ---
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
-import { CONTACTS } from '@consts';
+import { getLangFromUrl, useTranslations } from '../i18n/utils'
+import { CONTACTS } from '@consts'
+import { WEB3FORMS } from 'astro:env/client'
 import { Icon } from 'astro-icon/components'
-import HCaptcha from '@hcaptcha/react-hcaptcha';
 
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
 ---
 
 <section class="py-20 bg-navy-900 text-white">
@@ -15,7 +15,8 @@ const t = useTranslations(lang);
       <div class="space-y-8">
         <div>
           <h2 class="text-4xl font-serif font-bold mb-4">
-            {t('contact.title')} <span class="text-gold-400">{t('contact.title.highlight')}</span>
+            {t('contact.title')}{' '}
+            <span class="text-gold-400">{t('contact.title.highlight')}</span>
           </h2>
           <p class="text-xl text-gray-300 leading-relaxed">
             {t('contact.subtitle')}
@@ -25,22 +26,24 @@ const t = useTranslations(lang);
         <div class="space-y-6">
           <div class="flex items-center gap-4">
             <div class="w-12 h-12 bg-gold-500 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-             <Icon name="lucide:map-pin" class="w-5 min-w-5 h-5 text-white" />
+              <Icon name="lucide:map-pin" class="w-5 min-w-5 h-5 text-white" />
             </div>
             <div>
-              <h3 class="text-lg font-semibold text-gold-400">{t('contact.location')}</h3>
-              <p class="text-gray-300">
-                {CONTACTS.ADDRESS}
-              </p>
+              <h3 class="text-lg font-semibold text-gold-400">
+                {t('contact.location')}
+              </h3>
+              <p class="text-gray-300">{CONTACTS.ADDRESS}</p>
             </div>
           </div>
 
           <div class="flex items-center gap-4">
             <div class="w-12 h-12 bg-gold-500 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-             <Icon name="lucide:phone" class="w-5 min-w-5 h-5 text-white" />
+              <Icon name="lucide:phone" class="w-5 min-w-5 h-5 text-white" />
             </div>
             <div>
-              <h3 class="text-lg font-semibold text-gold-400">{t('contact.phone')}</h3>
+              <h3 class="text-lg font-semibold text-gold-400">
+                {t('contact.phone')}
+              </h3>
               <p class="text-gray-300">{CONTACTS.PHONE}</p>
             </div>
           </div>
@@ -50,7 +53,9 @@ const t = useTranslations(lang);
               <Icon name="lucide:mail" class="w-5 min-w-5 h-5 text-white" />
             </div>
             <div>
-              <h3 class="text-lg font-semibold text-gold-400">{t('contact.email')}</h3>
+              <h3 class="text-lg font-semibold text-gold-400">
+                {t('contact.email')}
+              </h3>
               <p class="text-gray-300">{CONTACTS.EMAIL}</p>
             </div>
           </div>
@@ -60,10 +65,10 @@ const t = useTranslations(lang);
               <Icon name="lucide:clock" class="w-5 min-w-5 h-5 text-white" />
             </div>
             <div>
-              <h3 class="text-lg font-semibold text-gold-400">{t('contact.hours')}</h3>
-              <p class="text-gray-300">
-                {t('contact.hours.data')}
-              </p>
+              <h3 class="text-lg font-semibold text-gold-400">
+                {t('contact.hours')}
+              </h3>
+              <p class="text-gray-300">{t('contact.hours.data')}</p>
             </div>
           </div>
         </div>
@@ -72,16 +77,28 @@ const t = useTranslations(lang);
       <!-- Contact Form -->
       <div class="bg-white rounded-xl p-8 text-navy-900">
         <h3 class="text-2xl font-semibold mb-6">{t('contact.form.title')}</h3>
-        
-        <form id="contact-form" class="space-y-6" action="https://api.web3forms.com/submit" method="POST" >
-          <input type="hidden" name="access_key" value={import.meta.env.WEB3FORMS} />
+
+        <form
+          id="contact-form"
+          class="space-y-6"
+          action="https://api.web3forms.com/submit"
+          method="POST"
+        >
+          <input
+            type="hidden"
+            name="access_key"
+            value={WEB3FORMS}
+          />
           <!-- <input type="checkbox" name="botcheck" id="" style="display: none;"/> -->
-          <input type="hidden" name="subject" value="Novo Pedido de Consulta">
-          <input type="hidden" name="from_name" value="IVS Legal">
+          <input type="hidden" name="subject" value="Novo Pedido de Consulta" />
+          <input type="hidden" name="from_name" value="IVS Legal" />
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label for="firstName" class="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                for="firstName"
+                class="block text-sm font-medium text-gray-700 mb-2"
+              >
                 {t('contact.form.firstName')} *
               </label>
               <input
@@ -94,7 +111,10 @@ const t = useTranslations(lang);
               />
             </div>
             <div>
-              <label for="lastName" class="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                for="lastName"
+                class="block text-sm font-medium text-gray-700 mb-2"
+              >
                 {t('contact.form.lastName')} *
               </label>
               <input
@@ -109,7 +129,10 @@ const t = useTranslations(lang);
           </div>
 
           <div>
-            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+            <label
+              for="email"
+              class="block text-sm font-medium text-gray-700 mb-2"
+            >
               {t('contact.form.email')} *
             </label>
             <input
@@ -118,12 +141,17 @@ const t = useTranslations(lang);
               name="email"
               required
               class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-gold-500 focus:border-transparent transition-colors outline-none"
-              placeholder={lang === 'pt' ? 'joao.silva@email.com' : 'john.smith@email.com'}
+              placeholder={
+                lang === 'pt' ? 'joao.silva@email.com' : 'john.smith@email.com'
+              }
             />
           </div>
 
           <div>
-            <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">
+            <label
+              for="phone"
+              class="block text-sm font-medium text-gray-700 mb-2"
+            >
               {t('contact.form.phone')}
             </label>
             <input
@@ -136,7 +164,10 @@ const t = useTranslations(lang);
           </div>
 
           <div>
-            <label for="area" class="block text-sm font-medium text-gray-700 mb-2">
+            <label
+              for="area"
+              class="block text-sm font-medium text-gray-700 mb-2"
+            >
               {t('contact.form.subject')} *
             </label>
             <select
@@ -145,15 +176,22 @@ const t = useTranslations(lang);
               required
               class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-gold-500 focus:border-transparent transition-colors outline-none"
             >
-              <option value="" disabled selected hidden class="text-gold-300">{lang === 'pt' ? 'Selecione uma área' : 'Select an area'}</option>
-              {Object.entries(t('contact.form.subject.options')).map(([key, value]) => (
-                <option value={key}>{value}</option>
-              ))}
+              <option value="" disabled selected hidden class="text-gold-300">
+                {lang === 'pt' ? 'Selecione uma área' : 'Select an area'}
+              </option>
+              {Object.entries(t('contact.form.subject.options')).map(
+                ([key, value]) => (
+                  <option value={key}>{value}</option>
+                )
+              )}
             </select>
           </div>
 
           <div>
-            <label for="message" class="block text-sm font-medium text-gray-700 mb-2">
+            <label
+              for="message"
+              class="block text-sm font-medium text-gray-700 mb-2"
+            >
               {t('contact.form.message')} *
             </label>
             <textarea
@@ -162,9 +200,10 @@ const t = useTranslations(lang);
               rows="4"
               required
               class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-gold-500 focus:border-transparent transition-colors resize-vertical outline-none"
-              placeholder={lang === 'pt' 
-                ? 'Descreva brevemente a sua situação jurídica...'
-                : 'Briefly describe your legal situation...'
+              placeholder={
+                lang === 'pt'
+                  ? 'Descreva brevemente a sua situação jurídica...'
+                  : 'Briefly describe your legal situation...'
               }
             ></textarea>
           </div>
@@ -190,15 +229,21 @@ const t = useTranslations(lang);
           </button>
         </form>
 
-        <div id="form-success" class="hidden mt-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-md">
+        <div
+          id="form-success"
+          class="hidden mt-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-md"
+        >
           <div class="flex items-center">
             <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clip-rule="evenodd"
+              ></path>
             </svg>
-            {lang === 'pt' 
+            {lang === 'pt'
               ? 'Obrigado! O seu pedido foi enviado com sucesso. Entraremos em contacto brevemente.'
-              : 'Thank you! Your request has been sent successfully. We will contact you shortly.'
-            }
+              : 'Thank you! Your request has been sent successfully. We will contact you shortly.'}
           </div>
         </div>
       </div>

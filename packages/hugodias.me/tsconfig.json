@@ -1,23 +1,10 @@
 {
   "extends": "../../tsconfig.json",
-  "include": [
-    ".astro/types.d.ts",
-    "**/*",
-    "env.d.ts"
-  ],
-  "exclude": [
-    "dist",
-    "dev-dist"
-  ],
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": ["dist", "dev-dist"],
   "compilerOptions": {
-    "noEmit": true,
-    "checkJs": true,
-    "strictNullChecks": true,
-    "baseUrl": ".",
     "paths": {
-      "@*": [
-        "src/*"
-      ]
+      "@*": ["./src/*"]
     },
     "plugins": [
       {

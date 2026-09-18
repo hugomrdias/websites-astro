@@ -14,17 +14,24 @@ import playfairDisplay from '@fontsource-variable/playfair-display/files/playfai
 import inter from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url'
 import defaultOgImage from '../assets/og.png'
 import { SITE } from '@consts'
+import { GOOGLE_MAPS } from 'astro:env/client'
 
 export interface Props {
-  title?: string;
-  description?: string;
-  lang?: string;
+  title?: string
+  description?: string
+  lang?: string
   image?: ImageMetadata
   type?: 'article' | 'website'
 }
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 
-const { title = SITE.NAME, description = SITE.DESCRIPTION, lang = "pt", image = defaultOgImage, type = 'website' } = Astro.props;
+const {
+  title = SITE.NAME,
+  description = SITE.DESCRIPTION,
+  lang = 'pt',
+  image = defaultOgImage,
+  type = 'website',
+} = Astro.props
 const ogImage = await getImage({
   src: image,
   width: 1200,
@@ -32,8 +39,7 @@ const ogImage = await getImage({
   fit: 'cover',
 })
 
-const googleMapsUrl = `https://maps.googleapis.com/maps/api/js?key=${import.meta.env.GOOGLE_MAPS}&callback=console.debug&libraries=maps,marker&v=beta&loading=async`
-
+const googleMapsUrl = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS}&callback=console.debug&libraries=maps,marker&v=beta&loading=async`
 ---
 
 <!doctype html>
@@ -44,13 +50,12 @@ const googleMapsUrl = `https://maps.googleapis.com/maps/api/js?key=${import.meta
     <meta name="generator" content={Astro.generator} />
     <!-- Canonical URL -->
     <link rel="canonical" href={canonicalURL} />
-    
-    
+
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
     <meta name="keywords" content={SITE.KEYWORDS} />
-    
+
     <!-- Open Graph -->
     <meta property="og:site_name" content={SITE.NAME} />
     <meta property="og:locale" content={lang === 'pt' ? 'pt_PT' : 'en_US'} />
@@ -63,7 +68,6 @@ const googleMapsUrl = `https://maps.googleapis.com/maps/api/js?key=${import.meta
     <meta property="og:image:height" content="628" />
     <meta property="og:logo" content={new URL('/favicon.png', Astro.url)} />
 
-    
     <!-- Twitter Card -->
     <meta content="@ivslegal" name="twitter:creator" />
     <meta property="twitter:card" content="summary_large_image" />
@@ -72,38 +76,49 @@ const googleMapsUrl = `https://maps.googleapis.com/maps/api/js?key=${import.meta
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={new URL(ogImage.src, Astro.url)} />
 
-    
     <!-- Fonts -->
-    <link rel="preload" href={playfairDisplay} as="font" type="font/woff2" crossorigin="anonymous">
-    <link rel="preload" href={inter} as="font" type="font/woff2" crossorigin="anonymous">
+    <link
+      rel="preload"
+      href={playfairDisplay}
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href={inter}
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
     <!-- PWA -->
-    {
-      pwaAssetsHead.themeColor && (
-        <meta name="theme-color" content={pwaAssetsHead.themeColor.content} />
+    {pwaAssetsHead.themeColor && (
+      <meta name="theme-color" content={pwaAssetsHead.themeColor.content} />
+    )}
+    {pwaAssetsHead.links.map(
+      (
+        link: astroHTML.JSX.IntrinsicAttributes &
+          astroHTML.JSX.LinkHTMLAttributes
+      ) => (
+        <link {...link} />
       )
-    }
-    {
-      pwaAssetsHead.links.map(
-        (
-          link: astroHTML.JSX.IntrinsicAttributes & astroHTML.JSX.LinkHTMLAttributes
-        ) => <link {...link} />
-      )
-    }
+    )}
     {pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
-    
+
     <script src="/src/pwa.ts"></script>
-    
     <ClientRouter />
 
     <!-- preconnect -->
     <link rel="preconnect" href="https://newassets.hcaptcha.com" />
-
   </head>
   <body class="font-sans text-navy-900 bg-white">
     <slot />
   </body>
   <script is:inline async defer src={googleMapsUrl}></script>
-  <script is:inline async defer src="https://js.hcaptcha.com/1/api.js?hl=en&render=explicit&recaptchacompat=off" ></script>
-
-
+  <script
+    is:inline
+    async
+    defer
+    src="https://js.hcaptcha.com/1/api.js?hl=en&render=explicit&recaptchacompat=off"
+  ></script>
 </html>

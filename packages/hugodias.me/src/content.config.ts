@@ -1,4 +1,6 @@
-import { defineCollection, z } from 'astro:content'
+import { defineCollection } from 'astro:content'
+import { NOTION_DATABASE_ID, NOTION_TOKEN } from 'astro:env/server'
+import { z } from 'astro/zod'
 import { glob } from 'astro/loaders'
 import GithubSlugger from 'github-slugger'
 import { notionLoader } from 'notion-astro-loader'
@@ -33,7 +35,7 @@ const work = defineCollection({
   schema: ({ image }) =>
     z.object({
       company: z.string(),
-      website: z.string().url(),
+      website: z.url(),
       role: z.string(),
       dateStart: z.coerce.date(),
       dateEnd: z.union([z.coerce.date(), z.string()]),
@@ -60,8 +62,8 @@ const projects = defineCollection({
 
 const speaking = defineCollection({
   loader: notionLoader({
-    auth: import.meta.env.NOTION_TOKEN,
-    database_id: import.meta.env.NOTION_DATABASE_ID,
+    auth: NOTION_TOKEN,
+    database_id: NOTION_DATABASE_ID,
     // Use Notion sorting and filtering
     // filter: {
     //   property: 'Hidden',
@@ -69,36 +71,44 @@ const speaking = defineCollection({
     // },
   }),
   schema: notionPageSchema({
-    // @ts-expect-error TODO: fix this
     properties: z.object({
       Name: transformedPropertySchema.title,
       event: transformedPropertySchema.rich_text,
-      // @ts-expect-error TODO: fix this
-      date: transformedPropertySchema.date.transform((prop) => {
-        return prop ? new Date(prop.start) : new Date()
-      }),
+      date: transformedPropertySchema.date.transform(
+        (prop: { start: string } | null) => {
+          return prop ? new Date(prop.start) : new Date()
+        }
+      ),
       location: transformedPropertySchema.rich_text,
       url: transformedPropertySchema.url,
-      images: propertySchema.files.transform(async (f) => {
-        const imgs = []
-        for (const file of f.files) {
-          let url
-          switch (file?.type) {
-            case 'external':
-              url = file.external.url
-              break
-            case 'file':
-              url = file.file.url
-              break
-            default:
-              url = undefined
-          }
-          if (!url) continue
+      images: propertySchema.files.transform(
+        async (f: {
+          files: Array<{
+            type?: string
+            external?: { url: string }
+            file?: { url: string }
+          }>
+        }) => {
+          const imgs = []
+          for (const file of f.files) {
+            let url
+            switch (file?.type) {
+              case 'external':
+                url = file.external?.url
+                break
+              case 'file':
+                url = file.file?.url
+                break
+              default:
+                url = undefined
+            }
+            if (!url) continue
 
-          imgs.push(url)
+            imgs.push(url)
+          }
+          return imgs
         }
-        return imgs
-      }),
+      ),
     }),
   }),
 })

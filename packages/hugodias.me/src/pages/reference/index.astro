@@ -11,7 +11,7 @@ import lighthouse from '../../images/lighthouse.png'
 
   <h2>Tables</h2>
   <table>
-    <caption> Table with caption </caption>
+    <caption>Table with caption</caption>
     <thead>
       <tr>
         <th>Name</th>
@@ -114,24 +114,30 @@ import lighthouse from '../../images/lighthouse.png'
 
   <h2>Figure and Image</h2>
   <figure class="Lightbox">
-    <Image src={lighthouse} alt="A starry night sky." /><figcaption>
-      A starry night sky.
-    </figcaption>
+    <Image src={lighthouse} alt="A starry night sky." />
+    <figcaption>A starry night sky.</figcaption>
   </figure>
 
   <Picture src={lighthouse} alt="A description of my image." />
   <h2>Links and Buttons</h2>
   <button>I'm a button</button>
   <button class="Button-variant">Variant</button>
-  <button class="Button-variant Button--small">Variant</button><br />
-  <button disabled>I'm a disabled button</button><br />
+  <button class="Button-variant Button--small">Variant</button>
+  <br />
+  <button disabled>I'm a disabled button</button>
+  <br />
 
-  <a class="button" href="https://example.com">I'm a link button</a>
-  <a class="button Button-variant" href="https://example.com">Variant</a>
+  <a class="button" href="https://example.com">
+    I'm a link button
+  </a>
+  <a class="button Button-variant" href="https://example.com">
+    Variant
+  </a>
 
-  <a class="button" href="https://example.com" aria-disabled="true"
-    >I'm a small link button</a
-  ><br />
+  <a class="button" href="https://example.com" aria-disabled="true">
+    I'm a small link button
+  </a>
+  <br />
 
   <h2>Dialog and Popover</h2>
   <button popovertarget="dialog-1">Open Dialog</button>
@@ -140,7 +146,9 @@ import lighthouse from '../../images/lighthouse.png'
     <p>This is a dialog box.</p>
     <input />
     <footer>
-      <button popovertarget="dialog-1" popovertargetaction="hide">Close</button>
+      <button popovertarget="dialog-1" popovertargetaction="hide">
+        Close
+      </button>
     </footer>
   </dialog>
 
@@ -173,13 +181,17 @@ import lighthouse from '../../images/lighthouse.png'
   </p>
 
   <fieldset>
-    <legend> Fielset Legend</legend>
+    <legend>Fielset Legend</legend>
     <form>
-      <p><strong>This is just a test form. It doesn't do anything.</strong></p>
+      <p>
+        <strong>This is just a test form. It doesn't do anything.</strong>
+      </p>
 
       <p>
         <select>
-          <option selected="selected" value="1">Title</option>
+          <option selected="selected" value="1">
+            Title
+          </option>
           <option value="2">Mr</option>
           <option value="3">Miss</option>
           <option value="4">Mrs</option>
@@ -188,34 +200,42 @@ import lighthouse from '../../images/lighthouse.png'
       </p>
 
       <p>
-        <label>First name</label>
-        <input type="text" name="first_name" placeholder="John Doe" />
+        <label for="first_name">First name</label>
+        <input
+          type="text"
+          id="first_name"
+          name="first_name"
+          placeholder="John Doe"
+        />
       </p>
 
       <p>
-        <label>Surname</label>
-        <input type="text" name="surname" />
+        <label for="surname">Surname</label>
+        <input type="text" id="surname" name="surname" />
       </p>
 
       <p>
-        <label>Email</label>
-        <input type="email" name="email" required="" />
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required="" />
       </p>
 
       <p>
-        <label>Enquiry type:</label>
-        <label
-          ><input checked="checked" name="type" type="radio" value="sales" /> Sales</label
-        >
-        <label><input name="type" type="radio" value="support" /> Support</label
-        >
-        <label><input name="type" type="radio" value="billing" /> Billing</label
-        >
+        <p>Enquiry type:</p>
+        <label>
+          <input checked="checked" name="type" type="radio" value="sales" />{' '}
+          Sales
+        </label>
+        <label>
+          <input name="type" type="radio" value="support" /> Support
+        </label>
+        <label>
+          <input name="type" type="radio" value="billing" /> Billing
+        </label>
       </p>
 
       <p>
-        <label>Message</label>
-        <textarea rows="6"></textarea>
+        <label for="message">Message</label>
+        <textarea id="message" rows="6"></textarea>
       </p>
 
       <p>
@@ -258,16 +278,17 @@ import lighthouse from '../../images/lighthouse.png'
 
       <p>
         <label>
-          <input type="checkbox" id="checkbox" value="terms" />I agree to the <a
-            href="#">terms and conditions</a
-          >
+          <input type="checkbox" id="checkbox" value="terms" />I agree to the{' '}
+          <a href="#terms">terms and conditions</a>
         </label>
       </p>
 
       <p>
         <label for="file">File progress:</label>
 
-        <progress id="file" max="100" value="70">70%</progress>
+        <progress id="file" max="100" value="70">
+          70%
+        </progress>
       </p>
 
       <button>Send</button>

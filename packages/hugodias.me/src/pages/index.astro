@@ -10,7 +10,6 @@ import * as intro from '@content/intro.mdx'
 import WorkItem from '@components/WorkItem.astro'
 import ThumbGalleryNotion from '@components/ThumbGalleryNotion.astro'
 
-
 const blog = (await getCollection('blog'))
   .filter((post) => !post.data.draft)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
@@ -61,13 +60,11 @@ const speaking = (
       <Link href="/blog"> See all posts </Link>
     </div>
     <ul class="Items">
-      {
-        blog.map((post) => (
-          <li>
-            <ArrowCard entry={post} />
-          </li>
-        ))
-      }
+      {blog.map((post) => (
+        <li>
+          <ArrowCard entry={post} />
+        </li>
+      ))}
     </ul>
   </section>
 
@@ -77,13 +74,11 @@ const speaking = (
       <Link href="/projects"> See all projects </Link>
     </div>
     <ul class="Items">
-      {
-        projects.map((project) => (
-          <li>
-            <ArrowCard entry={project} />
-          </li>
-        ))
-      }
+      {projects.map((project) => (
+        <li>
+          <ArrowCard entry={project} />
+        </li>
+      ))}
     </ul>
   </section>
 
@@ -93,7 +88,9 @@ const speaking = (
       <Link href="/work"> See all work </Link>
     </div>
     <ul class="Items gap-2">
-      {work.map((entry) => <WorkItem entry={entry} />)}
+      {work.map((entry) => (
+        <WorkItem entry={entry} />
+      ))}
     </ul>
   </section>
 
@@ -103,23 +100,21 @@ const speaking = (
       <Link href="/talks"> See all talks </Link>
     </div>
     <ul class="Items gap-2">
-      {
-        speaking.map((entry) => (
-          <li>
-            <small>{formatDate(entry.data.properties.date)}</small>
-            <h4 class="m-0">
-              <Link href={entry.data.properties.url as string}>
-                {entry.data.properties.Name} at {entry.data.properties.event}
-              </Link>
-            </h4>
-            {entry.data.properties.location}
-            <article>
-              <entry.Content />
-              <ThumbGalleryNotion images={entry.data.properties.images} />
-            </article>
-          </li>
-        ))
-      }
+      {speaking.map((entry) => (
+        <li>
+          <small>{formatDate(entry.data.properties.date)}</small>
+          <h4 class="m-0">
+            <Link href={entry.data.properties.url as string}>
+              {entry.data.properties.Name} at {entry.data.properties.event}
+            </Link>
+          </h4>
+          {entry.data.properties.location}
+          <article>
+            <entry.Content />
+            <ThumbGalleryNotion images={entry.data.properties.images} />
+          </article>
+        </li>
+      ))}
     </ul>
   </section>
 
@@ -132,36 +127,32 @@ const speaking = (
       </p>
     </article>
     <ul class="Socials">
-      {
-        SOCIALS.map((SOCIAL, index, arr) => (
-          <li>
-            <Link
-              href={SOCIAL.HREF}
-              external
-              aria-label={`${SITE.NAME} on ${SOCIAL.NAME}`}
-              icon={`lucide:${SOCIAL.NAME}`}
-            >
-              {SOCIAL.NAME}
-            </Link>
-            {arr.length - 1 !== index && '/'}
-          </li>
-        ))
-      }
+      {SOCIALS.map((SOCIAL, index, arr) => (
+        <li>
+          <Link
+            href={SOCIAL.HREF}
+            external
+            aria-label={`${SITE.NAME} on ${SOCIAL.NAME}`}
+            icon={`lucide:${SOCIAL.NAME}`}
+          >
+            {SOCIAL.NAME}
+          </Link>
+          {arr.length - 1 !== index && '/'}
+        </li>
+      ))}
       <li>
-        / <Link
-          href="/vcard"
-        >
-          vCard
-        </Link>
+        / <Link href="/vcard">vCard</Link>
       </li>
     </ul>
-    <p><pre>hugomrdias<Icon name='lucide:at-sign' />gmail.com</pre></p>
+    <p>
+      <pre>hugomrdias<Icon name='lucide:at-sign' />gmail.com</pre>
+    </p>
 
     <p>
-      If you enjoy my work consider sponsoring me on <a
-        href="https://github.com/sponsors/hugomrdias">Github</a
-      > or <a href="https://opencollective.com/hugomrdias">Open Collective</a>.
-      Thank you!
+      If you enjoy my work consider sponsoring me on{' '}
+      <a href="https://github.com/sponsors/hugomrdias">Github</a> or{' '}
+      <a href="https://opencollective.com/hugomrdias">Open Collective</a>. Thank
+      you!
     </p>
   </section>
 </PageLayout>

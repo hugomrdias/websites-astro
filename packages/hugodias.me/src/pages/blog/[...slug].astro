@@ -27,13 +27,10 @@ const { Content, remarkPluginFrontmatter } = await render(post)
   type="article"
 >
   <section class="Section">
-    <h1>
-      {post.data.title}
-    </h1>
+    <h1>{post.data.title}</h1>
     <small>
-      <FormattedDate date={post.data.date} /> &bull; {
-        remarkPluginFrontmatter.minutesRead
-      }
+      <FormattedDate date={post.data.date} /> &bull;{' '}
+      {remarkPluginFrontmatter.minutesRead}
     </small>
   </section>
   <article
@@ -65,7 +62,6 @@ const { Content, remarkPluginFrontmatter } = await render(post)
       console.log('hello')
     })
   </script>
-
   <button type="button" id="share" class="Button-variant Button--small">
     <Icon name="lucide:share-2" />
     Share

@@ -147,8 +147,9 @@ Hello this is a badge :badge[New]
 
 ```ts twoslash
 // @errors: 2540
+// @lib: ES2022,DOM
 console.log((1 + 2 + 3 + 4).toFixed(2))
-//                            ^|
+//                            ^?
 
 /** A Basic Todo interface*/
 interface Todo {

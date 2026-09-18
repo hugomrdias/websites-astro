@@ -1,8 +1,6 @@
-@import 'remark-github-blockquote-alert/alert.css';
 @import './components.css';
 @import 'node_modules/modern-normalize/modern-normalize.css';
 @import './base.css';
-@import 'photoswipe/style.css';
 
 :root {
   --yellow-1: #eceae7;

@@ -16,9 +16,10 @@ export function contactForm() {
   })
   form?.addEventListener('submit', async (e) => {
     e.preventDefault()
-    const hCaptcha = form.querySelector(
-      'textarea[name=h-captcha-response]'
-      // @ts-ignore
+    const hCaptcha = (
+      form.querySelector(
+        'textarea[name=h-captcha-response]'
+      ) as HTMLTextAreaElement | null
     )?.value
 
     if (!hCaptcha) {
@@ -48,8 +49,6 @@ export function contactForm() {
         body: json,
       })
       if (rsp.ok) {
-        let json = await rsp.json()
-
         // Show success message
         form.style.display = 'none'
         successMessage?.classList.remove('hidden')

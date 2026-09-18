@@ -23,24 +23,22 @@ for (const file of images) {
 }
 ---
 
-{
-  imagesProcessed.length > 0 && (
-    <div class="Gallery">
-      {imagesProcessed.map((image) => {
-        return (
-          <a
-            href={image.original.src}
-            data-pswp-width={image.original.options.width}
-            data-pswp-height={image.original.options.height}
-          >
-            <img
-              src={image.thumbnail.src}
-              alt=""
-              {...image.thumbnail.attributes}
-            />
-          </a>
-        )
-      })}
-    </div>
-  )
-}
+{imagesProcessed.length > 0 && (
+  <div class="Gallery">
+    {imagesProcessed.map((image) => {
+      return (
+        <a
+          href={image.original.src}
+          data-pswp-width={image.original.options.width}
+          data-pswp-height={image.original.options.height}
+        >
+          <img
+            src={image.thumbnail.src}
+            alt=""
+            {...image.thumbnail.attributes}
+          />
+        </a>
+      )
+    })}
+  </div>
+)}

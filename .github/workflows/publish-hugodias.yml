@@ -17,6 +17,10 @@ jobs:
       - uses: pnpm/setup@v2
         with:
           cache: true
+      - run: pnpm --filter hugodias.me exec astro check
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
       - run: pnpm -r --filter hugodias.me run build
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}

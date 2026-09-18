@@ -14,11 +14,11 @@ if (href.startsWith('http') || href.startsWith('https')) {
 ---
 
 <a href={href} target={external ? '_blank' : '_self'} {...rest}>
-  {
-    icon && (
-      <>
-        <Icon name={icon} />{' '}
-      </>
-    )
-  }<slot />{external && !icon && <Icon name="lucide:arrow-up-right" />}</a
->
+  {icon && (
+    <>
+      <Icon name={icon} />{' '}
+    </>
+  )}
+  <slot />
+  {external && !icon && <Icon name="lucide:arrow-up-right" />}
+</a>
