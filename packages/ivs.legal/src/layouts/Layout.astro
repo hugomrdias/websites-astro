@@ -14,6 +14,7 @@ import playfairDisplay from '@fontsource-variable/playfair-display/files/playfai
 import inter from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url'
 import defaultOgImage from '../assets/og.png'
 import { SITE } from '@consts'
+import { buildHomeJsonLd } from '../lib/jsonld'
 import { GOOGLE_MAPS } from 'astro:env/client'
 
 export interface Props {
@@ -38,6 +39,17 @@ const ogImage = await getImage({
   height: 628,
   fit: 'cover',
 })
+
+const pathname = Astro.url.pathname.replace(/\/+$/, '') || '/'
+const isHome = pathname === '/' || pathname === '/en'
+const jsonLd = isHome
+  ? buildHomeJsonLd({
+      lang: lang === 'en' ? 'en' : 'pt',
+      title,
+      description,
+      canonicalUrl: canonicalURL.href,
+    })
+  : undefined
 
 const googleMapsUrl = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS}&callback=console.debug&libraries=maps,marker&v=beta&loading=async`
 ---
@@ -110,6 +122,12 @@ const googleMapsUrl = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS
 
     <!-- preconnect -->
     <link rel="preconnect" href="https://newassets.hcaptcha.com" />
+
+    {
+      jsonLd && (
+        <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+      )
+    }
   </head>
   <body class="font-sans text-navy-900 bg-white">
     <slot />
