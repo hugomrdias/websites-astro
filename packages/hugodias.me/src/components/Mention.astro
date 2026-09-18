@@ -5,14 +5,16 @@ import { JSDOM, VirtualConsole } from 'jsdom'
 const virtualConsole = new VirtualConsole()
 virtualConsole.sendTo(console, { omitJSDOMErrors: true })
 
-async function fetchMetaTags(url: string | URL | Request) {
+type Meta = { title: string; description: string }
+
+async function fetchMetaTags(url: string): Promise<Meta> {
   try {
-    // Make the request to get the HTML content
     const response = await fetch(url, {
       headers: {
         'User-Agent':
           'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
       },
+      signal: AbortSignal.timeout(8_000),
     })
 
     if (!response.ok) {
@@ -20,32 +22,47 @@ async function fetchMetaTags(url: string | URL | Request) {
     }
 
     const html = await response.text()
-
-    // Parse the HTML
     const dom = new JSDOM(html, { virtualConsole })
     const document = dom.window.document
-
-    // Get the title
-    const title: string = document.querySelector('title')?.textContent || ''
-
-    // Get the description meta tag
+    const title = document.querySelector('title')?.textContent || ''
     const descriptionMeta = document.querySelector(
       'meta[name="description"], meta[property="og:description"]'
     )
-    const description: string = descriptionMeta
-      ? descriptionMeta.getAttribute('content') || ''
-      : ''
+    const description = descriptionMeta?.getAttribute('content') || ''
+
+    return { title, description }
+  } catch {
+    console.error(`Error fetching meta tags for ${url}.`)
+    return { title: '', description: '' }
+  }
+}
+
+async function fetchNpmMeta(packageName: string): Promise<Meta> {
+  try {
+    const response = await fetch(
+      `https://registry.npmjs.org/${encodeURIComponent(packageName)}`,
+      {
+        headers: { Accept: 'application/json' },
+        signal: AbortSignal.timeout(8_000),
+      }
+    )
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`)
+    }
+
+    const data = (await response.json()) as {
+      name?: string
+      description?: string
+    }
 
     return {
-      title,
-      description,
+      title: data.name ?? packageName,
+      description: data.description ?? '',
     }
   } catch {
-    console.error('Error fetching meta tags.')
-    return {
-      title: '',
-      description: '',
-    }
+    console.error(`Error fetching npm metadata for ${packageName}.`)
+    return { title: packageName, description: '' }
   }
 }
 
@@ -96,10 +113,12 @@ if (type === 'npm') {
     _href = 'https://www.npmjs.com/' + selector
     _title = `${selector} | npm user`
   } else {
-    // package
+    // package — npmjs.com HTML is blocked for scrapers (403)
     _href = 'https://www.npmjs.com/package/' + selector
-    meta = await fetchMetaTags(_href)
-    _title = `${meta.title} | ${meta.description}`
+    meta = await fetchNpmMeta(selector)
+    _title = meta.description
+      ? `${meta.title} | ${meta.description}`
+      : meta.title
   }
 }
 
