@@ -4,22 +4,26 @@ import { getImage } from 'astro:assets'
 type Props = {
   images: string[]
 }
-const { images } = Astro.props
+const { images = [] } = Astro.props
 
 const imagesProcessed = []
 for (const file of images) {
-  const original = await getImage({ src: file, inferSize: true })
-  if (!original.options.height || !original.options.width) {
+  try {
+    const original = await getImage({ src: file, inferSize: true })
+    if (!original.options.height || !original.options.width) {
+      continue
+    }
+    const aspectRatio = original.options.width / original.options.height
+    const thumbnail = await getImage({
+      src: file,
+      width: Math.round(120 * aspectRatio),
+      height: 120,
+    })
+
+    imagesProcessed.push({ original, thumbnail })
+  } catch {
     continue
   }
-  const aspectRatio = original.options.width / original.options.height
-  const thumbnail = await getImage({
-    src: file,
-    width: Math.round(120 * aspectRatio),
-    height: 120,
-  })
-
-  imagesProcessed.push({ original, thumbnail })
 }
 ---
 

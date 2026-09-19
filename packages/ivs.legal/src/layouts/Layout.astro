@@ -123,11 +123,12 @@ const googleMapsUrl = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS
     <!-- preconnect -->
     <link rel="preconnect" href="https://newassets.hcaptcha.com" />
 
-    {
-      jsonLd && (
-        <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
-      )
-    }
+    {jsonLd && (
+      <script
+        type="application/ld+json"
+        set:html={JSON.stringify(jsonLd)}
+      ></script>
+    )}
   </head>
   <body class="font-sans text-navy-900 bg-white">
     <slot />
