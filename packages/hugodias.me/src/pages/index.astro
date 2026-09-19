@@ -127,7 +127,7 @@ const speaking = (
       </p>
     </article>
     <ul class="Socials">
-      {SOCIALS.map((SOCIAL, index, arr) => (
+      {SOCIALS.map((SOCIAL) => (
         <li>
           <Link
             href={SOCIAL.HREF}
@@ -137,11 +137,10 @@ const speaking = (
           >
             {SOCIAL.NAME}
           </Link>
-          {arr.length - 1 !== index && '/'}
         </li>
       ))}
       <li>
-        / <Link href="/vcard">vCard</Link>
+        <Link href="/vcard">vCard</Link>
       </li>
     </ul>
     <p>

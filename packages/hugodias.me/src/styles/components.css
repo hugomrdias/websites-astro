@@ -1,6 +1,13 @@
 .Socials {
   display: flex;
-  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 0;
+}
+
+.Socials > li:not(:last-child)::after {
+  content: '/';
+  margin-inline: 0.4em;
 }
 
 a.button.Button-variant,

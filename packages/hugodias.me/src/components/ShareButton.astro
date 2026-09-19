@@ -1,0 +1,114 @@
+---
+import { Icon } from 'astro-icon/components'
+
+type Props = {
+  title: string
+  text?: string
+}
+
+const { title, text = '' } = Astro.props
+---
+
+<button
+  type="button"
+  class="Button-variant Button--small"
+  data-share
+  data-share-title={title}
+  data-share-text={text}
+>
+  <Icon name="lucide:share-2" />
+  <span data-share-label>Share</span>
+</button>
+
+<script>
+  async function copyLink(url: string) {
+    try {
+      if (navigator.clipboard?.writeText) {
+        await Promise.race([
+          navigator.clipboard.writeText(url),
+          new Promise((_, reject) => {
+            window.setTimeout(
+              () => reject(new Error('clipboard timeout')),
+              1000
+            )
+          }),
+        ])
+        return true
+      }
+    } catch {
+      // Fall through to the execCommand path.
+    }
+
+    try {
+      const input = document.createElement('textarea')
+      input.value = url
+      input.setAttribute('readonly', '')
+      input.style.position = 'fixed'
+      input.style.left = '-9999px'
+      document.body.append(input)
+      input.select()
+      const ok = document.execCommand('copy')
+      input.remove()
+      return ok
+    } catch {
+      return false
+    }
+  }
+
+  function setLabel(button: HTMLButtonElement, label: string) {
+    const node = button.querySelector('[data-share-label]')
+    if (node) node.textContent = label
+  }
+
+  async function tryNativeShare(title: string, text: string, url: string) {
+    if (typeof navigator.share !== 'function') return false
+
+    const payloads: ShareData[] = [
+      { title, text, url },
+      { title, url },
+      { url },
+    ]
+
+    for (const data of payloads) {
+      try {
+        if (
+          typeof navigator.canShare === 'function' &&
+          !navigator.canShare(data)
+        ) {
+          continue
+        }
+        await navigator.share(data)
+        return true
+      } catch (error) {
+        if (error instanceof DOMException && error.name === 'AbortError') {
+          return true
+        }
+      }
+    }
+
+    return false
+  }
+
+  async function share(button: HTMLButtonElement) {
+    const title = button.dataset.shareTitle || document.title
+    const text = button.dataset.shareText || ''
+    const url = location.href
+
+    if (await tryNativeShare(title, text, url)) return
+
+    const copied = await copyLink(url)
+    setLabel(button, copied ? 'Copied' : 'Copy failed')
+    window.setTimeout(() => setLabel(button, 'Share'), 2000)
+  }
+
+  document.addEventListener('click', (event) => {
+    const target = event.target
+    if (!(target instanceof Element)) return
+
+    const button = target.closest<HTMLButtonElement>('[data-share]')
+    if (!button) return
+
+    event.preventDefault()
+    void share(button)
+  })
+</script>
