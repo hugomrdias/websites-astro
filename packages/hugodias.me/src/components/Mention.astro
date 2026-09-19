@@ -70,6 +70,21 @@ function faviconUrl(domain: string) {
   return `https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${domain}&size=128`
 }
 
+async function githubAvatarUrl(username: string) {
+  const fallback = `https://github.com/${encodeURIComponent(username)}.png?size=64`
+
+  try {
+    const response = await fetch(fallback, {
+      redirect: 'manual',
+      signal: AbortSignal.timeout(8_000),
+    })
+    return response.headers.get('location') ?? fallback
+  } catch {
+    console.error(`Error resolving GitHub avatar for ${username}.`)
+    return fallback
+  }
+}
+
 type Props = {
   id: string
   aboveTheFold?: boolean
@@ -95,7 +110,7 @@ if (type === 'gh') {
   const idParts = selector.split('/')
   meta = await fetchMetaTags(_href)
   _title = meta.title
-  _img = `https://avatars.githubusercontent.com/${idParts[0]}.png`
+  _img = await githubAvatarUrl(idParts[0])
 }
 
 //npm
