@@ -114,7 +114,10 @@ const t = useTranslations(lang)
     </div>
 
     <div class="border-t border-gray-700 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-      <p class="text-gray-400 text-sm">{t('footer.copyright')}</p>
+      <p class="text-gray-400 text-sm">
+        © <current-year>{new Date().getFullYear()}</current-year>{' '}
+        {t('footer.copyright')}
+      </p>
       <div class="flex space-x-6 mt-4 md:mt-0">
         <a
           href={translatePath(lang, 'politica-privacidade')}
@@ -132,3 +135,15 @@ const t = useTranslations(lang)
     </div>
   </div>
 </footer>
+
+<script>
+  class CurrentYear extends HTMLElement {
+    connectedCallback() {
+      this.textContent = String(new Date().getFullYear())
+    }
+  }
+
+  if (!customElements.get('current-year')) {
+    customElements.define('current-year', CurrentYear)
+  }
+</script>
