@@ -5,20 +5,28 @@ import sitemap from '@astrojs/sitemap'
 import icon from 'astro-icon'
 import react from '@astrojs/react'
 import AstroPWA from '@vite-pwa/astro'
+import { notro } from 'notro-loader/integration'
 
 export default defineConfig({
   site: 'https://ivs.legal',
   image: {
     responsiveStyles: true,
+    remotePatterns: [{ protocol: 'https', hostname: '**.amazonaws.com' }],
   },
   env: {
     schema: {
+      NOTION_TOKEN: envField.string({ context: 'server', access: 'secret' }),
+      NOTION_DATA_SOURCE_ID: envField.string({
+        context: 'server',
+        access: 'secret',
+      }),
       WEB3FORMS: envField.string({ context: 'client', access: 'public' }),
       HCAPTCHA: envField.string({ context: 'client', access: 'public' }),
       GOOGLE_MAPS: envField.string({ context: 'client', access: 'public' }),
     },
   },
   integrations: [
+    notro(),
     umami({
       id: 'ccd49192-101e-4047-82f5-275fbbd2b877',
       endpointUrl: 'https://stats.hugomrdias.dev',

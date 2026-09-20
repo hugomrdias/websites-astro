@@ -1,5 +1,8 @@
 import { getCollection, type CollectionEntry } from 'astro:content'
-import { assertUniqueArticleSlugs } from './article-slug'
+import {
+  assertUniqueArticleSlugs,
+  assertUniqueArticleTranslations,
+} from './article-slug'
 
 export type Article = CollectionEntry<'articles'>
 export type Language = Article['data']['lang']
@@ -10,6 +13,7 @@ export async function getArticles(lang?: Language) {
     ({ data }) => !data.draft && (!lang || data.lang === lang)
   )
   assertUniqueArticleSlugs(articles)
+  assertUniqueArticleTranslations(articles)
   return articles.sort(
     (a, b) =>
       b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf() ||

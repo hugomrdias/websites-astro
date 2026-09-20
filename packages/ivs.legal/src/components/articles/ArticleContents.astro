@@ -1,0 +1,42 @@
+---
+interface Props {
+  label: string
+}
+const { label } = Astro.props
+---
+
+<article-contents>
+  <nav aria-label={label} hidden>
+    <p class="journal-eyebrow">{label}</p>
+    <ol></ol>
+  </nav>
+</article-contents>
+
+<script>
+  class ArticleContents extends HTMLElement {
+    connectedCallback() {
+      const headings = this.closest(
+        '.journal-reading-layout'
+      )?.querySelectorAll('.journal-prose h2[id]')
+      const list = this.querySelector('ol')
+      const nav = this.querySelector('nav')
+      if (!headings?.length || !list || !nav) return
+
+      // Use the renderer's actual IDs, including duplicate-heading suffixes.
+      list.replaceChildren(
+        ...Array.from(headings, (heading) => {
+          const item = document.createElement('li')
+          const link = document.createElement('a')
+          link.href = `#${encodeURIComponent(heading.id)}`
+          link.textContent = heading.textContent
+          item.append(link)
+          return item
+        })
+      )
+      nav.hidden = false
+    }
+  }
+  if (!customElements.get('article-contents')) {
+    customElements.define('article-contents', ArticleContents)
+  }
+</script>

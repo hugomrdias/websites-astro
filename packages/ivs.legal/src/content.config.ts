@@ -1,39 +1,59 @@
 import { defineCollection } from 'astro:content'
 import { z } from 'astro/zod'
-import { glob } from 'astro/loaders'
-import { articleCategoryIds } from './lib/article-categories'
-import { articleSlugPattern, slugFromTitle } from './lib/article-slug'
+import { NOTION_TOKEN, NOTION_DATA_SOURCE_ID } from 'astro:env/server'
+import {
+  loader,
+  pageWithMarkdownSchema,
+  notroProperties,
+  getPlainText,
+} from 'notro-loader'
+import { articleMetadataSchema } from './lib/article-schema'
 
 const articles = defineCollection({
-  // Replace this loader with Notion while preserving the schema and rendered body.
-  loader: glob({
-    pattern: '**/*.md',
-    base: './src/content/articles',
-    // Keep entry identity independent of the public URL and its language.
-    generateId: ({ entry }) => entry.replace(/\.md$/, ''),
+  loader: loader({
+    clientOptions: { auth: NOTION_TOKEN },
+    queryParameters: {
+      data_source_id: NOTION_DATA_SOURCE_ID,
+      filter: { property: 'draft', checkbox: { equals: false } },
+    },
   }),
-  schema: z
-    .object({
-      title: z.string().trim().min(1),
-      description: z.string(),
-      slug: z.string().trim().nullish(),
-      lang: z.enum(['pt', 'en']),
-      translationKey: z.string(),
-      category: z.enum(articleCategoryIds),
-      publishedAt: z.coerce.date(),
-      author: z.string().default('IVS Legal'),
-      featured: z.boolean().default(false),
-      draft: z.boolean().default(false),
-      sample: z.boolean().default(false),
+  schema: pageWithMarkdownSchema
+    .extend({
+      properties: z.object({
+        title: notroProperties.title,
+        description: notroProperties.richText,
+        slug: notroProperties.richText.optional(),
+        lang: notroProperties.select,
+        translationKey: notroProperties.richText,
+        category: notroProperties.select,
+        publishedAt: notroProperties.date,
+        author: notroProperties.richText.optional(),
+        featured: notroProperties.checkbox.optional(),
+        draft: notroProperties.checkbox,
+        sample: notroProperties.checkbox.optional(),
+      }),
     })
-    .transform((article) => ({
-      ...article,
-      slug: article.slug || slugFromTitle(article.title),
-    }))
-    .refine((article) => articleSlugPattern.test(article.slug), {
-      path: ['slug'],
-      message:
-        'Provide a slug using lowercase letters, numbers and single hyphens, or a title that generates one.',
+    .transform((page) => {
+      const p = page.properties
+      return {
+        // Keep Notro's raw fields intact for its cache and image-expiry checks.
+        ...page,
+        ...articleMetadataSchema.parse({
+          title: getPlainText(p.title),
+          description: getPlainText(p.description),
+          slug: p.slug ? getPlainText(p.slug) : undefined,
+          lang: getPlainText(p.lang),
+          translationKey: getPlainText(p.translationKey),
+          category: getPlainText(p.category),
+          publishedAt: getPlainText(p.publishedAt),
+          author:
+            (p.author ? getPlainText(p.author)?.trim() : undefined) ||
+            undefined,
+          featured: p.featured?.checkbox,
+          draft: p.draft.checkbox,
+          sample: p.sample?.checkbox,
+        }),
+      }
     }),
 })
 

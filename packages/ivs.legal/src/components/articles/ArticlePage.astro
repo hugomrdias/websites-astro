@@ -1,5 +1,7 @@
 ---
-import { render } from 'astro:content'
+import { NotroContent, buildLinkToPages } from 'notro-loader'
+import ArticleContents from './ArticleContents.astro'
+import ArticleImage from './ArticleImage.astro'
 import { articleCategoryLabel } from '../../lib/article-categories'
 import Layout from '../../layouts/Layout.astro'
 import Header from '../Header.astro'
@@ -22,7 +24,6 @@ const { article } = Astro.props
 const { title, description, lang, category, author, publishedAt, sample } =
   article.data
 const copy = journalCopy[lang]
-const { Content, headings } = await render(article)
 const articles = await getArticles()
 const translation = articles.find(
   (item) =>
@@ -43,7 +44,10 @@ const related = articles
       Number(a.data.category === category)
   )
   .slice(0, 2)
-const toc = headings.filter((heading) => heading.depth === 2)
+const linkToPages = buildLinkToPages(articles, {
+  url: (entry) => articleUrl(entry).replace(/^\//, ''),
+  title: (entry) => entry.data.title,
+})
 ---
 
 <Layout
@@ -108,21 +112,14 @@ const toc = headings.filter((heading) => heading.depth === 2)
         )}
         <div class="journal-reading-layout">
           <aside class="journal-toc">
-            {toc.length > 0 && (
-              <nav aria-label={copy.contents}>
-                <p class="journal-eyebrow">{copy.contents}</p>
-                <ol>
-                  {toc.map((heading) => (
-                    <li>
-                      <a href={`#${heading.slug}`}>{heading.text}</a>
-                    </li>
-                  ))}
-                </ol>
-              </nav>
-            )}
+            <ArticleContents label={copy.contents} />
           </aside>
           <div class="journal-prose">
-            <Content />
+            <NotroContent
+              markdown={article.data.markdown}
+              linkToPages={linkToPages}
+              components={{ img: ArticleImage }}
+            />
           </div>
         </div>
       </div>

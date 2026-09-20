@@ -10,6 +10,24 @@ export function slugFromTitle(title: string) {
     .replace(/^-|-$/g, '')
 }
 
+export function assertUniqueArticleTranslations(
+  articles: Array<{
+    id: string
+    data: { lang: string; translationKey: string }
+  }>
+) {
+  const seen = new Set<string>()
+  for (const article of articles) {
+    const key = `${article.data.lang}/${article.data.translationKey}`
+    if (seen.has(key)) {
+      throw new Error(
+        `Duplicate article translation key "${key}". Each language can have only one article per translation key.`
+      )
+    }
+    seen.add(key)
+  }
+}
+
 export function assertUniqueArticleSlugs(
   articles: Array<{ id: string; data: { lang: string; slug: string } }>
 ) {

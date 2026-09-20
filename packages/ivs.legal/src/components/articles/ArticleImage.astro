@@ -1,0 +1,12 @@
+---
+import { Image } from 'astro:assets'
+
+interface Props {
+  src: string
+  alt?: string
+  title?: string
+}
+const { src, alt = '', title } = Astro.props
+---
+
+<Image src={src} alt={alt} title={title} inferSize layout="constrained" />
