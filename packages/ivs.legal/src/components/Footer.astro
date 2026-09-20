@@ -30,11 +30,13 @@ const t = useTranslations(lang)
         </div>
         <p class="text-gray-300 mb-4 max-w-md">{t('footer.description')}</p>
         <div class="flex space-x-4">
-          {/* eslint-disable-next-line astro/jsx-a11y/anchor-is-valid -- placeholder until a Twitter URL exists */}
           <a
-            href="#"
+            href="https://x.com/ivslegal"
+            target="_blank"
+            rel="noopener noreferrer"
             class="text-gray-400 hover:text-gold-400 transition-colors"
-            title="Twitter"
+            title="IVS Legal — X"
+            aria-label="IVS Legal — X"
           >
             <Icon name="lucide:twitter" class="w-5 min-w-5 h-5" />
           </a>
