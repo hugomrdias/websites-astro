@@ -58,6 +58,6 @@ PRs build staging artifacts without deploying. Manual workflow runs default to s
 
 ## Static output checks
 
-After artifact preparation, the read-only `scripts/verify-build.mjs` verifies generated Markdown and every `/llms.txt` link, plus forms, icons, 404 HTML, and the self-destroying `/sw.js`. Missing pages return 404; `/api/*` runs before static fallback. `.md` files use `text/markdown`; ordinary URLs remain HTML, including for AI crawlers.
+After artifact preparation, the read-only `scripts/verify-build.mjs` verifies generated Markdown and every `/llms.txt` link, plus the presence of required icon, manifest, 404, and `/sw.js` files. Missing pages return 404; `/api/*` runs before static fallback. `.md` files use `text/markdown`; ordinary URLs remain HTML, including for AI crawlers.
 
 The PWA integration remains in retirement mode. Its older output-path behaviour needs the build script to copy generated icons into `dist/client`; `/sw.js` is explicitly generated there. Do not delete or rename the retirement worker. Plugin removal and independent icon generation remain tracked in [issue #16](https://github.com/hugomrdias/websites-astro/issues/16).

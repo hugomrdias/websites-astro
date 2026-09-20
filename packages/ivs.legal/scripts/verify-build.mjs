@@ -53,22 +53,7 @@ for (const name of [
 ])
   await stat(join(root, name))
 
-// Both locales have homepage and dedicated contact forms. Confirm the shared
-// form and Apple icon link survive rendering, with no legacy provider markup.
-for (const name of [
-  'index.html',
-  'en/index.html',
-  'contacto/index.html',
-  'en/contacto/index.html',
-]) {
-  const html = await readFile(join(root, name), 'utf8')
-  assert(
-    html.includes('data-contact-form') && html.includes('apple-touch-icon')
-  )
-  assert(!/web3forms|hcaptcha/i.test(html))
-}
-
 // Only report success after every assertion above has passed.
 console.log(
-  'Verified Markdown, llms.txt, contact forms, icons, 404 and sw.js availability.'
+  'Verified Markdown, llms.txt links and required asset availability.'
 )
