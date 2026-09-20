@@ -124,9 +124,6 @@ const googleMapsUrl = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS
     <script src="/src/pwa.ts"></script>
     <ClientRouter />
 
-    <!-- preconnect -->
-    <link rel="preconnect" href="https://newassets.hcaptcha.com" />
-
     {jsonLd && (
       <script
         type="application/ld+json"
@@ -138,10 +135,4 @@ const googleMapsUrl = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS
     <slot />
   </body>
   <script is:inline async defer src={googleMapsUrl}></script>
-  <script
-    is:inline
-    async
-    defer
-    src="https://js.hcaptcha.com/1/api.js?hl=en&render=explicit&recaptchacompat=off"
-  ></script>
 </html>

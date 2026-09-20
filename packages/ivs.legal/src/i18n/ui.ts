@@ -1,4 +1,4 @@
-import { articleCategoryLabel } from '../lib/article-categories'
+import { articleCategoryLabel } from '../lib/article-categories.ts'
 
 export const languages = {
   pt: 'Português',
@@ -68,6 +68,36 @@ export const ui = {
     'contact.phone.data': '+351 925 395 905',
     'contact.email.data': 'geral@ivs.legal',
     'contact.form.title': 'Solicite uma Consulta',
+    'contact.form.firstName.placeholder': 'João',
+    'contact.form.lastName.placeholder': 'Silva',
+    'contact.form.email.placeholder': 'joao.silva@email.com',
+    'contact.form.phone.placeholder': '+351 912 345 678',
+    'contact.form.subject.placeholder': 'Selecione uma área',
+    'contact.form.urgency': 'Urgência',
+    'contact.form.urgency.normal': 'Normal',
+    'contact.form.urgency.urgent': 'Urgente',
+    'contact.form.urgency.veryUrgent': 'Muito Urgente',
+    'contact.form.message.placeholder':
+      'Descreva brevemente a sua situação jurídica...',
+    'contact.form.message.placeholderDetailed':
+      'Descreva detalhadamente a sua situação jurídica, incluindo datas relevantes e documentos disponíveis...',
+    'contact.form.privacy.prefix': 'Aceito a',
+    'contact.form.privacy.link': 'política de privacidade',
+    'contact.form.privacy.suffix':
+      'e autorizo o tratamento dos meus dados pessoais para fins de contacto e prestação de serviços jurídicos.',
+    'contact.form.noscript': 'Ative JavaScript ou contacte-nos por email:',
+    'contact.form.success':
+      'Obrigado! O seu pedido foi enviado com sucesso. Entraremos em contacto brevemente.',
+    'contact.form.success.title': 'Pedido enviado com sucesso!',
+    'contact.form.success.description':
+      'Entraremos em contacto consigo no prazo de 24 horas. Obrigado pela sua confiança.',
+    'contact.form.sending': 'A enviar…',
+    'contact.form.error':
+      'Não foi possível enviar. Tente novamente ou contacte geral@ivs.legal.',
+    'contact.form.error.token':
+      'Conclua a verificação de segurança antes de enviar.',
+    'contact.form.error.rate':
+      'Demasiadas tentativas. Aguarde um minuto e tente novamente.',
     'contact.form.firstName': 'Primeiro Nome',
     'contact.form.lastName': 'Último Nome',
     'contact.form.email': 'Email',
@@ -155,6 +185,35 @@ export const ui = {
     'contact.phone.data': '+351 925 395 905',
     'contact.email.data': 'geral@ivs.legal',
     'contact.form.title': 'Request a Consultation',
+    'contact.form.firstName.placeholder': 'John',
+    'contact.form.lastName.placeholder': 'Smith',
+    'contact.form.email.placeholder': 'john.smith@email.com',
+    'contact.form.phone.placeholder': '+351 912 345 678',
+    'contact.form.subject.placeholder': 'Select an area',
+    'contact.form.urgency': 'Urgency',
+    'contact.form.urgency.normal': 'Normal',
+    'contact.form.urgency.urgent': 'Urgent',
+    'contact.form.urgency.veryUrgent': 'Very Urgent',
+    'contact.form.message.placeholder':
+      'Briefly describe your legal situation...',
+    'contact.form.message.placeholderDetailed':
+      'Describe your legal situation in detail, including relevant dates and available documents...',
+    'contact.form.privacy.prefix': 'I accept the',
+    'contact.form.privacy.link': 'privacy policy',
+    'contact.form.privacy.suffix':
+      'and authorize the processing of my personal data for contact and legal service purposes.',
+    'contact.form.noscript': 'Enable JavaScript or email us:',
+    'contact.form.success':
+      'Thank you! Your request has been sent successfully. We will contact you shortly.',
+    'contact.form.success.title': 'Request sent successfully!',
+    'contact.form.success.description':
+      'We will contact you within 24 hours. Thank you for your trust.',
+    'contact.form.sending': 'Sending…',
+    'contact.form.error':
+      'Unable to send. Please retry or email geral@ivs.legal.',
+    'contact.form.error.token': 'Complete the security check before sending.',
+    'contact.form.error.rate':
+      'Too many attempts. Wait a minute and try again.',
     'contact.form.firstName': 'First Name',
     'contact.form.lastName': 'Last Name',
     'contact.form.email': 'Email',
