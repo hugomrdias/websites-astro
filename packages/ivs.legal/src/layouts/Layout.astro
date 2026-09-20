@@ -21,6 +21,7 @@ export interface Props {
   image?: ImageMetadata
   type?: 'article' | 'website'
   noindex?: boolean
+  googleMaps?: boolean
 }
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 
@@ -31,6 +32,7 @@ const {
   image = defaultOgImage,
   type = 'website',
   noindex = false,
+  googleMaps = false,
 } = Astro.props
 const ogImage = await getImage({
   src: image,
@@ -117,5 +119,5 @@ const googleMapsUrl = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS
   <body class="font-sans text-navy-900 bg-white">
     <slot />
   </body>
-  <script is:inline async defer src={googleMapsUrl}></script>
+  {googleMaps && <script is:inline async defer src={googleMapsUrl}></script>}
 </html>
