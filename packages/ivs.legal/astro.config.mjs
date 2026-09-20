@@ -63,6 +63,7 @@ export default defineConfig({
     umami({
       id: 'ccd49192-101e-4047-82f5-275fbbd2b877',
       endpointUrl: 'https://stats.hugomrdias.dev',
+      performance: true,
     }),
     sitemap(),
     icon(),
