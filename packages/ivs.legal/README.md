@@ -52,12 +52,22 @@ CLOUDFLARE_ENV=production pnpm --filter ivs.legal build
 pnpm --filter ivs.legal exec wrangler deploy --config dist/server/wrangler.json
 ```
 
-`dist/server/wrangler.json` is the generated deployment configuration; it references both Worker code and `../client` assets. CI transfers all of `dist`, so the deploy job does not need to rebuild or select another environment. `scripts/prepare-build.mjs` copies generated icons into the static asset directory and removes the generated local `.dev.vars` preview file before artifacts can be uploaded. Never upload local `.env` or `.dev.vars` files.
+`dist/server/wrangler.json` is the generated deployment configuration; it references both Worker code and `../client` assets. CI transfers all of `dist`, so the deploy job does not need to rebuild or select another environment. `scripts/prepare-build.mjs` removes the generated local `.dev.vars` preview file before artifacts can be uploaded. Never upload local `.env` or `.dev.vars` files.
 
 PRs build staging artifacts without deploying. Manual workflow runs default to staging. Master pushes and Notion rebuild events deploy production. Validate staging first, then merge through review; retain the previous Cloudflare version for rollback. Only remove legacy provider secrets after checking production delivery.
 
 ## Static output checks
 
-After artifact preparation, the read-only `scripts/verify-build.mjs` verifies generated Markdown and every `/llms.txt` link, plus the presence of required icon, manifest, 404, and `/sw.js` files. Missing pages return 404; `/api/*` runs before static fallback. `.md` files use `text/markdown`; ordinary URLs remain HTML, including for AI crawlers.
+After artifact preparation, the read-only `scripts/verify-build.mjs` verifies generated Markdown and every `/llms.txt` link, plus the presence of required icon, 404, and `/sw.js` files. Missing pages return 404; `/api/*` runs before static fallback. `.md` files use `text/markdown`; ordinary URLs remain HTML, including for AI crawlers.
 
-The PWA integration remains in retirement mode. Its older output-path behaviour needs the build script to copy generated icons into `dist/client`; `/sw.js` is explicitly generated there. Do not delete or rename the retirement worker. Plugin removal and independent icon generation remain tracked in [issue #16](https://github.com/hugomrdias/websites-astro/issues/16).
+## Icons and retired service worker
+
+[`astro-favicons`](https://github.com/ACP-CODE/astro-favicons) generates favicons and platform metadata from `public/favicon.png` during development and builds, and supplies their head tags through `localizedHTML` in the shared layout. Explicit rendering avoids relying on its middleware’s route-header detection during Astro prerendering. To update the icons, replace that source and rebuild; no separate generation command or checked-in generated assets are needed.
+
+The integration provides ICO, PNG and SVG favicon outputs, Apple touch and Safari pinned-tab icons, Android icons referenced by the web manifest, and Windows/Yandex assets with their metadata. SVG output from the PNG source remains raster-based; use a vector source if true scalable artwork is needed. The configuration preserves theme colour `#B99A4B`, background `#222221`, and the IVS Legal name. Head reordering is disabled. The manifest uses browser display mode; no service worker is registered and no offline caching is installed.
+
+This replaces issue #16's original standalone-generator/checked-in-assets approach. The manifest is retained for platform icon discovery independently of service-worker retirement.
+
+`public/sw.js` preserves the former Vite PWA retirement worker. Keep serving it at **`/sw.js` indefinitely**, including after future hosting or routing changes. It must return HTTP 200 JavaScript directly, never a redirect, HTML fallback, or 404. Returning visitors may still have the original caching worker: the browser must be able to update it at the same URL to unregister it, clear old caches, and reload its clients. The retirement worker has no fetch handler or caching logic. Do not register it from new pages.
+
+Before production rollout, validate on the same origin with fresh browser storage, with the original caching worker, and after the intermediate retirement deployment. Check that old registrations and caches disappear, Portuguese and English pages retain their icons, and reloads/navigation do not loop. Production rollout uses the existing deployment workflow.

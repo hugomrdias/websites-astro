@@ -2,12 +2,9 @@
 import '@fontsource-variable/inter'
 import '@fontsource-variable/playfair-display'
 import { ClientRouter } from 'astro:transitions'
+import { localizedHTML as faviconHead } from 'astro-favicons/middleware'
 import { getImage } from 'astro:assets'
 import type { ImageMetadata } from 'astro'
-// @ts-expect-error - no types
-import { pwaInfo } from 'virtual:pwa-info'
-// @ts-expect-error - no types
-import { pwaAssetsHead } from 'virtual:pwa-assets/head'
 import '../styles/global.css'
 
 import playfairDisplay from '@fontsource-variable/playfair-display/files/playfair-display-latin-wght-normal.woff2?url'
@@ -107,21 +104,7 @@ const googleMapsUrl = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS
       type="font/woff2"
       crossorigin="anonymous"
     />
-    <!-- PWA -->
-    {pwaAssetsHead.themeColor && (
-      <meta name="theme-color" content={pwaAssetsHead.themeColor.content} />
-    )}
-    {pwaAssetsHead.links.map(
-      (
-        link: astroHTML.JSX.IntrinsicAttributes &
-          astroHTML.JSX.LinkHTMLAttributes
-      ) => (
-        <link {...link} />
-      )
-    )}
-    {pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
-
-    <script src="/src/pwa.ts"></script>
+    <Fragment set:html={faviconHead(lang)} />
     <ClientRouter />
 
     {jsonLd && (

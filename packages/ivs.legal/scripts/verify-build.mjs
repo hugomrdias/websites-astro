@@ -47,7 +47,12 @@ for (const [, url] of index.matchAll(/\]\((\/[^)]+)\)/g)) {
 for (const name of [
   'sw.js',
   'favicon.ico',
-  'apple-touch-icon-180x180.png',
+  'favicon-16x16.png',
+  'favicon-32x32.png',
+  'favicon-48x48.png',
+  'favicon.svg',
+  'apple-touch-icon.png',
+  'safari-pinned-tab.svg',
   'manifest.webmanifest',
   '404.html',
 ])

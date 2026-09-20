@@ -4,10 +4,10 @@ import tailwindcss from '@tailwindcss/vite'
 import umami from '@yeskunall/astro-umami'
 import sitemap from '@astrojs/sitemap'
 import icon from 'astro-icon'
+import favicons from 'astro-favicons'
 import react from '@astrojs/react'
 import cloudflare from '@astrojs/cloudflare'
 import markdownForAgents from '@puralex/astro-markdown-for-agents'
-import AstroPWA from '@vite-pwa/astro'
 import { notro } from 'notro-loader/integration'
 
 export default defineConfig({
@@ -66,59 +66,21 @@ export default defineConfig({
     }),
     sitemap(),
     icon(),
-    react(),
-    AstroPWA({
-      // Keep retirement mode available so returning visitors remove their old worker and caches.
-      selfDestroying: true,
-      outDir: 'dist/client',
-      registerType: 'autoUpdate',
+    favicons({
+      input: 'public/favicon.png',
+      name: 'IVS Legal',
+      short_name: 'IVS Legal',
+      themes: ['#B99A4B', '#B99A4B'],
+      background: '#222221',
       manifest: {
-        name: 'IVS Legal',
-        short_name: 'IVS Legal',
-        theme_color: '#B99A4B',
-        background_color: '#222221',
-        // screenshots: [
-        //   {
-        //     src: '/bg-1280x720.jpg',
-        //     sizes: '1280x720',
-        //     type: 'image/png',
-        //     form_factor: 'wide',
-        //   },
-        //   {
-        //     src: '/screenshot-narrow1.png',
-        //     sizes: '864x1732',
-        //     type: 'image/png',
-        //     form_factor: 'narrow',
-        //   },
-        //   {
-        //     src: '/screenshot-narrow2.png',
-        //     sizes: '864x1732',
-        //     type: 'image/png',
-        //     form_factor: 'narrow',
-        //   },
-        //   {
-        //     src: '/screenshot-narrow3.png',
-        //     sizes: '864x1732',
-        //     type: 'image/png',
-        //     form_factor: 'narrow',
-        //   },
-        // ],
+        display: 'browser',
+        display_override: ['browser'],
+        start_url: '/',
+        lang: 'pt',
       },
-      includeAssets: ['*.webp', '*.png', '*.jpg', '*.svg'],
-      workbox: {
-        navigateFallback: '/',
-        globPatterns: ['**/*.{css,js,html,svg,png,ico,webp,jpg,txt,xml}'],
-      },
-      pwaAssets: {
-        image: 'public/favicon.png',
-      },
-      // experimental: {
-      //   directoryAndTrailingSlashHandler: true,
-      // },
-      devOptions: {
-        enabled: false,
-      },
+      withCapo: false,
     }),
+    react(),
   ],
   i18n: {
     defaultLocale: 'pt',
