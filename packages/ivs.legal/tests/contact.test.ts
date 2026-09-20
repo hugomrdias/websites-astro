@@ -132,6 +132,14 @@ test('enforces origin, content type, method, size and rate limit', async () => {
     (await h.run(valid, { Origin: 'https://attacker.example' })).status,
     403
   )
+  const crossOrigin = await h.run(valid, {
+    Origin: 'https://attacker.example',
+    'Content-Type': 'text/plain',
+  })
+  assert.equal(crossOrigin.status, 403)
+  const error = (await crossOrigin.json()) as { code: string }
+  assert.equal(error.code, 'origin_rejected')
+  assert.equal((await h.run(valid, { Origin: '' })).status, 403)
   assert.equal(
     (await h.run(valid, { 'Content-Type': 'text/plain' })).status,
     415

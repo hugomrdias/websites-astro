@@ -17,6 +17,9 @@ export default defineConfig({
     imageService: 'compile',
   }),
   session: false,
+  // The sole dynamic endpoint checks every origin itself and returns JSON errors.
+  // Astro's form-only check would intercept some requests with plain-text errors.
+  security: { checkOrigin: false },
   image: {
     service: { entrypoint: './src/lib/build-image-service.ts' },
     responsiveStyles: true,
