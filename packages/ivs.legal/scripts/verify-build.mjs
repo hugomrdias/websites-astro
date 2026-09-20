@@ -1,21 +1,8 @@
 import console from 'node:console'
-import { readdir, readFile, stat, copyFile, rm } from 'node:fs/promises'
+import { readdir, readFile, stat } from 'node:fs/promises'
 import { resolve, join } from 'node:path'
 import assert from 'node:assert/strict'
 const root = resolve('dist/client')
-// @vite-pwa/astro 1.x writes generated icons to dist for static output,
-// while the Cloudflare adapter serves dist/client. Keep its generation pipeline.
-for (const name of await readdir('dist')) {
-  if (
-    /^(favicon\.ico|apple-touch-icon-.*\.png|(?:pwa|maskable-icon)-.*\.png)$/.test(
-      name
-    )
-  ) {
-    await copyFile(join('dist', name), join(root, name))
-  }
-}
-// Vite creates a local preview secrets file; it must never enter CI artifacts.
-await rm('dist/server/.dev.vars', { force: true })
 /** @param {string} dir @returns {Promise<string[]>} */
 async function files(dir) {
   const entries = await readdir(dir, { withFileTypes: true })

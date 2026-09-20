@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && node scripts/verify-build.mjs",
+    "build": "astro build && node scripts/prepare-build.mjs && node scripts/verify-build.mjs",
     "preview": "astro preview",
     "astro": "astro",
     "lint": "wrangler types && astro check && eslint . && prettier --check '**/*.{js,ts,yml,json,tsx,jsx,astro}' --ignore-path ../../.gitignore --ignore-path .gitignore",

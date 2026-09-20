@@ -52,12 +52,12 @@ CLOUDFLARE_ENV=production pnpm --filter ivs.legal build
 pnpm --filter ivs.legal exec wrangler deploy --config dist/server/wrangler.json
 ```
 
-`dist/server/wrangler.json` is the generated deployment configuration; it references both Worker code and `../client` assets. CI transfers all of `dist`, so the deploy job does not need to rebuild or select another environment. The final build step removes the generated local `.dev.vars` preview file before artifacts can be uploaded. Never upload local `.env` or `.dev.vars` files.
+`dist/server/wrangler.json` is the generated deployment configuration; it references both Worker code and `../client` assets. CI transfers all of `dist`, so the deploy job does not need to rebuild or select another environment. `scripts/prepare-build.mjs` copies generated icons into the static asset directory and removes the generated local `.dev.vars` preview file before artifacts can be uploaded. Never upload local `.env` or `.dev.vars` files.
 
 PRs build staging artifacts without deploying. Manual workflow runs default to staging. Master pushes and Notion rebuild events deploy production. Validate staging first, then merge through review; retain the previous Cloudflare version for rollback. Only remove legacy provider secrets after checking production delivery.
 
 ## Static output checks
 
-The build verifies generated Markdown and every `/llms.txt` link, plus forms, icons, 404 HTML, and the self-destroying `/sw.js`. Missing pages return 404; `/api/*` runs before static fallback. `.md` files use `text/markdown`; ordinary URLs remain HTML, including for AI crawlers.
+After artifact preparation, the read-only `scripts/verify-build.mjs` verifies generated Markdown and every `/llms.txt` link, plus forms, icons, 404 HTML, and the self-destroying `/sw.js`. Missing pages return 404; `/api/*` runs before static fallback. `.md` files use `text/markdown`; ordinary URLs remain HTML, including for AI crawlers.
 
 The PWA integration remains in retirement mode. Its older output-path behaviour needs the build script to copy generated icons into `dist/client`; `/sw.js` is explicitly generated there. Do not delete or rename the retirement worker. Plugin removal and independent icon generation remain tracked in [issue #16](https://github.com/hugomrdias/websites-astro/issues/16).
