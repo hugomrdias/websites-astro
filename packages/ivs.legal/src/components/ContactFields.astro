@@ -167,11 +167,7 @@ const t = useTranslations(lang)
         <>
           {t('contact.form.privacy.prefix')}{' '}
           <a
-            href={
-              lang === 'pt'
-                ? '/politica-privacidade'
-                : '/en/politica-privacidade'
-            }
+            href={lang === 'pt' ? '/privacy' : '/en/privacy'}
             class="text-gold-600 hover:text-gold-700 underline"
           >
             {t('contact.form.privacy.link')}

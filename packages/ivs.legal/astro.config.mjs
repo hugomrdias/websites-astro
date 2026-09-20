@@ -12,6 +12,16 @@ import { notro } from 'notro-loader/integration'
 
 export default defineConfig({
   site: 'https://ivs.legal',
+  redirects: {
+    '/contacto': '/contact',
+    '/politica-privacidade': '/privacy',
+    '/termos-condicoes': '/terms',
+    '/sobre': '/about',
+    '/en/contacto': '/en/contact',
+    '/en/politica-privacidade': '/en/privacy',
+    '/en/termos-condicoes': '/en/terms',
+    '/en/sobre': '/en/about',
+  },
   adapter: cloudflare({
     prerenderEnvironment: 'node',
     imageService: 'compile',

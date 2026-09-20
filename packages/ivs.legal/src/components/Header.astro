@@ -53,8 +53,8 @@ const route = currentPath.replace(/^\/(en|pt)/, '') || '/'
           {t('nav.articles')}
         </a>
         <a
-          href={translatePath(lang, 'sobre')}
-          class={`hover:text-gold-600 transition-colors ${route === '/sobre' ? 'text-gold-600 font-medium' : 'text-navy-700'}`}
+          href={translatePath(lang, 'about')}
+          class={`hover:text-gold-600 transition-colors ${route === '/about' ? 'text-gold-600 font-medium' : 'text-navy-700'}`}
         >
           {t('nav.about')}
         </a>
@@ -62,7 +62,7 @@ const route = currentPath.replace(/^\/(en|pt)/, '') || '/'
           {t('nav.practice-areas')}
         </a> -->
         <a
-          href={translatePath(lang, 'contacto')}
+          href={translatePath(lang, 'contact')}
           class="bg-gold-500 hover:bg-gold-600 text-white px-6 py-2 rounded-md font-medium transition-colors"
         >
           {t('nav.contact')}
@@ -123,13 +123,13 @@ const route = currentPath.replace(/^\/(en|pt)/, '') || '/'
           {t('nav.articles')}
         </a>
         <a
-          href={translatePath(lang, 'sobre')}
+          href={translatePath(lang, 'about')}
           class="text-navy-700 hover:text-gold-600 transition-colors"
         >
           {t('nav.about')}
         </a>
         <a
-          href={translatePath(lang, 'contacto')}
+          href={translatePath(lang, 'contact')}
           class="text-navy-700 hover:text-gold-600 transition-colors"
         >
           {t('nav.contact')}
