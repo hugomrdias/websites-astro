@@ -35,7 +35,8 @@ export default defineConfig({
     icon(),
     react(),
     AstroPWA({
-      /* your pwa options */
+      // Keep retirement mode available so returning visitors remove their old worker and caches.
+      selfDestroying: true,
       registerType: 'autoUpdate',
       manifest: {
         name: 'IVS Legal',
