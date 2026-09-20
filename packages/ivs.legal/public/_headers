@@ -13,3 +13,15 @@
 
 https://:version.:subdomain.workers.dev/*
   X-Robots-Tag: noindex
+
+https://dev.ivs.legal/*
+  X-Robots-Tag: noindex, nofollow, noarchive
+
+/*.md
+  Content-Type: text/markdown; charset=utf-8
+
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
+
+/sw.js
+  Cache-Control: no-cache

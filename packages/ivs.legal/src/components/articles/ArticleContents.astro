@@ -29,7 +29,7 @@ const { label } = Astro.props
           const link = document.createElement('a')
           link.href = `#${encodeURIComponent(heading.id)}`
           link.textContent = heading.textContent
-          item.append(link)
+          item.appendChild(link)
           return item
         })
       )

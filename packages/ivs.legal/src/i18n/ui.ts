@@ -1,4 +1,4 @@
-import { articleCategoryLabel } from '../lib/article-categories'
+import { articleCategoryLabel } from '../lib/article-categories.ts'
 
 export const languages = {
   pt: 'Português',

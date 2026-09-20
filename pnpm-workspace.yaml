@@ -37,12 +37,12 @@ catalog:
   typescript-eslint: ^8.70.0
   vcard-creator: ^0.7.2
   workbox-window: ^7.4.1
-  wrangler: ^4.134.0
+  wrangler: ^4.135.0
 minimumReleaseAgeExclude:
   - '@iconify-json/lucide@1.2.134'
   - miniflare@5.20260917.0-alpha
   - prettier@3.9.8
-  - wrangler@4.134.0
+  - wrangler@4.135.0
 onlyBuiltDependencies:
   - esbuild
   - sharp

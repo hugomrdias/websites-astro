@@ -1,0 +1,243 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils'
+import { TURNSTILE_SITE_KEY } from 'astro:env/client'
+interface Props {
+  detailed?: boolean
+}
+const { detailed = false } = Astro.props
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+---
+
+<form
+  id="contact-form"
+  class="space-y-6"
+  action="/api/contact"
+  data-contact-form
+  data-locale={lang}
+  data-sitekey={TURNSTILE_SITE_KEY}
+  method="POST"
+>
+  <div
+    class:list={[
+      'grid grid-cols-1 md:grid-cols-2',
+      detailed ? 'gap-6' : 'gap-4',
+    ]}
+  >
+    <div>
+      <label
+        for="firstName"
+        class="block text-sm font-medium text-gray-700 mb-2"
+      >
+        {t('contact.form.firstName')} *
+      </label>
+      <input
+        type="text"
+        id="firstName"
+        name="firstName"
+        maxlength={100}
+        required
+        class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-gold-500 focus:border-transparent transition-colors outline-none"
+        placeholder={lang === 'pt' ? 'João' : 'John'}
+      />
+    </div>
+    <div>
+      <label
+        for="lastName"
+        class="block text-sm font-medium text-gray-700 mb-2"
+      >
+        {t('contact.form.lastName')} *
+      </label>
+      <input
+        type="text"
+        id="lastName"
+        name="lastName"
+        maxlength={100}
+        required
+        class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-gold-500 focus:border-transparent transition-colors outline-none"
+        placeholder={lang === 'pt' ? 'Silva' : 'Smith'}
+      />
+    </div>
+  </div>
+
+  <div
+    class:list={[
+      detailed ? 'grid grid-cols-1 md:grid-cols-2 gap-6' : 'space-y-6',
+    ]}
+  >
+    <div>
+      <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+        {t('contact.form.email')} *
+      </label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        maxlength={254}
+        required
+        class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-gold-500 focus:border-transparent transition-colors outline-none"
+        placeholder={
+          lang === 'pt' ? 'joao.silva@email.com' : 'john.smith@email.com'
+        }
+      />
+    </div>
+
+    <div>
+      <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">
+        {t('contact.form.phone')}
+      </label>
+      <input
+        type="tel"
+        id="phone"
+        name="phone"
+        maxlength={50}
+        class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-gold-500 focus:border-transparent transition-colors outline-none"
+        placeholder="+351 912 345 678"
+      />
+    </div>
+  </div>
+  <div>
+    <label for="area" class="block text-sm font-medium text-gray-700 mb-2">
+      {t('contact.form.subject')} *
+    </label>
+    <select
+      id="area"
+      name="area"
+      required
+      class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-gold-500 focus:border-transparent transition-colors outline-none"
+    >
+      <option value="" disabled selected hidden class="text-gold-300">
+        {lang === 'pt' ? 'Selecione uma área' : 'Select an area'}
+      </option>
+      {Object.entries(t('contact.form.subject.options')).map(([key, value]) => (
+        <option value={key}>{value}</option>
+      ))}
+    </select>
+  </div>
+
+  {detailed && (
+    <div>
+      <label for="urgency" class="block text-sm font-medium text-gray-700 mb-2">
+        {lang === 'pt' ? 'Urgência' : 'Urgency'}
+      </label>
+      <select
+        id="urgency"
+        name="urgency"
+        class="w-full px-4 py-3 border border-gray-300 rounded-md"
+      >
+        <option value="normal">Normal</option>
+        <option value="urgente">{lang === 'pt' ? 'Urgente' : 'Urgent'}</option>
+        <option value="muito-urgente">
+          {lang === 'pt' ? 'Muito Urgente' : 'Very Urgent'}
+        </option>
+      </select>
+    </div>
+  )}
+  <div>
+    <label for="message" class="block text-sm font-medium text-gray-700 mb-2">
+      {t('contact.form.message')} *
+    </label>
+    <textarea
+      id="message"
+      name="message"
+      maxlength={10000}
+      rows={detailed ? 6 : 4}
+      required
+      class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-gold-500 focus:border-transparent transition-colors resize-vertical outline-none"
+      placeholder={
+        detailed
+          ? lang === 'pt'
+            ? 'Descreva detalhadamente a sua situação jurídica, incluindo datas relevantes e documentos disponíveis...'
+            : 'Describe your legal situation in detail, including relevant dates and available documents...'
+          : lang === 'pt'
+            ? 'Descreva brevemente a sua situação jurídica...'
+            : 'Briefly describe your legal situation...'
+      }
+    ></textarea>
+  </div>
+
+  <div class="flex items-start space-x-3">
+    <input
+      type="checkbox"
+      id="privacy"
+      name="privacy"
+      required
+      class="mt-1 w-4 h-4 text-gold-600 border-gray-300 rounded focus:ring-gold-500"
+    />
+    <label for="privacy" class="text-sm text-gray-600">
+      {detailed ? (
+        <>
+          {lang === 'pt' ? 'Aceito a' : 'I accept the'}{' '}
+          <a
+            href={
+              lang === 'pt'
+                ? '/politica-privacidade'
+                : '/en/politica-privacidade'
+            }
+            class="text-gold-600 hover:text-gold-700 underline"
+          >
+            {lang === 'pt' ? 'política de privacidade' : 'privacy policy'}
+          </a>{' '}
+          {lang === 'pt'
+            ? 'e autorizo o tratamento dos meus dados pessoais para fins de contacto e prestação de serviços jurídicos.'
+            : 'and authorize the processing of my personal data for contact and legal service purposes.'}
+        </>
+      ) : (
+        t('contact.form.privacy')
+      )}{' '}
+      *
+    </label>
+  </div>
+  <div data-turnstile></div>
+  <p data-form-error role="alert" tabindex="-1" class="hidden text-red-700"></p>
+  <noscript>
+    <p>
+      {lang === 'pt'
+        ? 'Ative JavaScript ou contacte-nos por email:'
+        : 'Enable JavaScript or email us:'}{' '}
+      <a href="mailto:geral@ivs.legal">geral@ivs.legal</a>
+    </p>
+  </noscript>
+  <button
+    type="submit"
+    class="w-full bg-gold-500 hover:bg-gold-600 text-white font-semibold py-4 px-6 rounded-md transition-all duration-300 transform hover:scale-105 focus:ring-4 focus:ring-gold-200"
+  >
+    {t('contact.form.submit')}
+  </button>
+</form>
+
+<div
+  id="form-success"
+  role="status"
+  tabindex="-1"
+  class="hidden mt-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-md"
+>
+  <div class="flex items-center">
+    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+      <path
+        fill-rule="evenodd"
+        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+        clip-rule="evenodd"
+      ></path>
+    </svg>
+    {detailed ? (
+      <div>
+        <h4 class="font-semibold">
+          {lang === 'pt'
+            ? 'Pedido enviado com sucesso!'
+            : 'Request sent successfully!'}
+        </h4>
+        <p class="text-sm">
+          {lang === 'pt'
+            ? 'Entraremos em contacto consigo no prazo de 24 horas. Obrigado pela sua confiança.'
+            : 'We will contact you within 24 hours. Thank you for your trust.'}
+        </p>
+      </div>
+    ) : lang === 'pt' ? (
+      'Obrigado! O seu pedido foi enviado com sucesso. Entraremos em contacto brevemente.'
+    ) : (
+      'Thank you! Your request has been sent successfully. We will contact you shortly.'
+    )}
+  </div>
+</div>
+<script src="../contact-form.ts"></script>
