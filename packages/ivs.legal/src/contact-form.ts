@@ -21,21 +21,6 @@ declare global {
     ivsTurnstileReady?: () => void
   }
 }
-const copy = {
-  pt: {
-    sending: 'A enviar…',
-    error:
-      'Não foi possível enviar. Tente novamente ou contacte geral@ivs.legal.',
-    token: 'Conclua a verificação de segurança antes de enviar.',
-    rate: 'Demasiadas tentativas. Aguarde um minuto e tente novamente.',
-  },
-  en: {
-    sending: 'Sending…',
-    error: 'Unable to send. Please retry or email geral@ivs.legal.',
-    token: 'Complete the security check before sending.',
-    rate: 'Too many attempts. Wait a minute and try again.',
-  },
-}
 let loader: Promise<Turnstile> | undefined
 function loadTurnstile(): Promise<Turnstile> {
   if (window.turnstile) return Promise.resolve(window.turnstile)
@@ -70,7 +55,13 @@ async function initialize() {
   const form = document.querySelector<HTMLFormElement>('[data-contact-form]')
   if (!form) return
   const lang = form.dataset.locale === 'en' ? 'en' : 'pt'
-  const messages = copy[lang]
+  // Astro supplies only this form's localized messages from ui.ts.
+  const messages = {
+    sending: form.dataset.messageSending!,
+    error: form.dataset.messageError!,
+    token: form.dataset.messageToken!,
+    rate: form.dataset.messageRate!,
+  }
   const error = form.querySelector<HTMLElement>('[data-form-error]')!
   const button = form.querySelector<HTMLButtonElement>('button[type=submit]')!
   const label = button.textContent

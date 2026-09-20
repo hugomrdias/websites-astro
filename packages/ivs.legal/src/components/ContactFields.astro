@@ -16,6 +16,10 @@ const t = useTranslations(lang)
   data-contact-form
   data-locale={lang}
   data-sitekey={TURNSTILE_SITE_KEY}
+  data-message-sending={t('contact.form.sending')}
+  data-message-error={t('contact.form.error')}
+  data-message-token={t('contact.form.error.token')}
+  data-message-rate={t('contact.form.error.rate')}
   method="POST"
 >
   <div
@@ -38,7 +42,7 @@ const t = useTranslations(lang)
         maxlength={100}
         required
         class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-gold-500 focus:border-transparent transition-colors outline-none"
-        placeholder={lang === 'pt' ? 'João' : 'John'}
+        placeholder={t('contact.form.firstName.placeholder')}
       />
     </div>
     <div>
@@ -55,7 +59,7 @@ const t = useTranslations(lang)
         maxlength={100}
         required
         class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-gold-500 focus:border-transparent transition-colors outline-none"
-        placeholder={lang === 'pt' ? 'Silva' : 'Smith'}
+        placeholder={t('contact.form.lastName.placeholder')}
       />
     </div>
   </div>
@@ -76,9 +80,7 @@ const t = useTranslations(lang)
         maxlength={254}
         required
         class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-gold-500 focus:border-transparent transition-colors outline-none"
-        placeholder={
-          lang === 'pt' ? 'joao.silva@email.com' : 'john.smith@email.com'
-        }
+        placeholder={t('contact.form.email.placeholder')}
       />
     </div>
 
@@ -92,7 +94,7 @@ const t = useTranslations(lang)
         name="phone"
         maxlength={50}
         class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-gold-500 focus:border-transparent transition-colors outline-none"
-        placeholder="+351 912 345 678"
+        placeholder={t('contact.form.phone.placeholder')}
       />
     </div>
   </div>
@@ -107,7 +109,7 @@ const t = useTranslations(lang)
       class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-gold-500 focus:border-transparent transition-colors outline-none"
     >
       <option value="" disabled selected hidden class="text-gold-300">
-        {lang === 'pt' ? 'Selecione uma área' : 'Select an area'}
+        {t('contact.form.subject.placeholder')}
       </option>
       {Object.entries(t('contact.form.subject.options')).map(([key, value]) => (
         <option value={key}>{value}</option>
@@ -118,17 +120,17 @@ const t = useTranslations(lang)
   {detailed && (
     <div>
       <label for="urgency" class="block text-sm font-medium text-gray-700 mb-2">
-        {lang === 'pt' ? 'Urgência' : 'Urgency'}
+        {t('contact.form.urgency')}
       </label>
       <select
         id="urgency"
         name="urgency"
         class="w-full px-4 py-3 border border-gray-300 rounded-md"
       >
-        <option value="normal">Normal</option>
-        <option value="urgente">{lang === 'pt' ? 'Urgente' : 'Urgent'}</option>
+        <option value="normal">{t('contact.form.urgency.normal')}</option>
+        <option value="urgente">{t('contact.form.urgency.urgent')}</option>
         <option value="muito-urgente">
-          {lang === 'pt' ? 'Muito Urgente' : 'Very Urgent'}
+          {t('contact.form.urgency.veryUrgent')}
         </option>
       </select>
     </div>
@@ -144,15 +146,11 @@ const t = useTranslations(lang)
       rows={detailed ? 6 : 4}
       required
       class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-gold-500 focus:border-transparent transition-colors resize-vertical outline-none"
-      placeholder={
+      placeholder={t(
         detailed
-          ? lang === 'pt'
-            ? 'Descreva detalhadamente a sua situação jurídica, incluindo datas relevantes e documentos disponíveis...'
-            : 'Describe your legal situation in detail, including relevant dates and available documents...'
-          : lang === 'pt'
-            ? 'Descreva brevemente a sua situação jurídica...'
-            : 'Briefly describe your legal situation...'
-      }
+          ? 'contact.form.message.placeholderDetailed'
+          : 'contact.form.message.placeholder'
+      )}
     ></textarea>
   </div>
 
@@ -167,7 +165,7 @@ const t = useTranslations(lang)
     <label for="privacy" class="text-sm text-gray-600">
       {detailed ? (
         <>
-          {lang === 'pt' ? 'Aceito a' : 'I accept the'}{' '}
+          {t('contact.form.privacy.prefix')}{' '}
           <a
             href={
               lang === 'pt'
@@ -176,11 +174,9 @@ const t = useTranslations(lang)
             }
             class="text-gold-600 hover:text-gold-700 underline"
           >
-            {lang === 'pt' ? 'política de privacidade' : 'privacy policy'}
+            {t('contact.form.privacy.link')}
           </a>{' '}
-          {lang === 'pt'
-            ? 'e autorizo o tratamento dos meus dados pessoais para fins de contacto e prestação de serviços jurídicos.'
-            : 'and authorize the processing of my personal data for contact and legal service purposes.'}
+          {t('contact.form.privacy.suffix')}
         </>
       ) : (
         t('contact.form.privacy')
@@ -192,9 +188,7 @@ const t = useTranslations(lang)
   <p data-form-error role="alert" tabindex="-1" class="hidden text-red-700"></p>
   <noscript>
     <p>
-      {lang === 'pt'
-        ? 'Ative JavaScript ou contacte-nos por email:'
-        : 'Enable JavaScript or email us:'}{' '}
+      {t('contact.form.noscript')}{' '}
       <a href="mailto:geral@ivs.legal">geral@ivs.legal</a>
     </p>
   </noscript>
@@ -222,21 +216,11 @@ const t = useTranslations(lang)
     </svg>
     {detailed ? (
       <div>
-        <h4 class="font-semibold">
-          {lang === 'pt'
-            ? 'Pedido enviado com sucesso!'
-            : 'Request sent successfully!'}
-        </h4>
-        <p class="text-sm">
-          {lang === 'pt'
-            ? 'Entraremos em contacto consigo no prazo de 24 horas. Obrigado pela sua confiança.'
-            : 'We will contact you within 24 hours. Thank you for your trust.'}
-        </p>
+        <h4 class="font-semibold">{t('contact.form.success.title')}</h4>
+        <p class="text-sm">{t('contact.form.success.description')}</p>
       </div>
-    ) : lang === 'pt' ? (
-      'Obrigado! O seu pedido foi enviado com sucesso. Entraremos em contacto brevemente.'
     ) : (
-      'Thank you! Your request has been sent successfully. We will contact you shortly.'
+      t('contact.form.success')
     )}
   </div>
 </div>
