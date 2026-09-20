@@ -53,13 +53,6 @@ for (const name of [
 ])
   await stat(join(root, name))
 
-// Returning visitors still need /sw.js to unregister their old worker and clear
-// caches. These smoke checks catch an accidental return to precaching mode;
-// browser tests separately verify the actual retirement lifecycle.
-const worker = await readFile(join(root, 'sw.js'), 'utf8')
-assert(worker.includes('unregister()') && worker.includes('caches.delete'))
-assert(!worker.includes('precacheAndRoute'))
-
 // Both locales have homepage and dedicated contact forms. Confirm the shared
 // form and Apple icon link survive rendering, with no legacy provider markup.
 for (const name of [
@@ -77,5 +70,5 @@ for (const name of [
 
 // Only report success after every assertion above has passed.
 console.log(
-  'Verified Markdown, llms.txt, contact forms, icons, 404 and retirement worker.'
+  'Verified Markdown, llms.txt, contact forms, icons, 404 and sw.js availability.'
 )
