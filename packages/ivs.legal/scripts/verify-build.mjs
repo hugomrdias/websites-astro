@@ -2,7 +2,11 @@ import console from 'node:console'
 import { readdir, readFile, stat } from 'node:fs/promises'
 import { resolve, join } from 'node:path'
 import assert from 'node:assert/strict'
+
+// Inspect the prepared assets Cloudflare will serve, without modifying output.
 const root = resolve('dist/client')
+
+// Include nested routes, such as English pages and individual Notion articles.
 /** @param {string} dir @returns {Promise<string[]>} */
 async function files(dir) {
   const entries = await readdir(dir, { withFileTypes: true })
@@ -16,6 +20,10 @@ async function files(dir) {
 }
 const all = await files(root)
 const index = await readFile(join(root, 'llms.txt'), 'utf8')
+
+// The Markdown plugin can log generation failures without failing Astro's build.
+// Require a nonempty Markdown counterpart and index entry for every public page.
+// The error page is intentionally excluded from agent-facing content.
 for (const file of all.filter(
   (f) => f.endsWith('.html') && !f.endsWith('/404.html')
 )) {
@@ -23,6 +31,9 @@ for (const file of all.filter(
   assert((await stat(md)).size > 0, `Missing Markdown: ${md}`)
   assert(index.includes(md.slice(root.length)), `Missing llms.txt entry: ${md}`)
 }
+
+// Check the index in the other direction: every local link must resolve to a
+// generated file, and API/error routes must not appear in the discovery index.
 for (const [, url] of index.matchAll(/\]\((\/[^)]+)\)/g)) {
   assert(
     !url.includes('/api/') && !url.includes('404'),
@@ -30,6 +41,9 @@ for (const [, url] of index.matchAll(/\]\((\/[^)]+)\)/g)) {
   )
   assert((await stat(join(root, url))).isFile(), `Broken Markdown link: ${url}`)
 }
+
+// Catch output-path regressions that would drop icons, PWA retirement assets,
+// or the branded fallback page from the deployed static asset directory.
 for (const name of [
   'sw.js',
   'favicon.ico',
@@ -38,9 +52,16 @@ for (const name of [
   '404.html',
 ])
   await stat(join(root, name))
+
+// Returning visitors still need /sw.js to unregister their old worker and clear
+// caches. These smoke checks catch an accidental return to precaching mode;
+// browser tests separately verify the actual retirement lifecycle.
 const worker = await readFile(join(root, 'sw.js'), 'utf8')
 assert(worker.includes('unregister()') && worker.includes('caches.delete'))
 assert(!worker.includes('precacheAndRoute'))
+
+// Both locales have homepage and dedicated contact forms. Confirm the shared
+// form and Apple icon link survive rendering, with no legacy provider markup.
 for (const name of [
   'index.html',
   'en/index.html',
@@ -53,6 +74,8 @@ for (const name of [
   )
   assert(!/web3forms|hcaptcha/i.test(html))
 }
+
+// Only report success after every assertion above has passed.
 console.log(
   'Verified Markdown, llms.txt, contact forms, icons, 404 and retirement worker.'
 )
