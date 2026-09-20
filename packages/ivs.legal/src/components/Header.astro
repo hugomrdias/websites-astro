@@ -34,7 +34,7 @@ const route = currentPath.replace(/^\/(en|pt)/, '') || '/'
           <p class="text-xl font-serif font-semibold text-navy-900">
             {t('footer.company')}
           </p>
-          <!-- <p class="text-sm text-gold-600">{t('footer.tagline')}</p> -->
+          <!-- <p class="text-sm text-gold-800">{t('footer.tagline')}</p> -->
         </div>
       </a>
 
@@ -42,28 +42,28 @@ const route = currentPath.replace(/^\/(en|pt)/, '') || '/'
       <div class="hidden lg:flex items-center space-x-8">
         <a
           href={translatePath(lang)}
-          class={`hover:text-gold-600 transition-colors ${route === '/' ? 'text-gold-600 font-medium' : 'text-navy-700'}`}
+          class={`hover:text-gold-800 transition-colors ${route === '/' ? 'text-gold-800 font-medium' : 'text-navy-700'}`}
         >
           {t('nav.home')}
         </a>
         <a
           href={articlesUrl(lang)}
-          class={`hover:text-gold-600 transition-colors ${currentPath === articlesUrl(lang) || currentPath.startsWith(`${articlesUrl(lang)}/`) ? 'text-gold-600 font-medium' : 'text-navy-700'}`}
+          class={`hover:text-gold-800 transition-colors ${currentPath === articlesUrl(lang) || currentPath.startsWith(`${articlesUrl(lang)}/`) ? 'text-gold-800 font-medium' : 'text-navy-700'}`}
         >
           {t('nav.articles')}
         </a>
         <a
           href={translatePath(lang, 'about')}
-          class={`hover:text-gold-600 transition-colors ${route === '/about' ? 'text-gold-600 font-medium' : 'text-navy-700'}`}
+          class={`hover:text-gold-800 transition-colors ${route === '/about' ? 'text-gold-800 font-medium' : 'text-navy-700'}`}
         >
           {t('nav.about')}
         </a>
-        <!-- <a href={translatePath(lang, 'areas-pratica')} class={`hover:text-gold-600 transition-colors ${route === '/areas-pratica' ? 'text-gold-600 font-medium' : 'text-navy-700'}`}>
+        <!-- <a href={translatePath(lang, 'areas-pratica')} class={`hover:text-gold-800 transition-colors ${route === '/areas-pratica' ? 'text-gold-800 font-medium' : 'text-navy-700'}`}>
           {t('nav.practice-areas')}
         </a> -->
         <a
           href={translatePath(lang, 'contact')}
-          class="bg-gold-500 hover:bg-gold-600 text-white px-6 py-2 rounded-md font-medium transition-colors"
+          class="bg-gold-500 hover:bg-gold-600 text-navy-900 px-6 py-2 rounded-md font-medium transition-colors"
         >
           {t('nav.contact')}
         </a>
@@ -73,14 +73,14 @@ const route = currentPath.replace(/^\/(en|pt)/, '') || '/'
       <div class="hidden lg:flex items-center space-x-2">
         <a
           href={alternatePaths?.pt ?? translatePath('pt', route.slice(1))}
-          class={`text-sm transition-colors ${lang === 'pt' ? 'text-gold-600 font-medium' : 'text-navy-600 hover:text-gold-600'}`}
+          class={`text-sm transition-colors ${lang === 'pt' ? 'text-gold-800 font-medium' : 'text-navy-600 hover:text-gold-800'}`}
         >
           PT
         </a>
         <span class="text-navy-300">|</span>
         <a
           href={alternatePaths?.en ?? translatePath('en', route.slice(1))}
-          class={`text-sm transition-colors ${lang === 'en' ? 'text-gold-600 font-medium' : 'text-navy-600 hover:text-gold-600'}`}
+          class={`text-sm transition-colors ${lang === 'en' ? 'text-gold-800 font-medium' : 'text-navy-600 hover:text-gold-800'}`}
         >
           EN
         </a>
@@ -112,39 +112,39 @@ const route = currentPath.replace(/^\/(en|pt)/, '') || '/'
       <div class="flex flex-col space-y-4 pt-4">
         <a
           href={translatePath(lang)}
-          class="text-navy-700 hover:text-gold-600 transition-colors"
+          class="text-navy-700 hover:text-gold-800 transition-colors"
         >
           {t('nav.home')}
         </a>
         <a
           href={articlesUrl(lang)}
-          class="text-navy-700 hover:text-gold-600 transition-colors"
+          class="text-navy-700 hover:text-gold-800 transition-colors"
         >
           {t('nav.articles')}
         </a>
         <a
           href={translatePath(lang, 'about')}
-          class="text-navy-700 hover:text-gold-600 transition-colors"
+          class="text-navy-700 hover:text-gold-800 transition-colors"
         >
           {t('nav.about')}
         </a>
         <a
           href={translatePath(lang, 'contact')}
-          class="text-navy-700 hover:text-gold-600 transition-colors"
+          class="text-navy-700 hover:text-gold-800 transition-colors"
         >
           {t('nav.contact')}
         </a>
         <div class="flex items-center space-x-2 pt-2">
           <a
             href={alternatePaths?.pt ?? translatePath('pt', route.slice(1))}
-            class={`text-sm transition-colors ${lang === 'pt' ? 'text-gold-600 font-medium' : 'text-navy-600 hover:text-gold-600'}`}
+            class={`text-sm transition-colors ${lang === 'pt' ? 'text-gold-800 font-medium' : 'text-navy-600 hover:text-gold-800'}`}
           >
             PT
           </a>
           <span class="text-navy-300">|</span>
           <a
             href={alternatePaths?.en ?? translatePath('en', route.slice(1))}
-            class={`text-sm transition-colors ${lang === 'en' ? 'text-gold-600 font-medium' : 'text-navy-600 hover:text-gold-600'}`}
+            class={`text-sm transition-colors ${lang === 'en' ? 'text-gold-800 font-medium' : 'text-navy-600 hover:text-gold-800'}`}
           >
             EN
           </a>

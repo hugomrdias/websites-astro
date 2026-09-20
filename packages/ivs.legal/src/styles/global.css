@@ -30,7 +30,7 @@
 }
 
 select:required:invalid {
-  color: #9da3af;
+  color: var(--color-gray-600);
 }
 option[value=''][disabled] {
   display: none;

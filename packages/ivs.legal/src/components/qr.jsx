@@ -31,7 +31,7 @@ export default function QR({ value = vCardString }) {
     <Cuer
       color="black"
       value={value}
-      arena={<img src="/favicon.png" width={24} height={24} />}
+      arena={<img src="/favicon.png" alt="IVS Legal" width={24} height={24} />}
     />
   )
 }

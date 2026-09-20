@@ -213,7 +213,7 @@
   border-color: var(--color-gold-300);
 }
 .journal-filters button[aria-pressed='true'] {
-  color: var(--color-white);
+  color: var(--color-navy-900);
   background: var(--color-gold-500);
   border-color: var(--color-gold-500);
 }
@@ -285,7 +285,7 @@
   align-items: center;
   gap: 20px;
   background: var(--color-gold-500);
-  color: var(--color-white);
+  color: var(--color-navy-900);
   border-radius: 6px;
   min-height: 48px;
   padding: 14px 24px;
