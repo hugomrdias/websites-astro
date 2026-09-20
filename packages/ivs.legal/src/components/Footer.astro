@@ -4,6 +4,7 @@ import { Icon } from 'astro-icon/components'
 import { CONTACTS } from '@consts'
 import { getLangFromUrl, useTranslations, translatePath } from '../i18n/utils'
 import logo from '../assets/mono-queen.png'
+import { articlesUrl } from '../lib/articles'
 
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
@@ -69,7 +70,14 @@ const t = useTranslations(lang)
               {t('nav.practice-areas')}
             </a>
           </li>
-          <!-- <li><a href={translatePath(lang, 'blog')} class="text-gray-300 hover:text-gold-400 transition-colors">{t('nav.blog')}</a></li> -->
+          <li>
+            <a
+              href={articlesUrl(lang)}
+              class="text-gray-300 hover:text-gold-400 transition-colors"
+            >
+              {t('nav.articles')}
+            </a>
+          </li>
           <li>
             <a
               href={translatePath(lang, 'contacto')}

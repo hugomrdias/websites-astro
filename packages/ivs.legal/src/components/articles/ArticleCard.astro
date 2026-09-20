@@ -1,0 +1,45 @@
+---
+import { articleCategoryLabel } from '../../lib/article-categories'
+import {
+  articleDate,
+  articleUrl,
+  journalCopy,
+  readingTime,
+  type Article,
+} from '../../lib/articles'
+interface Props {
+  article: Article
+}
+const { article } = Astro.props
+const { title, description, category, lang, publishedAt } = article.data
+const copy = journalCopy[lang]
+const categoryLabel = articleCategoryLabel(category, lang)
+---
+
+<article
+  class="journal-card"
+  data-article
+  data-category={category}
+  data-search={`${title} ${description} ${categoryLabel}`}
+>
+  <p class="journal-eyebrow">{categoryLabel}</p>
+  <h3>
+    <a href={articleUrl(article)}>{title}</a>
+  </h3>
+  <p class="journal-description">{description}</p>
+  <div class="journal-card-bottom">
+    <div class="journal-meta">
+      <time datetime={publishedAt.toISOString()}>{articleDate(article)}</time>
+      <span>
+        {readingTime(article)} {copy.minute}
+      </span>
+    </div>
+    <a
+      class="journal-arrow"
+      href={articleUrl(article)}
+      aria-label={`${copy.read}: ${title}`}
+    >
+      <span aria-hidden="true">↗</span>
+    </a>
+  </div>
+</article>

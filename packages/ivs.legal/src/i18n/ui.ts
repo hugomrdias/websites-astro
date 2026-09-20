@@ -1,3 +1,5 @@
+import { articleCategoryLabel } from '../lib/article-categories'
+
 export const languages = {
   pt: 'Português',
   en: 'English',
@@ -10,7 +12,7 @@ export const ui = {
     'nav.home': 'Início',
     'nav.about': 'Sobre Nós',
     'nav.practice-areas': 'Áreas de Prática',
-    'nav.blog': 'Blog',
+    'nav.articles': 'Artigos',
     'nav.contact': 'Contacto',
     'hero.title': '"A justiça é a ',
     'hero.title.highlight': 'balança',
@@ -27,22 +29,22 @@ export const ui = {
     'practice.title.highlight': 'Atuação',
     'practice.subtitle':
       'Oferecemos serviços jurídicos em diversas áreas do Direito.',
-    'practice.civil.title': 'Direito Civil',
+    'practice.civil.title': articleCategoryLabel('civil-law', 'pt'),
     'practice.civil.description':
       'Contratos, responsabilidade civil, cobrança de dívidas, direito de família e sucessões. Registos e Notariado.',
-    'practice.commercial.title': 'Sociedades Comerciais',
+    'practice.commercial.title': articleCategoryLabel('corporate-law', 'pt'),
     'practice.commercial.description':
       'Constituição de empresas, contratos e fusões. Apoiamos o crescimento do seu negócio com segurança jurídica.',
-    'practice.labor.title': 'Direito Laboral',
+    'practice.labor.title': articleCategoryLabel('employment-law', 'pt'),
     'practice.labor.description':
       'Contratos de trabalho, despedimentos, acidentes de trabalho. Defendemos os direitos de trabalhadores e empregadores.',
-    'practice.real-estate.title': 'Direito Imobiliário',
+    'practice.real-estate.title': articleCategoryLabel('real-estate-law', 'pt'),
     'practice.real-estate.description':
       'Compra e venda de imóveis, arrendamento, licenciamento urbanístico. Garantimos segurança em todos os seus investimentos imobiliários.',
-    'practice.criminal.title': 'Direito Penal',
+    'practice.criminal.title': articleCategoryLabel('criminal-law', 'pt'),
     'practice.criminal.description':
       'Aconselhamento, patrocínio e defesa nas  diversas fases dos processos criminais e contra ordenações.',
-    'practice.tax.title': 'Imigração',
+    'practice.tax.title': articleCategoryLabel('immigration-law', 'pt'),
     'practice.tax.description':
       'Assessoria jurídica para obtenção de vistos, autorizações de residência, reagrupamento familiar e processos de nacionalidade.',
     'practice.cta': 'Ver Todas as Áreas',
@@ -72,12 +74,12 @@ export const ui = {
     'contact.form.phone': 'Telefone',
     'contact.form.subject': 'Área Jurídica',
     'contact.form.subject.options': {
-      'direito-civil': 'Direito Civil',
-      'direito-comercial': 'Sociedades Comerciais',
-      'direito-laboral': 'Direito Laboral',
-      'direito-imobiliario': 'Direito Imobiliário',
-      'direito-penal': 'Direito Penal',
-      'direito-migração': 'Imigração',
+      'direito-civil': articleCategoryLabel('civil-law', 'pt'),
+      'direito-comercial': articleCategoryLabel('corporate-law', 'pt'),
+      'direito-laboral': articleCategoryLabel('employment-law', 'pt'),
+      'direito-imobiliario': articleCategoryLabel('real-estate-law', 'pt'),
+      'direito-penal': articleCategoryLabel('criminal-law', 'pt'),
+      'direito-migração': articleCategoryLabel('immigration-law', 'pt'),
       outro: 'Outro',
     },
     'contact.form.message': 'Mensagem',
@@ -98,7 +100,7 @@ export const ui = {
     'nav.home': 'Home',
     'nav.about': 'About Us',
     'nav.practice-areas': 'Practice Areas',
-    'nav.blog': 'Blog',
+    'nav.articles': 'Articles',
     'nav.contact': 'Contact',
     'hero.title': '"Law is the ',
     'hero.title.highlight': 'scale',
@@ -114,22 +116,22 @@ export const ui = {
     'practice.title': 'Areas of',
     'practice.title.highlight': 'Practice',
     'practice.subtitle': 'We offer legal services in various areas of law.',
-    'practice.civil.title': 'Civil Law',
+    'practice.civil.title': articleCategoryLabel('civil-law', 'en'),
     'practice.civil.description':
       'Contracts, civil liability, debt collection, family law and succession. Registers and Notary.',
-    'practice.commercial.title': 'Commercial Companies',
+    'practice.commercial.title': articleCategoryLabel('corporate-law', 'en'),
     'practice.commercial.description':
       'Company formation, commercial contracts and mergers. We support your business growth with legal security.',
-    'practice.labor.title': 'Labor Law',
+    'practice.labor.title': articleCategoryLabel('employment-law', 'en'),
     'practice.labor.description':
       'Employment contracts, dismissals, workplace accidents. We defend the rights of both employees and employers.',
-    'practice.real-estate.title': 'Real Estate Law',
+    'practice.real-estate.title': articleCategoryLabel('real-estate-law', 'en'),
     'practice.real-estate.description':
       'Property buying and selling, leasing, urban licensing. We ensure security in all your real estate investments.',
-    'practice.criminal.title': 'Criminal Law',
+    'practice.criminal.title': articleCategoryLabel('criminal-law', 'en'),
     'practice.criminal.description':
       'Advice, representation and defense in all phases of criminal and disciplinary proceedings.',
-    'practice.tax.title': 'Immigration',
+    'practice.tax.title': articleCategoryLabel('immigration-law', 'en'),
     'practice.tax.description':
       'Legal advice for obtaining visas, residence permits, family reunification and nationality processes.',
     'practice.cta': 'View All Areas',
@@ -159,12 +161,12 @@ export const ui = {
     'contact.form.phone': 'Phone',
     'contact.form.subject': 'Legal Area',
     'contact.form.subject.options': {
-      'direito-civil': 'Civil Law',
-      'direito-comercial': 'Commercial Companies',
-      'direito-laboral': 'Labor Law',
-      'direito-imobiliario': 'Real Estate Law',
-      'direito-penal': 'Criminal Law',
-      'direito-migração': 'Immigration',
+      'direito-civil': articleCategoryLabel('civil-law', 'en'),
+      'direito-comercial': articleCategoryLabel('corporate-law', 'en'),
+      'direito-laboral': articleCategoryLabel('employment-law', 'en'),
+      'direito-imobiliario': articleCategoryLabel('real-estate-law', 'en'),
+      'direito-penal': articleCategoryLabel('criminal-law', 'en'),
+      'direito-migração': articleCategoryLabel('immigration-law', 'en'),
       outro: 'Other',
     },
     'contact.form.message': 'Message',

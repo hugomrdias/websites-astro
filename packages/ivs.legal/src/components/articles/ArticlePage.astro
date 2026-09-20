@@ -1,0 +1,157 @@
+---
+import { render } from 'astro:content'
+import { articleCategoryLabel } from '../../lib/article-categories'
+import Layout from '../../layouts/Layout.astro'
+import Header from '../Header.astro'
+import Footer from '../Footer.astro'
+import ArticleCard from './ArticleCard.astro'
+import {
+  articleDate,
+  articleUrl,
+  articlesUrl,
+  getArticles,
+  journalCopy,
+  readingTime,
+  type Article,
+} from '../../lib/articles'
+import '../../styles/journal.css'
+interface Props {
+  article: Article
+}
+const { article } = Astro.props
+const { title, description, lang, category, author, publishedAt, sample } =
+  article.data
+const copy = journalCopy[lang]
+const { Content, headings } = await render(article)
+const articles = await getArticles()
+const translation = articles.find(
+  (item) =>
+    item.data.translationKey === article.data.translationKey &&
+    item.data.lang !== lang
+)
+const alternatePaths = {
+  [lang]: articleUrl(article),
+  [lang === 'pt' ? 'en' : 'pt']: translation
+    ? articleUrl(translation)
+    : articlesUrl(lang === 'pt' ? 'en' : 'pt'),
+}
+const related = articles
+  .filter((item) => item.data.lang === lang && item.id !== article.id)
+  .sort(
+    (a, b) =>
+      Number(b.data.category === category) -
+      Number(a.data.category === category)
+  )
+  .slice(0, 2)
+const toc = headings.filter((heading) => heading.depth === 2)
+---
+
+<Layout
+  lang={lang}
+  title={`${title} — IVS Legal`}
+  description={description}
+  type="article"
+  noindex={sample}
+>
+  <Fragment slot="head">
+    <meta
+      property="article:published_time"
+      content={publishedAt.toISOString()}
+    />
+    <meta property="article:author" content={author} />
+    <link
+      rel="alternate"
+      hreflang={lang}
+      href={new URL(articleUrl(article), Astro.site)}
+    />
+    {translation && (
+      <link
+        rel="alternate"
+        hreflang={translation.data.lang}
+        href={new URL(articleUrl(translation), Astro.site)}
+      />
+    )}
+  </Fragment>
+  <Header alternatePaths={alternatePaths} />
+  <main class="journal">
+    <article>
+      <header class="journal-hero">
+        <div class="container mx-auto px-4">
+          <div class="journal-article-header">
+            <a class="journal-back" href={articlesUrl(lang)}>
+              <span aria-hidden="true">←</span>
+              {copy.back}
+            </a>
+            <p class="journal-eyebrow">
+              {articleCategoryLabel(category, lang)}
+            </p>
+            <h1>{title}</h1>
+            <p class="journal-lead">{description}</p>
+            <div class="journal-byline">
+              <span>{author}</span>
+              <time datetime={publishedAt.toISOString()}>
+                {articleDate(article)}
+              </time>
+              <span>
+                {readingTime(article)} {copy.minute}
+              </span>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="journal-wrap journal-reading-wrap container mx-auto px-4">
+        {sample && (
+          <aside class="journal-sample">
+            <span>{copy.sample}</span>
+            <p>{copy.sampleNote}</p>
+          </aside>
+        )}
+        <div class="journal-reading-layout">
+          <aside class="journal-toc">
+            {toc.length > 0 && (
+              <nav aria-label={copy.contents}>
+                <p class="journal-eyebrow">{copy.contents}</p>
+                <ol>
+                  {toc.map((heading) => (
+                    <li>
+                      <a href={`#${heading.slug}`}>{heading.text}</a>
+                    </li>
+                  ))}
+                </ol>
+              </nav>
+            )}
+          </aside>
+          <div class="journal-prose">
+            <Content />
+          </div>
+        </div>
+      </div>
+    </article>
+    <div class="journal-wrap container mx-auto px-4">
+      <section class="journal-contact">
+        <div>
+          <h2>{copy.contactTitle}</h2>
+          <p>{copy.contactText}</p>
+        </div>
+        <a
+          class="journal-button"
+          href={lang === 'pt' ? '/contacto' : '/en/contacto'}
+        >
+          {copy.contact}
+          <span aria-hidden="true">↗</span>
+        </a>
+      </section>
+      {related.length > 0 && (
+        <section class="journal-related" aria-labelledby="related-title">
+          <h2 id="related-title">{copy.related}</h2>
+          <div class="journal-grid journal-grid-two">
+            {related.map((item) => (
+              <ArticleCard article={item} />
+            ))}
+          </div>
+        </section>
+      )}
+    </div>
+  </main>
+  <Footer />
+</Layout>

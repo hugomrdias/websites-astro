@@ -1,0 +1,273 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import Header from '../Header.astro'
+import Footer from '../Footer.astro'
+import ArticleCard from './ArticleCard.astro'
+import {
+  articleCategoryIds,
+  articleCategoryLabel,
+} from '../../lib/article-categories'
+import {
+  articleDate,
+  articleUrl,
+  articlesUrl,
+  getArticles,
+  journalCopy,
+  readingTime,
+  type Language,
+} from '../../lib/articles'
+import '../../styles/journal.css'
+interface Props {
+  lang: Language
+}
+const { lang } = Astro.props
+const copy = journalCopy[lang]
+const articles = await getArticles(lang)
+const featured =
+  articles.find((article) => article.data.featured) ?? articles[0]
+const hasSamples = articles.some((article) => article.data.sample)
+---
+
+<Layout
+  lang={lang}
+  title={`${lang === 'pt' ? 'Artigos' : 'Articles'} — IVS Legal`}
+  description={copy.intro}
+  noindex={
+    articles.length > 0 && articles.every((article) => article.data.sample)
+  }
+>
+  <Header alternatePaths={{ pt: articlesUrl('pt'), en: articlesUrl('en') }} />
+  <main class="journal">
+    <header class="journal-hero">
+      <div class="container mx-auto px-4">
+        <div class="journal-intro">
+          <p class="journal-eyebrow">{copy.label}</p>
+          <h1>
+            {copy.title} <span>{copy.titleHighlight}</span>
+          </h1>
+          <p class="journal-intro-text">{copy.intro}</p>
+        </div>
+      </div>
+    </header>
+    <div class="journal-wrap journal-listing container mx-auto px-4">
+      {featured && (
+        <section class="journal-feature" aria-labelledby="featured-title">
+          <div class="journal-feature-marker">
+            <span>{copy.featured}</span>
+            <span aria-hidden="true">§</span>
+          </div>
+          <div class="journal-feature-copy">
+            <p class="journal-eyebrow">
+              {articleCategoryLabel(featured.data.category, lang)}
+            </p>
+            <h2 id="featured-title">
+              <a href={articleUrl(featured)}>{featured.data.title}</a>
+            </h2>
+            <p>{featured.data.description}</p>
+            <div class="journal-feature-bottom">
+              <div class="journal-meta">
+                <time datetime={featured.data.publishedAt.toISOString()}>
+                  {articleDate(featured)}
+                </time>
+                <span>
+                  {readingTime(featured)} {copy.minute}
+                </span>
+              </div>
+              <a class="journal-button" href={articleUrl(featured)}>
+                {copy.read}
+                <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </div>
+        </section>
+      )}
+      <section
+        class="journal-library"
+        aria-labelledby="articles-title"
+        data-journal
+        data-lang={lang}
+      >
+        <div class="journal-library-heading">
+          <h2 id="articles-title">
+            {copy.articles}
+            <span class="journal-total">
+              {String(articles.length).padStart(2, '0')}
+            </span>
+          </h2>
+          <div class="journal-search" data-controls hidden>
+            <label for="article-search" class="sr-only">
+              {copy.search}
+            </label>
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              aria-hidden="true"
+            >
+              <circle cx="10.5" cy="10.5" r="6.5" />
+              <path d="m16 16 5 5" />
+            </svg>
+            <input
+              id="article-search"
+              type="search"
+              placeholder={copy.placeholder}
+              autocomplete="off"
+            />
+          </div>
+        </div>
+        <div
+          class="journal-filters"
+          role="group"
+          aria-label={lang === 'pt' ? 'Filtrar por tema' : 'Filter by topic'}
+          data-controls
+          hidden
+        >
+          <button type="button" data-filter="" aria-pressed="true">
+            {copy.all}
+          </button>
+          {articleCategoryIds.map((category) => (
+            <button type="button" data-filter={category} aria-pressed="false">
+              {articleCategoryLabel(category, lang)}
+            </button>
+          ))}
+        </div>
+        <p
+          class="journal-results"
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+          data-results
+        ></p>
+        <div class="journal-grid">
+          {articles.map((article) => (
+            <ArticleCard article={article} />
+          ))}
+        </div>
+        <div class="journal-empty" data-empty hidden={articles.length > 0}>
+          <h3>{copy.empty}</h3>
+          <p>{copy.emptyHint}</p>
+          <button
+            type="button"
+            class="journal-text-link"
+            data-reset
+            data-controls
+            hidden
+          >
+            {copy.reset}
+            <span aria-hidden="true">↗</span>
+          </button>
+        </div>
+        <div class="journal-load">
+          <button type="button" class="journal-button" data-more hidden>
+            {copy.more}
+            <span aria-hidden="true">↓</span>
+          </button>
+        </div>
+      </section>
+      {hasSamples && (
+        <aside class="journal-sample">
+          <span>{copy.sample}</span>
+          <p>{copy.sampleNote}</p>
+        </aside>
+      )}
+      <section class="journal-contact">
+        <div>
+          <h2>{copy.contactTitle}</h2>
+          <p>{copy.contactText}</p>
+        </div>
+        <a
+          class="journal-button"
+          href={lang === 'pt' ? '/contacto' : '/en/contacto'}
+        >
+          {copy.contact}
+          <span aria-hidden="true">↗</span>
+        </a>
+      </section>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+<script>
+  function initJournal() {
+    const root = document.querySelector<HTMLElement>('[data-journal]')
+    if (!root || root.dataset.ready) return
+    root.dataset.ready = 'true'
+    const input = root.querySelector<HTMLInputElement>('input[type="search"]')!
+    const buttons = [
+      ...root.querySelectorAll<HTMLButtonElement>('[data-filter]'),
+    ]
+    const cards = [...root.querySelectorAll<HTMLElement>('[data-article]')]
+    const more = root.querySelector<HTMLButtonElement>('[data-more]')!
+    const empty = root.querySelector<HTMLElement>('[data-empty]')!
+    const results = root.querySelector<HTMLElement>('[data-results]')!
+    const pageSize = 3
+    let visible = pageSize
+    let category = ''
+    const normalize = (value: string) =>
+      value
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .trim()
+    function update(focusNew = false) {
+      const query = normalize(input.value)
+      const matches = cards.filter(
+        (card) =>
+          (!category || card.dataset.category === category) &&
+          normalize(card.dataset.search ?? '').includes(query)
+      )
+      const previouslyHidden = new Set(cards.filter((card) => card.hidden))
+      cards.forEach((card) => {
+        card.hidden = !matches.slice(0, visible).includes(card)
+      })
+      buttons.forEach((button) =>
+        button.setAttribute(
+          'aria-pressed',
+          String(button.dataset.filter === category)
+        )
+      )
+      empty.hidden = matches.length > 0
+      more.hidden = matches.length <= visible
+      const shown = Math.min(visible, matches.length)
+      results.textContent =
+        root?.dataset.lang === 'pt'
+          ? `${shown} de ${matches.length} ${matches.length === 1 ? 'artigo' : 'artigos'}`
+          : `${shown} of ${matches.length} ${matches.length === 1 ? 'article' : 'articles'}`
+      if (focusNew)
+        matches
+          .find((card) => !card.hidden && previouslyHidden.has(card))
+          ?.querySelector<HTMLAnchorElement>('h3 a')
+          ?.focus({ preventScroll: true })
+    }
+    root.querySelectorAll<HTMLElement>('[data-controls]').forEach((control) => {
+      control.hidden = false
+    })
+    input.addEventListener('input', () => {
+      visible = pageSize
+      update()
+    })
+    buttons.forEach((button) =>
+      button.addEventListener('click', () => {
+        category = button.dataset.filter ?? ''
+        visible = pageSize
+        update()
+      })
+    )
+    more.addEventListener('click', () => {
+      visible += pageSize
+      update(true)
+    })
+    root.querySelector('[data-reset]')?.addEventListener('click', () => {
+      input.value = ''
+      category = ''
+      visible = pageSize
+      update()
+      input.focus()
+    })
+    update()
+  }
+  document.addEventListener('astro:page-load', initJournal)
+</script>

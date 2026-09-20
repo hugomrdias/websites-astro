@@ -1,0 +1,15 @@
+---
+import ArticlePage from '../../components/articles/ArticlePage.astro'
+import { getArticles } from '../../lib/articles'
+import type { InferGetStaticPropsType } from 'astro'
+export async function getStaticPaths() {
+  return (await getArticles('pt')).map((article) => ({
+    params: { slug: article.data.slug },
+    props: { article },
+  }))
+}
+type Props = InferGetStaticPropsType<typeof getStaticPaths>
+const { article } = Astro.props
+---
+
+<ArticlePage article={article} />

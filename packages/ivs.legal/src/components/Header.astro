@@ -2,7 +2,12 @@
 import { getLangFromUrl, useTranslations, translatePath } from '../i18n/utils'
 import { Image } from 'astro:assets'
 import logo from '../assets/mono-queen.png'
+import { articlesUrl } from '../lib/articles'
 
+interface Props {
+  alternatePaths?: Partial<Record<'pt' | 'en', string>>
+}
+const { alternatePaths } = Astro.props
 const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
 const currentPath = Astro.url.pathname
@@ -26,9 +31,9 @@ const route = currentPath.replace(/^\/(en|pt)/, '') || '/'
           height={100}
         />
         <div class="sm:block">
-          <h1 class="text-xl font-serif font-semibold text-navy-900">
+          <p class="text-xl font-serif font-semibold text-navy-900">
             {t('footer.company')}
-          </h1>
+          </p>
           <!-- <p class="text-sm text-gold-600">{t('footer.tagline')}</p> -->
         </div>
       </a>
@@ -41,9 +46,12 @@ const route = currentPath.replace(/^\/(en|pt)/, '') || '/'
         >
           {t('nav.home')}
         </a>
-        <!-- <a href={translatePath(lang, 'blog')} class={`hover:text-gold-600 transition-colors ${route === '/blog' ? 'text-gold-600 font-medium' : 'text-navy-700'}`}>
-          {t('nav.blog')}
-        </a> -->
+        <a
+          href={articlesUrl(lang)}
+          class={`hover:text-gold-600 transition-colors ${currentPath === articlesUrl(lang) || currentPath.startsWith(`${articlesUrl(lang)}/`) ? 'text-gold-600 font-medium' : 'text-navy-700'}`}
+        >
+          {t('nav.articles')}
+        </a>
         <a
           href={translatePath(lang, 'sobre')}
           class={`hover:text-gold-600 transition-colors ${route === '/sobre' ? 'text-gold-600 font-medium' : 'text-navy-700'}`}
@@ -64,14 +72,14 @@ const route = currentPath.replace(/^\/(en|pt)/, '') || '/'
       <!-- Language Toggle -->
       <div class="hidden lg:flex items-center space-x-2">
         <a
-          href={translatePath('pt', route.slice(1))}
+          href={alternatePaths?.pt ?? translatePath('pt', route.slice(1))}
           class={`text-sm transition-colors ${lang === 'pt' ? 'text-gold-600 font-medium' : 'text-navy-600 hover:text-gold-600'}`}
         >
           PT
         </a>
         <span class="text-navy-300">|</span>
         <a
-          href={translatePath('en', route.slice(1))}
+          href={alternatePaths?.en ?? translatePath('en', route.slice(1))}
           class={`text-sm transition-colors ${lang === 'en' ? 'text-gold-600 font-medium' : 'text-navy-600 hover:text-gold-600'}`}
         >
           EN
@@ -108,7 +116,12 @@ const route = currentPath.replace(/^\/(en|pt)/, '') || '/'
         >
           {t('nav.home')}
         </a>
-        <!-- <a href={translatePath(lang, 'blog')} class="text-navy-700 hover:text-gold-600 transition-colors">{t('nav.blog')}</a> -->
+        <a
+          href={articlesUrl(lang)}
+          class="text-navy-700 hover:text-gold-600 transition-colors"
+        >
+          {t('nav.articles')}
+        </a>
         <a
           href={translatePath(lang, 'sobre')}
           class="text-navy-700 hover:text-gold-600 transition-colors"
@@ -123,14 +136,14 @@ const route = currentPath.replace(/^\/(en|pt)/, '') || '/'
         </a>
         <div class="flex items-center space-x-2 pt-2">
           <a
-            href={translatePath('pt', route.slice(1))}
+            href={alternatePaths?.pt ?? translatePath('pt', route.slice(1))}
             class={`text-sm transition-colors ${lang === 'pt' ? 'text-gold-600 font-medium' : 'text-navy-600 hover:text-gold-600'}`}
           >
             PT
           </a>
           <span class="text-navy-300">|</span>
           <a
-            href={translatePath('en', route.slice(1))}
+            href={alternatePaths?.en ?? translatePath('en', route.slice(1))}
             class={`text-sm transition-colors ${lang === 'en' ? 'text-gold-600 font-medium' : 'text-navy-600 hover:text-gold-600'}`}
           >
             EN
