@@ -118,7 +118,20 @@ Notro supports tables, callouts, toggles, columns, mentions and other Notion Mar
 
 We use Notro's default error handling. Data-source query failures and invalid article metadata fail the build. Individual page-fetch failures are logged and skipped; truncated content and unknown blocks produce warnings while the build continues. A Markdown compilation failure renders Notro's error message rather than failing the build. Review build warnings and the article preview before deploying. These behaviours are intentionally not intercepted or patched.
 
-Notro removes deleted, archived and filtered-out draft pages on the next sync and caches unchanged entries. Restart the dev server to query Notion edits during preview. Rebuild and deploy to publish changes. There is no polling, webhook or automatic deployment configured.
+Notro removes deleted, archived and filtered-out draft pages on the next sync and caches unchanged entries. Restart the dev server to query Notion edits during preview. Rebuild and deploy to publish changes. Notion changes are not polled; a webhook relay must explicitly trigger the CI event below.
+
+### CI and deployment
+
+`.github/workflows/ivs-legal.yml` checks and deploys IVS independently of the other sites. It runs article metadata tests, scoped lint and a fresh build. Pull requests only run checks; successful runs on `master` deploy the generated assets to the existing `ivs-legal` production Worker. IVS-only changes do not run the other sites' workflow, and changes confined to the other sites do not run IVS. Shared root files, including the dependency catalog and lockfile, trigger both workflows.
+
+Configure these GitHub Actions repository secrets:
+
+- `IVS_NOTION_TOKEN` → the IVS connection token, exposed to the build as `NOTION_TOKEN`.
+- `IVS_NOTION_DATA_SOURCE_ID` → the IVS data source, exposed as `NOTION_DATA_SOURCE_ID`.
+
+The existing `NOTION_TOKEN` and `NOTION_DATABASE_ID` secrets remain dedicated to hugodias.me. IVS continues using the existing `WEB3FORMS`, `HCAPTCHA`, `GOOGLE_MAPS`, `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` secrets. Local `.env` variable names do not change. Checks require the Notion secrets, so fork pull requests without access to secrets cannot perform the live content build.
+
+For a content-only rebuild, run **IVS Legal CI** manually on `master`, or have a webhook relay send a GitHub `repository_dispatch` event with `event_type: ivs-legal-webhook`. The existing `webhook` event remains assigned to the other sites. A raw Notion webhook must be translated by a relay; this workflow does not configure a Notion subscription. Workflows and dispatch events become available once these files are pushed to the default branch.
 
 Run our article-rule checks with `pnpm --filter ivs.legal exec node --test tests/article-schema.test.ts`, then the scoped lint and build. Notro itself owns the API and rendering implementation.
 

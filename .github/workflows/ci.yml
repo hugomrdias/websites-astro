@@ -2,9 +2,15 @@ name: CI
 
 on:
   pull_request:
+    paths-ignore:
+      - 'packages/ivs.legal/**'
+      - '.github/workflows/ivs-legal.yml'
   push:
     branches:
       - master
+    paths-ignore:
+      - 'packages/ivs.legal/**'
+      - '.github/workflows/ivs-legal.yml'
   workflow_dispatch:
   # Notion (and other) webhook deploys
   repository_dispatch:
@@ -39,21 +45,14 @@ jobs:
           cache: true
       - name: Install Playwright Chromium
         run: pnpm --filter hugodias.me exec playwright install --with-deps chromium
-      - run: pnpm lint
-      - run: pnpm build
+      - run: pnpm --filter hugodias.me --filter decentralised.dev lint
+      - run: pnpm --filter hugodias.me --filter decentralised.dev build
       - name: Upload hugodias.me
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
         uses: actions/upload-artifact@v7
         with:
           name: hugodias.me
           path: packages/hugodias.me/dist
-          retention-days: 1
-      - name: Upload ivs.legal
-        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
-        uses: actions/upload-artifact@v7
-        with:
-          name: ivs.legal
-          path: packages/ivs.legal/dist
           retention-days: 1
       - name: Upload decentralised.dev
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
@@ -75,8 +74,6 @@ jobs:
         include:
           - site: hugodias.me
             dir: packages/hugodias.me
-          - site: ivs.legal
-            dir: packages/ivs.legal
           - site: decentralised.dev
             dir: packages/decentralised.dev
     steps:
