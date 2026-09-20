@@ -17,6 +17,7 @@ for (const name of await readdir('dist')) {
     await copyFile(join('dist', name), join(root, name))
   }
 }
-// Vite creates a local preview secrets file; it must never enter CI artifacts.
-// Missing files are fine: not every build has local preview secrets to remove.
+// Cloudflare's Vite plugin may write declared Worker secrets available locally
+// to a .dev.vars file for preview. Remove it before packaging build artifacts.
+// No file is emitted when no matching local secrets are found (force allows this).
 await rm('dist/server/.dev.vars', { force: true })
