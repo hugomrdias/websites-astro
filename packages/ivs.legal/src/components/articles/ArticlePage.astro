@@ -67,6 +67,12 @@ const jsonLd = buildArticleJsonLd(
   description={description}
   type="article"
   noindex={sample}
+  alternatePaths={{
+    [lang]: articleUrl(article),
+    ...(translation && !translation.data.sample
+      ? { [translation.data.lang]: articleUrl(translation) }
+      : {}),
+  }}
 >
   <Fragment slot="head">
     <script
@@ -82,18 +88,6 @@ const jsonLd = buildArticleJsonLd(
       content={publishedAt.toISOString()}
     />
     <meta property="article:author" content={author} />
-    <link
-      rel="alternate"
-      hreflang={lang}
-      href={new URL(articleUrl(article), Astro.site)}
-    />
-    {translation && (
-      <link
-        rel="alternate"
-        hreflang={translation.data.lang}
-        href={new URL(articleUrl(translation), Astro.site)}
-      />
-    )}
   </Fragment>
   <Header alternatePaths={alternatePaths} />
   <main class="journal">

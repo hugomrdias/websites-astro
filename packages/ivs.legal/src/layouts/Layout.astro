@@ -22,6 +22,7 @@ export interface Props {
   type?: 'article' | 'website'
   noindex?: boolean
   googleMaps?: boolean
+  alternatePaths?: Partial<Record<'pt' | 'en', string>>
 }
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 
@@ -42,6 +43,30 @@ const ogImage = await getImage({
 })
 
 const pathname = Astro.url.pathname.replace(/\/+$/, '') || '/'
+// Only these static routes have matching pages in both languages.
+const staticPath = pathname.replace(/^\/en(?=\/|$)/, '') || '/'
+const translatedStaticPaths = [
+  '/',
+  '/about',
+  '/contact',
+  '/privacy',
+  '/terms',
+  '/vcard',
+  '/articles',
+]
+const alternatePaths =
+  Astro.props.alternatePaths ??
+  (translatedStaticPaths.includes(staticPath)
+    ? { pt: staticPath, en: `/en${staticPath === '/' ? '' : staticPath}` }
+    : {})
+const alternateLinks = noindex
+  ? []
+  : Object.entries(alternatePaths).map(([locale, path]) => ({
+      hreflang: locale === 'pt' ? 'pt-PT' : 'en',
+      href: new URL(`${path.replace(/\/+$/, '')}/`, Astro.site).href,
+    }))
+const defaultAlternate =
+  alternateLinks.find((link) => link.hreflang === 'pt-PT') ?? alternateLinks[0]
 const isHome = pathname === '/' || pathname === '/en'
 const jsonLd = isHome
   ? buildHomeJsonLd({
@@ -63,6 +88,12 @@ const googleMapsUrl = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS
     <meta name="generator" content={Astro.generator} />
     <!-- Canonical URL -->
     <link rel="canonical" href={canonicalURL} />
+    {alternateLinks.map(({ hreflang, href }) => (
+      <link rel="alternate" hreflang={hreflang} href={href} />
+    ))}
+    {defaultAlternate && (
+      <link rel="alternate" hreflang="x-default" href={defaultAlternate.href} />
+    )}
 
     <title>{title}</title>
     <meta name="title" content={title} />
