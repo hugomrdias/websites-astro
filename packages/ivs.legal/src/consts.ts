@@ -9,7 +9,7 @@ export const CONTACTS = {
   PHONE: '+351 925 395 905',
   EMAIL: 'geral@ivs.legal',
   WEBSITE: 'https://ivs.legal',
-  HOURS: 'Segunda a Sexta: 9:00 - 18:00 Sábado: 9:00 - 13:00',
+  HOURS: 'Segunda a Sexta: 9:00 - 18:00',
   LATITUDE: 41.201019287109375,
   LONGITUDE: -8.706390380859375,
 } as const
