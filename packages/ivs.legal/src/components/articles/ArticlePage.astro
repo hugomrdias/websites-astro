@@ -3,6 +3,7 @@ import { NotroContent, buildLinkToPages } from 'notro-loader'
 import ArticleContents from './ArticleContents.astro'
 import ArticleImage from './ArticleImage.astro'
 import { articleCategoryLabel } from '../../lib/article-categories'
+import { buildArticleJsonLd } from '../../lib/article-jsonld'
 import Layout from '../../layouts/Layout.astro'
 import Header from '../Header.astro'
 import Footer from '../Footer.astro'
@@ -48,6 +49,16 @@ const linkToPages = buildLinkToPages(articles, {
   url: (entry) => articleUrl(entry).replace(/^\//, ''),
   title: (entry) => entry.data.title,
 })
+const jsonLd = buildArticleJsonLd(
+  article,
+  new URL(Astro.url.pathname, Astro.site).href,
+  translation
+    ? {
+        article: translation,
+        url: new URL(`${articleUrl(translation)}/`, Astro.site).href,
+      }
+    : undefined
+)
 ---
 
 <Layout
@@ -58,6 +69,14 @@ const linkToPages = buildLinkToPages(articles, {
   noindex={sample}
 >
   <Fragment slot="head">
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')}
+    ></script>
+    <meta
+      property="article:modified_time"
+      content={article.data.last_edited_time}
+    />
     <meta
       property="article:published_time"
       content={publishedAt.toISOString()}

@@ -20,6 +20,12 @@ The gitignored `.env` supplies build-time `NOTION_TOKEN`, `NOTION_DATA_SOURCE_ID
 
 Store `TURNSTILE_SECRET_KEY` in gitignored `.dev.vars` for local development and in the Worker secret for each deployed environment. The public test site key uses Cloudflare's documented test secret; never use either on deployed sites. Automated tests mock token verification and email sending; no test sends real mail. Local email bindings are simulated (do not enable `remote: true`). The endpoint still checks hostname and action, so unit tests provide representative Siteverify responses.
 
+## Article structured data
+
+Article pages emit Article JSON-LD from Notion: `title` → `headline`, `description`, `publishedAt` → `datePublished`, `author`, `lang` → `inLanguage`, and the localized `category` → `about`. IVS Legal is the publisher and the existing fallback author when `author` is blank; named authors are represented as people. Canonical page URLs supply `mainEntityOfPage`. Published translations sharing `translationKey` are linked as versions of one creative work, without assuming which language was written first.
+
+`dateModified` uses Notion's built-in `last_edited_time`, already retained by the loader. It reflects page edits, including metadata edits, not a legal review or the build time. No new database properties are required. For a personal byline, fill the existing `author` text property with that person's name. A separate editorial-update or legal-review date would require an explicit Notion Date property and a loader mapping; neither is currently tracked.
+
 ## Contact flow
 
 All four forms share the same component and post JSON to `/api/contact`. The handler validates the body (64 KiB maximum), field lengths, privacy consent, locale, legal area, and urgency. It checks the request origin, applies five attempts per minute per IP using a Cloudflare rate-limit binding, and verifies the Turnstile token's hostname and `contact` action. Rate limiting is approximate and per Cloudflare location, not a global quota.
