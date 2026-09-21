@@ -106,9 +106,21 @@ const jsonLd = buildArticleJsonLd(
             <p class="journal-lead">{description}</p>
             <div class="journal-byline">
               <span>{author}</span>
-              <time datetime={publishedAt.toISOString()}>
-                {articleDate(article)}
-              </time>
+              <span>
+                {copy.published}:
+                <time datetime={publishedAt.toISOString()}>
+                  {articleDate(article)}
+                </time>
+              </span>
+              <span>
+                {copy.updated}:
+                <time datetime={article.data.last_edited_time}>
+                  {articleDate(
+                    article,
+                    new Date(article.data.last_edited_time)
+                  )}
+                </time>
+              </span>
               <span>
                 {readingTime(article)} {copy.minute}
               </span>

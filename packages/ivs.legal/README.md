@@ -26,6 +26,8 @@ Article pages emit Article JSON-LD from Notion: `title` → `headline`, `descrip
 
 `dateModified` uses Notion's built-in `last_edited_time`, already retained by the loader. It reflects page edits, including metadata edits, not a legal review or the build time. No new database properties are required. For a personal byline, fill the existing `author` text property with that person's name. A separate editorial-update or legal-review date would require an explicit Notion Date property and a loader mapping; neither is currently tracked.
 
+Article freshness uses the same Notion edit timestamp in the visible localized “Updated” date, JSON-LD `dateModified`, Open Graph metadata, and sitemap `<lastmod>`. The sitemap integration reads the current build's article JSON-LD before generating its entries, and fails the build if an article timestamp is missing or invalid. Static pages omit `<lastmod>` because their content modification dates are not tracked. Rebuilding alone does not advance article dates.
+
 ## Contact flow
 
 All four forms share the same component and post JSON to `/api/contact`. The handler validates the body (64 KiB maximum), field lengths, privacy consent, locale, legal area, and urgency. It checks the request origin, applies five attempts per minute per IP using a Cloudflare rate-limit binding, and verifies the Turnstile token's hostname and `contact` action. Rate limiting is approximate and per Cloudflare location, not a global quota.

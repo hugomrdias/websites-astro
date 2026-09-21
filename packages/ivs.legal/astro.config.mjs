@@ -2,7 +2,7 @@ import process from 'node:process'
 import { defineConfig, envField } from 'astro/config'
 import tailwindcss from '@tailwindcss/vite'
 import umami from '@yeskunall/astro-umami'
-import sitemap from '@astrojs/sitemap'
+import articleSitemap from './src/lib/article-sitemap'
 import icon from 'astro-icon'
 import favicons from 'astro-favicons'
 import react from '@astrojs/react'
@@ -65,7 +65,7 @@ export default defineConfig({
       endpointUrl: 'https://stats.hugomrdias.dev',
       performance: true,
     }),
-    sitemap(),
+    articleSitemap(),
     icon(),
     favicons({
       input: 'public/favicon.png',

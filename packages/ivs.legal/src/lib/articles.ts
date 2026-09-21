@@ -29,11 +29,11 @@ export function articlesUrl(lang: Language) {
   return lang === 'en' ? '/en/articles' : '/articles'
 }
 
-export function articleDate(article: Article) {
+export function articleDate(article: Article, date = article.data.publishedAt) {
   return new Intl.DateTimeFormat(
     article.data.lang === 'pt' ? 'pt-PT' : 'en-GB',
     { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }
-  ).format(article.data.publishedAt)
+  ).format(date)
 }
 
 export function readingTime(article: Article) {
@@ -68,6 +68,8 @@ export const journalCopy = {
     contactText: 'Converse connosco sobre a sua questão.',
     contact: 'Entrar em contacto',
     minute: 'min de leitura',
+    published: 'Publicado',
+    updated: 'Atualizado',
   },
   en: {
     label: 'Articles by IVS Legal',
@@ -95,5 +97,7 @@ export const journalCopy = {
     contactText: 'Talk to us about your question.',
     contact: 'Get in touch',
     minute: 'min read',
+    published: 'Published',
+    updated: 'Updated',
   },
 } as const
