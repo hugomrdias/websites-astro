@@ -14,6 +14,8 @@ export const CONTACTS = {
   LONGITUDE: -8.706390380859375,
 } as const
 
+export const OFFICE_MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CONTACTS.ADDRESS)}`
+
 export const SITE = {
   NAME: 'IVS Legal',
   DESCRIPTION:

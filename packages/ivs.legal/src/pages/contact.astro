@@ -1,4 +1,5 @@
 ---
+import { CONTACTS, OFFICE_MAPS_URL } from '@consts'
 import Layout from '../layouts/Layout.astro'
 import Header from '../components/Header.astro'
 import Footer from '../components/Footer.astro'
@@ -60,8 +61,15 @@ const t = useTranslations(lang)
               </svg>
             </div>
             <h2 class="text-xl font-semibold text-navy-900 mb-4">Escritório</h2>
-            <p class="text-gray-600 mb-2">{t('contact.address1')}</p>
-            <p class="text-gray-600 mb-4">{t('contact.address2')}</p>
+            <a
+              href={OFFICE_MAPS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block text-gray-600 mb-4 underline underline-offset-4"
+            >
+              <span class="block mb-2">{t('contact.address1')}</span>
+              <span class="block">{t('contact.address2')}</span>
+            </a>
             <p class="text-sm text-gray-500">{t('contact.hours.data')}</p>
           </div>
 
@@ -83,7 +91,14 @@ const t = useTranslations(lang)
               </svg>
             </div>
             <h2 class="text-xl font-semibold text-navy-900 mb-4">Telefone</h2>
-            <p class="text-gray-600 mb-2">{t('contact.phone.data')}</p>
+            <p class="text-gray-600 mb-2">
+              <a
+                class="underline underline-offset-4"
+                href={`tel:${CONTACTS.PHONE.replace(/\s/g, '')}`}
+              >
+                {CONTACTS.PHONE}
+              </a>
+            </p>
             <p class="text-sm text-gray-500">Linha direta disponível</p>
           </div>
 
@@ -105,7 +120,14 @@ const t = useTranslations(lang)
               </svg>
             </div>
             <h2 class="text-xl font-semibold text-navy-900 mb-4">Email</h2>
-            <p class="text-gray-600 mb-2">{t('contact.email.data')}</p>
+            <p class="text-gray-600 mb-2">
+              <a
+                class="underline underline-offset-4"
+                href={`mailto:${CONTACTS.EMAIL}`}
+              >
+                {CONTACTS.EMAIL}
+              </a>
+            </p>
             <p class="text-sm text-gray-500">
               Resposta garantida
               <br />

@@ -30,6 +30,8 @@ Article freshness uses the same Notion edit timestamp in the visible localized â
 
 ## Contact flow
 
+The forms expose the narrow `request_consultation` action using [WebMCP's declarative API](https://developer.chrome.com/docs/ai/webmcp/declarative-api). Supporting browsers derive parameters from the existing form controls. `toolautosubmit` is deliberately absent: the user reviews and submits the filled form, with privacy consent and Turnstile still required. Agent submissions receive the actual API outcome through `SubmitEvent.respondWith()`; network uncertainty is reported as `submission_unknown`, not success. A successful request is not a confirmed appointment. The integration is progressive enhancement for WebMCP-enabled browsers; ordinary browsers retain the regular form.
+
 All four forms share the same component and post JSON to `/api/contact`. The handler validates the body (64 KiB maximum), field lengths, privacy consent, locale, legal area, and urgency. It checks the request origin, applies five attempts per minute per IP using a Cloudflare rate-limit binding, and verifies the Turnstile token's hostname and `contact` action. Rate limiting is approximate and per Cloudflare location, not a global quota.
 
 Accepted messages are sent through `EMAIL` from `IVS Legal <website@ivs.legal>` to `geral@ivs.legal`, with the visitor as Reply-To. Sender and recipient are fixed and restricted by the binding. Staging subjects begin with `[STAGING]`. Both HTML and plain-text bodies include the submitted fields. There are no attachments, mailing-list subscriptions, visitor acknowledgements, database writes, queues, or automatic email retries.

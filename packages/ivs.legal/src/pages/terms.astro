@@ -1,4 +1,5 @@
 ---
+import { CONTACTS, OFFICE_MAPS_URL } from '@consts'
 import Layout from '../layouts/Layout.astro'
 import Header from '../components/Header.astro'
 import Footer from '../components/Footer.astro'
@@ -50,16 +51,35 @@ import Footer from '../components/Footer.astro'
                   <strong>Denominação:</strong> IVS Legal
                 </p>
                 <p>
-                  <strong>Sede:</strong> Travessa Henrique Schreck 96, 4450-578
-                  Matosinhos, Portugal
+                  <strong>Sede:</strong>{' '}
+                  <a
+                    href={OFFICE_MAPS_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="underline underline-offset-4"
+                  >
+                    {CONTACTS.ADDRESS}
+                  </a>
                 </p>
                 <!-- <p><strong>NIPC:</strong> 123456789</p> -->
                 <!-- <p><strong>Registo na Ordem dos Advogados:</strong> Sociedade nº 123</p> -->
                 <p>
-                  <strong>Email:</strong> geral@ivs.legal
+                  <strong>Email:</strong>{' '}
+                  <a
+                    class="underline underline-offset-4"
+                    href={`mailto:${CONTACTS.EMAIL}`}
+                  >
+                    {CONTACTS.EMAIL}
+                  </a>
                 </p>
                 <p>
-                  <strong>Telefone:</strong> +351 925 395 905
+                  <strong>Telefone:</strong>{' '}
+                  <a
+                    class="underline underline-offset-4"
+                    href={`tel:${CONTACTS.PHONE.replace(/\s/g, '')}`}
+                  >
+                    {CONTACTS.PHONE}
+                  </a>
                 </p>
                 <!-- <p><strong>Seguro de Responsabilidade Civil:</strong> Apólice nº 123456 - Companhia de Seguros XYZ</p> -->
               </div>
@@ -273,7 +293,15 @@ import Footer from '../components/Footer.astro'
                   <strong>Para apresentar reclamações:</strong>
                 </p>
                 <ul class="text-sm text-gray-700 space-y-1">
-                  <li>• Email: geral@ivs.legal</li>
+                  <li>
+                    • Email:{' '}
+                    <a
+                      class="underline underline-offset-4"
+                      href={`mailto:${CONTACTS.EMAIL}`}
+                    >
+                      {CONTACTS.EMAIL}
+                    </a>
+                  </li>
                   <li>• Livro de reclamações físico e eletrónico</li>
                   <li>• Portal da Queixa: www.portaldaqueixa.com</li>
                   <li>• Ordem dos Advogados (questões deontológicas)</li>
@@ -376,15 +404,36 @@ import Footer from '../components/Footer.astro'
                     <p>
                       <strong>IVS Legal</strong>
                     </p>
-                    <p>Rua da Liberdade, 123</p>
-                    <p>1250-146 Lisboa, Portugal</p>
+                    <a
+                      href={OFFICE_MAPS_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="underline underline-offset-4"
+                    >
+                      <span class="block">{CONTACTS.STREET}</span>
+                      <span class="block">
+                        {CONTACTS.POSTAL_CODE} {CONTACTS.LOCALITY}, Portugal
+                      </span>
+                    </a>
                   </div>
                   <div>
                     <p>
-                      <strong>Email:</strong> geral@vs-advocacia.pt
+                      <strong>Email:</strong>{' '}
+                      <a
+                        class="underline underline-offset-4"
+                        href={`mailto:${CONTACTS.EMAIL}`}
+                      >
+                        {CONTACTS.EMAIL}
+                      </a>
                     </p>
                     <p>
-                      <strong>Telefone:</strong> +351 21 123 4567
+                      <strong>Telefone:</strong>{' '}
+                      <a
+                        class="underline underline-offset-4"
+                        href={`tel:${CONTACTS.PHONE.replace(/\s/g, '')}`}
+                      >
+                        {CONTACTS.PHONE}
+                      </a>
                     </p>
                     <p>
                       <strong>Horário:</strong> 9h-18h (2ª a 6ª)

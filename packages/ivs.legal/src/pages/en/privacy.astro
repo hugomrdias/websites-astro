@@ -1,4 +1,5 @@
 ---
+import { CONTACTS, OFFICE_MAPS_URL } from '@consts'
 import Layout from '../../layouts/Layout.astro'
 import Header from '../../components/Header.astro'
 import Footer from '../../components/Footer.astro'
@@ -51,14 +52,33 @@ import Footer from '../../components/Footer.astro'
                   <strong>Company Name:</strong> IVS Legal - Law Firm
                 </p>
                 <p>
-                  <strong>Address:</strong> Travessa Henrique Schreck 96,
-                  4450-578 Matosinhos, Portugal
+                  <strong>Address:</strong>{' '}
+                  <a
+                    href={OFFICE_MAPS_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="underline underline-offset-4"
+                  >
+                    {CONTACTS.ADDRESS}
+                  </a>
                 </p>
                 <p>
-                  <strong>Email:</strong> geral@ivs.legal
+                  <strong>Email:</strong>{' '}
+                  <a
+                    class="underline underline-offset-4"
+                    href={`mailto:${CONTACTS.EMAIL}`}
+                  >
+                    {CONTACTS.EMAIL}
+                  </a>
                 </p>
                 <p>
-                  <strong>Phone:</strong> +351 925 395 905
+                  <strong>Phone:</strong>{' '}
+                  <a
+                    class="underline underline-offset-4"
+                    href={`tel:${CONTACTS.PHONE.replace(/\s/g, '')}`}
+                  >
+                    {CONTACTS.PHONE}
+                  </a>
                 </p>
                 <!-- <p><strong>Tax ID:</strong> 123456789</p> -->
               </div>
@@ -344,14 +364,33 @@ import Footer from '../../components/Footer.astro'
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <p>
-                      <strong>Email:</strong> geral@ivs.legal
+                      <strong>Email:</strong>{' '}
+                      <a
+                        class="underline underline-offset-4"
+                        href={`mailto:${CONTACTS.EMAIL}`}
+                      >
+                        {CONTACTS.EMAIL}
+                      </a>
                     </p>
                     <p>
-                      <strong>Phone:</strong> +351 925 395 905
+                      <strong>Phone:</strong>{' '}
+                      <a
+                        class="underline underline-offset-4"
+                        href={`tel:${CONTACTS.PHONE.replace(/\s/g, '')}`}
+                      >
+                        {CONTACTS.PHONE}
+                      </a>
                     </p>
                     <p>
-                      <strong>Mail:</strong> Travessa Henrique Schreck 96,
-                      4450-578 Matosinhos
+                      <strong>Mail:</strong>{' '}
+                      <a
+                        href={OFFICE_MAPS_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="underline underline-offset-4"
+                      >
+                        {CONTACTS.ADDRESS}
+                      </a>
                     </p>
                   </div>
                   <div>

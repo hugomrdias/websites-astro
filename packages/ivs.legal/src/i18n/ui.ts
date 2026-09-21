@@ -86,6 +86,8 @@ export const ui = {
     'contact.form.privacy.suffix':
       'e autorizo o tratamento dos meus dados pessoais para fins de contacto e prestação de serviços jurídicos.',
     'contact.form.noscript': 'Ative JavaScript ou contacte-nos por email:',
+    'contact.form.tool.description':
+      'Solicitar uma consulta à IVS Legal. Preenche os dados de contacto, área jurídica e mensagem para revisão e envio pelo utilizador. Requer consentimento de privacidade e verificação de segurança. Envia um pedido; não confirma uma marcação.',
     'contact.form.success':
       'Obrigado! O seu pedido foi enviado com sucesso. Entraremos em contacto brevemente.',
     'contact.form.success.title': 'Pedido enviado com sucesso!',
@@ -93,7 +95,7 @@ export const ui = {
       'Entraremos em contacto consigo no prazo de 24 horas. Obrigado pela sua confiança.',
     'contact.form.sending': 'A enviar…',
     'contact.form.error':
-      'Não foi possível enviar. Tente novamente ou contacte geral@ivs.legal.',
+      'Não foi possível enviar. Tente novamente ou contacte-nos por email:',
     'contact.form.error.token':
       'Conclua a verificação de segurança antes de enviar.',
     'contact.form.error.rate':
@@ -203,14 +205,15 @@ export const ui = {
     'contact.form.privacy.suffix':
       'and authorize the processing of my personal data for contact and legal service purposes.',
     'contact.form.noscript': 'Enable JavaScript or email us:',
+    'contact.form.tool.description':
+      'Request a consultation with IVS Legal. Fill contact details, legal area and message for the user to review and submit. Requires privacy consent and the security check. Sends a request; does not confirm an appointment.',
     'contact.form.success':
       'Thank you! Your request has been sent successfully. We will contact you shortly.',
     'contact.form.success.title': 'Request sent successfully!',
     'contact.form.success.description':
       'We will contact you within 24 hours. Thank you for your trust.',
     'contact.form.sending': 'Sending…',
-    'contact.form.error':
-      'Unable to send. Please retry or email geral@ivs.legal.',
+    'contact.form.error': 'Unable to send. Please retry or email us:',
     'contact.form.error.token': 'Complete the security check before sending.',
     'contact.form.error.rate':
       'Too many attempts. Wait a minute and try again.',

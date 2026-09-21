@@ -1,6 +1,6 @@
 ---
 import { getLangFromUrl, useTranslations } from '../i18n/utils'
-import { CONTACTS } from '@consts'
+import { CONTACTS, OFFICE_MAPS_URL } from '@consts'
 import ContactFields from './ContactFields.astro'
 import { Icon } from 'astro-icon/components'
 
@@ -32,7 +32,16 @@ const t = useTranslations(lang)
               <h3 class="text-lg font-semibold text-gold-400">
                 {t('contact.location')}
               </h3>
-              <p class="text-gray-300">{CONTACTS.ADDRESS}</p>
+              <p class="text-gray-300">
+                <a
+                  href={OFFICE_MAPS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="underline underline-offset-4"
+                >
+                  {CONTACTS.ADDRESS}
+                </a>
+              </p>
             </div>
           </div>
 
@@ -44,7 +53,12 @@ const t = useTranslations(lang)
               <h3 class="text-lg font-semibold text-gold-400">
                 {t('contact.phone')}
               </h3>
-              <p class="text-gray-300">{CONTACTS.PHONE}</p>
+              <a
+                class="text-gray-300 underline underline-offset-4"
+                href={`tel:${CONTACTS.PHONE.replace(/\s/g, '')}`}
+              >
+                {CONTACTS.PHONE}
+              </a>
             </div>
           </div>
 
@@ -56,7 +70,12 @@ const t = useTranslations(lang)
               <h3 class="text-lg font-semibold text-gold-400">
                 {t('contact.email')}
               </h3>
-              <p class="text-gray-300">{CONTACTS.EMAIL}</p>
+              <a
+                class="text-gray-300 underline underline-offset-4"
+                href={`mailto:${CONTACTS.EMAIL}`}
+              >
+                {CONTACTS.EMAIL}
+              </a>
             </div>
           </div>
 

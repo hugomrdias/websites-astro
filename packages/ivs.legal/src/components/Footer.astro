@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets'
 import { Icon } from 'astro-icon/components'
-import { CONTACTS } from '@consts'
+import { CONTACTS, OFFICE_MAPS_URL } from '@consts'
 import { getLangFromUrl, useTranslations, translatePath } from '../i18n/utils'
 import logo from '../assets/mono-queen.png'
 import { articlesUrl } from '../lib/articles'
@@ -99,15 +99,38 @@ const t = useTranslations(lang)
         <div class="space-y-3 text-gray-300">
           <div class="flex items-center gap-2">
             <Icon name="lucide:map-pin" class="w-5 min-w-5 h-5 text-gold-400" />
-            <p>{CONTACTS.ADDRESS}</p>
+            <p>
+              <a
+                href={OFFICE_MAPS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-gray-300 hover:text-gold-400 transition-colors"
+              >
+                {CONTACTS.ADDRESS}
+              </a>
+            </p>
           </div>
           <div class="flex items-center gap-2">
             <Icon name="lucide:phone" class="w-5 min-w-5 h-5 text-gold-400" />
-            <p>{CONTACTS.PHONE}</p>
+            <p>
+              <a
+                class="text-gray-300 hover:text-gold-400 transition-colors"
+                href={`tel:${CONTACTS.PHONE.replace(/\s/g, '')}`}
+              >
+                {CONTACTS.PHONE}
+              </a>
+            </p>
           </div>
           <div class="flex items-center gap-2">
             <Icon name="lucide:mail" class="w-5 min-w-5 h-5 text-gold-400" />
-            <p>{CONTACTS.EMAIL}</p>
+            <p>
+              <a
+                class="text-gray-300 hover:text-gold-400 transition-colors"
+                href={`mailto:${CONTACTS.EMAIL}`}
+              >
+                {CONTACTS.EMAIL}
+              </a>
+            </p>
           </div>
         </div>
       </div>

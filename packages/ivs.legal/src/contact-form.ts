@@ -1,4 +1,8 @@
 export {}
+type AgentSubmitEvent = SubmitEvent & {
+  agentInvoked?: boolean
+  respondWith?: (response: Promise<unknown>) => void
+}
 interface Turnstile {
   render(
     container: HTMLElement,
@@ -63,6 +67,10 @@ async function initialize() {
     rate: form.dataset.messageRate!,
   }
   const error = form.querySelector<HTMLElement>('[data-form-error]')!
+  const errorMessage = form.querySelector<HTMLElement>(
+    '[data-form-error-message]'
+  )!
+  const errorEmail = form.querySelector<HTMLElement>('[data-form-error-email]')!
   const button = form.querySelector<HTMLButtonElement>('button[type=submit]')!
   const label = button.textContent
   const success = document.getElementById('form-success')!
@@ -70,8 +78,11 @@ async function initialize() {
   let token = ''
   let widget: string | undefined
   let busy = false
+  let sent = false
   function showError(message: string) {
-    error.textContent = message
+    errorMessage.textContent = message
+    if (message === messages.error) errorEmail.classList.remove('hidden')
+    else errorEmail.classList.add('hidden')
     error.classList.remove('hidden')
     error.focus()
   }
@@ -79,59 +90,80 @@ async function initialize() {
     controller.abort()
     if (widget !== undefined) window.turnstile?.remove(widget)
   }
+  const submit = async (agentInvoked: boolean) => {
+    if (sent) return { ok: false, code: 'already_sent' }
+    if (busy) return { ok: false, code: 'busy' }
+    if (!form.reportValidity()) return { ok: false, code: 'invalid_fields' }
+    if (!token) {
+      showError(messages.token)
+      return {
+        ok: false,
+        code: 'security_check_required',
+        message: messages.token,
+      }
+    }
+    busy = true
+    button.disabled = true
+    button.textContent = messages.sending
+    error.classList.add('hidden')
+    try {
+      const fields = Object.fromEntries(new FormData(form))
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...fields,
+          privacy: fields.privacy === 'on',
+          locale: lang,
+          token,
+        }),
+        signal: AbortSignal.any([
+          controller.signal,
+          AbortSignal.timeout(20000),
+        ]),
+      })
+      const result = (await response.json()) as {
+        ok?: boolean
+        code?: string
+        requestId?: string
+      }
+      if (response.ok && result.ok === true) {
+        sent = true
+        // Reset cancels an active declarative WebMCP invocation.
+        if (!agentInvoked) form.reset()
+        form.hidden = true
+        success.classList.remove('hidden')
+        success.focus()
+        return { ok: true, code: 'sent', requestId: result.requestId }
+      } else {
+        const message =
+          response.status === 429
+            ? messages.rate
+            : response.status === 403
+              ? messages.token
+              : messages.error
+        showError(message)
+        return { ok: false, code: result.code ?? 'submission_failed', message }
+      }
+    } catch {
+      if (!controller.signal.aborted) showError(messages.error)
+      return { ok: false, code: 'submission_unknown', message: messages.error }
+    } finally {
+      token = ''
+      if (!controller.signal.aborted && widget !== undefined)
+        window.turnstile?.reset(widget)
+      busy = false
+      button.disabled = false
+      button.textContent = label
+    }
+  }
   form.addEventListener(
     'submit',
-    async (event) => {
+    (event: AgentSubmitEvent) => {
       event.preventDefault()
-      if (busy) return
-      if (!token) {
-        showError(messages.token)
-        return
-      }
-      busy = true
-      button.disabled = true
-      button.textContent = messages.sending
-      error.classList.add('hidden')
-      try {
-        const fields = Object.fromEntries(new FormData(form))
-        const response = await fetch('/api/contact', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            ...fields,
-            privacy: fields.privacy === 'on',
-            locale: lang,
-            token,
-          }),
-          signal: AbortSignal.any([
-            controller.signal,
-            AbortSignal.timeout(20000),
-          ]),
-        })
-        const result = (await response.json()) as { ok?: boolean }
-        if (response.ok && result.ok === true) {
-          form.reset()
-          form.hidden = true
-          success.classList.remove('hidden')
-          success.focus()
-        } else
-          showError(
-            response.status === 429
-              ? messages.rate
-              : response.status === 403
-                ? messages.token
-                : messages.error
-          )
-      } catch {
-        if (!controller.signal.aborted) showError(messages.error)
-      } finally {
-        token = ''
-        if (!controller.signal.aborted && widget !== undefined)
-          window.turnstile?.reset(widget)
-        busy = false
-        button.disabled = false
-        button.textContent = label
-      }
+      const result = submit(event.agentInvoked === true)
+      if (event.agentInvoked && typeof event.respondWith === 'function')
+        event.respondWith(result)
     },
     { signal: controller.signal }
   )
