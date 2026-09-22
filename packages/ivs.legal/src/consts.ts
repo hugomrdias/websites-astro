@@ -19,7 +19,7 @@ export const OFFICE_MAPS_URL = `https://www.google.com/maps/search/?api=1&query=
 export const SITE = {
   NAME: 'IVS Legal',
   DESCRIPTION:
-    'Escritório de Advocacia IVS Legal - Ética, proximidade e transparência',
+    'IVS Legal: escritório de advocacia em Matosinhos. Apoio jurídico em direito civil, trabalho, imobiliário, imigração, sociedades comerciais e direito penal.',
   URL: 'https://ivs.legal',
   IMAGE: 'https://ivs.legal/og.png',
   LOGO: 'https://ivs.legal/favicon.png',

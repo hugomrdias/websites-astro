@@ -44,6 +44,8 @@ export function readingTime(article: Article) {
 export const journalCopy = {
   pt: {
     label: 'Artigos da IVS Legal',
+    description:
+      'Leia os artigos da IVS Legal sobre questões jurídicas do dia a dia e explore os temas por área do Direito.',
     title: 'Direito,',
     titleHighlight: 'com clareza.',
     intro:
@@ -73,6 +75,8 @@ export const journalCopy = {
   },
   en: {
     label: 'Articles by IVS Legal',
+    description:
+      'Read IVS Legal articles on everyday legal issues and explore topics by area of law.',
     title: 'Law,',
     titleHighlight: 'made clear.',
     intro:

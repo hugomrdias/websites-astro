@@ -31,7 +31,7 @@ const hasSamples = articles.some((article) => article.data.sample)
 <Layout
   lang={lang}
   title={`${lang === 'pt' ? 'Artigos' : 'Articles'} — IVS Legal`}
-  description={copy.intro}
+  description={copy.description}
   noindex={
     articles.length > 0 && articles.every((article) => article.data.sample)
   }
