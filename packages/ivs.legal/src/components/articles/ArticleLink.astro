@@ -8,9 +8,9 @@ interface Props extends HTMLAttributes<'a'> {
   url?: string
 }
 const { href, url, ...attrs } = Astro.props
-const target = href?.toString() ?? url
-const pageId = target ? notionPageId(target) : undefined
-let resolved = target
+const link = href?.toString() ?? url
+const pageId = link ? notionPageId(link) : undefined
+let resolved = link
 if (pageId) {
   const article = (await getArticles()).find(
     (entry) => articleIdKey(entry.id) === pageId
@@ -22,6 +22,10 @@ if (pageId) {
     )
   }
 }
+const destination = resolved ? new URL(resolved, Astro.site) : undefined
+const external =
+  /^https?:$/.test(destination?.protocol ?? '') &&
+  destination?.origin !== Astro.site?.origin
 ---
 
 {pageId && !resolved ? (
@@ -29,7 +33,11 @@ if (pageId) {
     <slot />
   </span>
 ) : (
-  <a href={resolved} {...attrs}>
+  <a
+    href={resolved}
+    {...(external && { target: '_blank', rel: 'noopener noreferrer' })}
+    {...attrs}
+  >
     <slot />
   </a>
 )}
