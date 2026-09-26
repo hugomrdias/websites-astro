@@ -1,0 +1,35 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+import { articleUrl, getArticles } from '../../lib/articles'
+import { articleIdKey, notionPageId } from '../../lib/article-links'
+
+// Also receives Notion page blocks and page mentions, which carry `url`.
+interface Props extends HTMLAttributes<'a'> {
+  url?: string
+}
+const { href, url, ...attrs } = Astro.props
+const target = href?.toString() ?? url
+const pageId = target ? notionPageId(target) : undefined
+let resolved = target
+if (pageId) {
+  const article = (await getArticles()).find(
+    (entry) => articleIdKey(entry.id) === pageId
+  )
+  resolved = article && articleUrl(article)
+  if (!article) {
+    console.warn(
+      `[ivs.legal] ${Astro.url.pathname}: link to unpublished Notion page ${pageId} rendered as text.`
+    )
+  }
+}
+---
+
+{pageId && !resolved ? (
+  <span {...attrs}>
+    <slot />
+  </span>
+) : (
+  <a href={resolved} {...attrs}>
+    <slot />
+  </a>
+)}

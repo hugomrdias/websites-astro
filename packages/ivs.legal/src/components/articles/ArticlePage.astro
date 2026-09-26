@@ -1,7 +1,8 @@
 ---
-import { NotroContent, buildLinkToPages } from 'notro-loader'
+import { NotroContent } from 'notro-loader'
 import ArticleContents from './ArticleContents.astro'
 import ArticleImage from './ArticleImage.astro'
+import ArticleLink from './ArticleLink.astro'
 import { articleCategoryLabel } from '../../lib/article-categories'
 import { buildArticleJsonLd } from '../../lib/article-jsonld'
 import Layout from '../../layouts/Layout.astro'
@@ -45,10 +46,6 @@ const related = articles
       Number(a.data.category === category)
   )
   .slice(0, 2)
-const linkToPages = buildLinkToPages(articles, {
-  url: (entry) => articleUrl(entry).replace(/^\//, ''),
-  title: (entry) => entry.data.title,
-})
 const jsonLd = buildArticleJsonLd(
   article,
   new URL(Astro.url.pathname, Astro.site).href,
@@ -142,8 +139,12 @@ const jsonLd = buildArticleJsonLd(
           <div class="journal-prose">
             <NotroContent
               markdown={article.data.markdown}
-              linkToPages={linkToPages}
-              components={{ img: ArticleImage }}
+              components={{
+                img: ArticleImage,
+                a: ArticleLink,
+                PageRef: ArticleLink,
+                MentionPage: ArticleLink,
+              }}
             />
           </div>
         </div>
