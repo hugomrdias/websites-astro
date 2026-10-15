@@ -4,6 +4,7 @@ import ArticleContents from './ArticleContents.astro'
 import ArticleImage from './ArticleImage.astro'
 import ArticleLink from './ArticleLink.astro'
 import { articleCategoryLabel } from '../../lib/article-categories'
+import { normalizeArticleMarkdown } from '../../lib/article-markdown'
 import { buildArticleJsonLd } from '../../lib/article-jsonld'
 import Layout from '../../layouts/Layout.astro'
 import Header from '../Header.astro'
@@ -138,7 +139,7 @@ const jsonLd = buildArticleJsonLd(
           </aside>
           <div class="journal-prose">
             <NotroContent
-              markdown={article.data.markdown}
+              markdown={normalizeArticleMarkdown(article.data.markdown)}
               components={{
                 img: ArticleImage,
                 a: ArticleLink,

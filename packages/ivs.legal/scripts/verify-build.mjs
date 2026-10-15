@@ -30,6 +30,11 @@ for (const file of all.filter(
   const md = file.replace(/\.html$/, '.md')
   assert((await stat(md)).size > 0, `Missing Markdown: ${md}`)
   assert(index.includes(md.slice(root.length)), `Missing llms.txt entry: ${md}`)
+  // Notro renders an error box instead of failing when an article's MDX breaks.
+  assert(
+    !(await readFile(file, 'utf8')).includes('[notro] MDX compilation error'),
+    `Notion article failed to compile: ${file}`
+  )
 }
 
 // Check the index in the other direction: every local link must resolve to a
