@@ -25,8 +25,7 @@ const full = await readFile(join(root, 'llms-full.txt'), 'utf8')
 const site = 'https://ivs.legal'
 
 // Require a nonempty Markdown counterpart and index entry for every public page.
-// The error page and noindex pages are intentionally excluded from agent-facing
-// content.
+// The error page is excluded, and noindex pages stay out of the indexes.
 for (const file of all.filter(
   (f) => f.endsWith('.html') && !f.endsWith('/404.html')
 )) {
@@ -36,10 +35,11 @@ for (const file of all.filter(
     !html.includes('[notro] MDX compilation error'),
     `Notion article failed to compile: ${file}`
   )
-  if (/<meta name="robots" content="noindex/i.test(html)) continue
   const md = file.replace(/\.html$/, '.md')
   const url = `${site}${md.slice(root.length)}`
+  // `_headers` advertises a twin for every page, including noindex ones.
   assert((await stat(md)).size > 0, `Missing Markdown: ${md}`)
+  if (/<meta name="robots" content="noindex/i.test(html)) continue
   assert(index.includes(`](${url})`), `Missing llms.txt entry: ${url}`)
   assert(
     full.includes(`url: "${url.replace(/index\.md$/, '')}"`),

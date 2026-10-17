@@ -200,11 +200,12 @@ export default function agentMarkdown(options: {
           } catch {
             continue
           }
-          // Agent-facing indexes leave out pages hidden from search engines.
-          if (/<meta name="robots" content="noindex/i.test(html)) continue
           const page = pageMarkdown(html, `/${clean && `${clean}/`}`)
+          // Every page keeps a twin, since `_headers` advertises one for all
+          // directories, but the indexes leave out pages hidden from search.
           await writeFile(new URL('index.md', file), page.markdown, 'utf8')
-          pages.push(page)
+          if (!/<meta name="robots" content="noindex/i.test(html))
+            pages.push(page)
         }
         const index = llmsTxt(pages, { ...options, site })
         await writeFile(new URL('llms.txt', dir), index, 'utf8')

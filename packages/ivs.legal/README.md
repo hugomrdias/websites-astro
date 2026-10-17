@@ -68,7 +68,7 @@ PRs build staging artifacts without deploying. Manual workflow runs default to s
 
 ## Static output checks
 
-`src/lib/agent-markdown.ts` writes the Markdown twins from the built HTML using the converter from `@puralex/astro-markdown-for-agents`. Each file starts with YAML front matter (title, description, URL, language and, for articles, dates, author and category). Elements marked `data-agent-skip` (search, filters, bylines, card arrows) are left out. Pages marked noindex are excluded. Every page links to its twin with `<link rel="alternate" type="text/markdown">` and a matching `Link` header from `public/_headers`.
+`src/lib/agent-markdown.ts` writes the Markdown twins from the built HTML using the converter from `@puralex/astro-markdown-for-agents`. Each file starts with YAML front matter (title, description, URL, language and, for articles, dates, author and category). Elements marked `data-agent-skip` (search, filters, bylines, card arrows) are left out. Pages marked noindex keep a twin but are left out of `llms.txt` and `llms-full.txt`. Every page links to its twin with `<link rel="alternate" type="text/markdown">` and a matching `Link` header from `public/_headers`.
 
 Every indexable page also carries a JSON-LD `@graph` with the firm, its founders, the website and the page (`AboutPage`, `ContactPage`, `CollectionPage` or `WebPage`); articles add a `BreadcrumbList`.
 
