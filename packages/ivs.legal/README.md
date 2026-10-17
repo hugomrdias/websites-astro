@@ -1,6 +1,6 @@
 # IVS Legal
 
-Astro pages and Notion articles are prerendered. The Cloudflare adapter runs only the contact API on demand. Public HTML is served as static assets; Markdown is available at matching `index.md` URLs and indexed by `/llms.txt`.
+Astro pages and Notion articles are prerendered. The Cloudflare adapter runs only the contact API on demand. Public HTML is served as static assets; Markdown is available at matching `index.md` URLs, indexed by `/llms.txt` and concatenated in `/llms-full.txt`.
 
 ## Development
 
@@ -22,7 +22,7 @@ Store `TURNSTILE_SECRET_KEY` in gitignored `.dev.vars` for local development and
 
 ## Article structured data
 
-Article pages emit Article JSON-LD from Notion: `title` → `headline`, `description`, `publishedAt` → `datePublished`, `author`, `lang` → `inLanguage`, and the localized `category` → `about`. IVS Legal is the publisher and the existing fallback author when `author` is blank; named authors are represented as people. Canonical page URLs supply `mainEntityOfPage`. Published translations sharing `translationKey` are linked as versions of one creative work, without assuming which language was written first.
+Article pages emit Article JSON-LD from Notion: `title` → `headline`, `description`, `publishedAt` → `datePublished`, `author`, `lang` → `inLanguage`, and the localized `category` → `about`. IVS Legal is the publisher and the existing fallback author when `author` is blank; named authors are represented as people. An `author` that exactly matches a founder in `FOUNDERS` (`src/consts.ts`) links to that lawyer's Person node and profile anchor on the About page; set it in Notion to give an article a named byline. Canonical page URLs supply `mainEntityOfPage`. Published translations sharing `translationKey` are linked as versions of one creative work, without assuming which language was written first.
 
 `dateModified` uses Notion's built-in `last_edited_time`, already retained by the loader. It reflects page edits, including metadata edits, not a legal review or the build time. No new database properties are required. For a personal byline, fill the existing `author` text property with that person's name. A separate editorial-update or legal-review date would require an explicit Notion Date property and a loader mapping; neither is currently tracked.
 
@@ -68,7 +68,11 @@ PRs build staging artifacts without deploying. Manual workflow runs default to s
 
 ## Static output checks
 
-After artifact preparation, the read-only `scripts/verify-build.mjs` verifies generated Markdown and every `/llms.txt` link, plus the presence of required icon, 404, and `/sw.js` files. Missing pages return 404; `/api/*` runs before static fallback. `.md` files use `text/markdown`; ordinary URLs remain HTML, including for AI crawlers.
+`src/lib/agent-markdown.ts` writes the Markdown twins from the built HTML using the converter from `@puralex/astro-markdown-for-agents`. Each file starts with YAML front matter (title, description, URL, language and, for articles, dates, author and category). Elements marked `data-agent-skip` (search, filters, bylines, card arrows) are left out. Pages marked noindex are excluded. Every page links to its twin with `<link rel="alternate" type="text/markdown">` and a matching `Link` header from `public/_headers`.
+
+Every indexable page also carries a JSON-LD `@graph` with the firm, its founders, the website and the page (`AboutPage`, `ContactPage`, `CollectionPage` or `WebPage`); articles add a `BreadcrumbList`.
+
+After artifact preparation, the read-only `scripts/verify-build.mjs` verifies generated Markdown and every `/llms.txt` and `/llms-full.txt` entry, plus the presence of required icon, 404, `/sw.js`, `/ivs-legal.vcf` and `/.well-known/security.txt` files. Missing pages return 404; `/api/*` runs before static fallback. `.md` files use `text/markdown`; ordinary URLs remain HTML, including for AI crawlers.
 
 ## Icons and retired service worker
 

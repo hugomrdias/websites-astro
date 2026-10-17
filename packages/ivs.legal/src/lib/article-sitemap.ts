@@ -6,6 +6,9 @@ import type { AstroIntegration } from 'astro'
 export default function articleSitemap(): AstroIntegration {
   const modifiedDates = new Map<string, string>()
   const integration = sitemap({
+    // Pairs pages that share a path after the locale prefix, so static pages
+    // get hreflang alternates. Article slugs differ per language.
+    i18n: { defaultLocale: 'pt', locales: { pt: 'pt-PT', en: 'en' } },
     serialize(item) {
       const lastmod = modifiedDates.get(new URL(item.url).pathname)
       return lastmod ? { ...item, lastmod } : item

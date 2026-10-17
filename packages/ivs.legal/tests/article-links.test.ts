@@ -1,6 +1,10 @@
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
-import { articleIdKey, notionPageId } from '../src/lib/article-links.ts'
+import {
+  articleIdKey,
+  notionPageId,
+  unwrapSearchLink,
+} from '../src/lib/article-links.ts'
 
 const id = '3e18bb11e6ba8057bfdad82c4578c1c0'
 
@@ -29,5 +33,27 @@ test('non-Notion and non-page URLs are left alone', () => {
     '#heading',
   ]) {
     assert.equal(notionPageId(url), undefined, url)
+  }
+})
+
+test('Google search wrappers around a URL link to the URL itself', () => {
+  const source = 'https://diariodarepublica.pt/dr/detalhe/lei/6-2006-538965'
+  assert.equal(
+    unwrapSearchLink(`https://www.google.com/search?q=${source}`),
+    source
+  )
+  assert.equal(
+    unwrapSearchLink(
+      `https://www.google.pt/search?q=${encodeURIComponent(source)}`
+    ),
+    source
+  )
+  for (const url of [
+    'https://www.google.com/search?q=lei+do+arrendamento',
+    'https://www.google.com/maps?q=https://example.com',
+    `https://example.com/search?q=${source}`,
+    '/articles/lei-das-burcas/',
+  ]) {
+    assert.equal(unwrapSearchLink(url), url, url)
   }
 })

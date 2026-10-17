@@ -17,6 +17,26 @@ export function notionPageId(url: string) {
     .toLowerCase()
 }
 
+// Notion sometimes stores pasted links as a Google search for the URL. Link to
+// the cited source itself instead.
+export function unwrapSearchLink(url: string) {
+  let parsed: URL
+  try {
+    parsed = new URL(url)
+  } catch {
+    return url
+  }
+  const query = parsed.searchParams.get('q')?.trim()
+  if (
+    !/^(?:www\.)?google\.[a-z.]+$/.test(parsed.hostname) ||
+    parsed.pathname !== '/search' ||
+    !query ||
+    !/^https?:\/\/\S+$/.test(query)
+  )
+    return url
+  return query
+}
+
 export function articleIdKey(id: string) {
   return id.replaceAll('-', '').toLowerCase()
 }

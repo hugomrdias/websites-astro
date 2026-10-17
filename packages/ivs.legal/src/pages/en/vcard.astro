@@ -3,6 +3,7 @@ import Layout from '@layouts/Layout.astro'
 import Header from '@components/Header.astro'
 import Footer from '@components/Footer.astro'
 import QR from '@components/qr'
+import { CONTACTS, VCARD_PATH } from '@consts'
 ---
 
 <Layout
@@ -31,7 +32,32 @@ import QR from '@components/qr'
     <section class="py-20 bg-white">
       <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto prose prose-lg">
-          <QR />
+          <div data-agent-skip>
+            <QR />
+          </div>
+          <ul class="mt-10 space-y-1 text-center list-none text-gray-700">
+            <li>
+              <strong>{CONTACTS.NAME}</strong>
+            </li>
+            <li>
+              <a href={`tel:${CONTACTS.PHONE.replace(/\s/g, '')}`}>
+                {CONTACTS.PHONE}
+              </a>
+            </li>
+            <li>
+              <a href={`mailto:${CONTACTS.EMAIL}`}>{CONTACTS.EMAIL}</a>
+            </li>
+            <li>{CONTACTS.ADDRESS}</li>
+          </ul>
+          <p class="mt-8 text-center">
+            <a
+              href={VCARD_PATH}
+              download
+              class="inline-block bg-gold-500 hover:bg-gold-600 text-navy-900 px-6 py-2 rounded-md font-medium no-underline transition-colors"
+            >
+              Download vCard (.vcf)
+            </a>
+          </p>
         </div>
       </div>
     </section>

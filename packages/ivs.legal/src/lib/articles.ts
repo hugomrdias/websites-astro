@@ -22,11 +22,11 @@ export async function getArticles(lang?: Language) {
 }
 
 export function articleUrl(article: Article) {
-  return `${articlesUrl(article.data.lang)}/${article.data.slug}`
+  return `${articlesUrl(article.data.lang)}${article.data.slug}/`
 }
 
 export function articlesUrl(lang: Language) {
-  return lang === 'en' ? '/en/articles' : '/articles'
+  return lang === 'en' ? '/en/articles/' : '/articles/'
 }
 
 export function articleDate(article: Article, date = article.data.publishedAt) {

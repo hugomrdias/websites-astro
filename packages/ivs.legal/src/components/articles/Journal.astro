@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro'
+import { translatePath } from '../../i18n/utils'
 import Header from '../Header.astro'
 import Footer from '../Footer.astro'
 import ArticleCard from './ArticleCard.astro'
@@ -26,6 +27,16 @@ const articles = await getArticles(lang)
 const featured =
   articles.find((article) => article.data.featured) ?? articles[0]
 const hasSamples = articles.some((article) => article.data.sample)
+const itemList = {
+  '@type': 'ItemList',
+  numberOfItems: articles.length,
+  itemListElement: articles.map((article, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    url: new URL(articleUrl(article), Astro.site).href,
+    name: article.data.title,
+  })),
+}
 ---
 
 <Layout
@@ -35,6 +46,8 @@ const hasSamples = articles.some((article) => article.data.sample)
   noindex={
     articles.length > 0 && articles.every((article) => article.data.sample)
   }
+  pageType="CollectionPage"
+  mainEntity={itemList}
 >
   <Header alternatePaths={{ pt: articlesUrl('pt'), en: articlesUrl('en') }} />
   <main class="journal">
@@ -51,7 +64,11 @@ const hasSamples = articles.some((article) => article.data.sample)
     </header>
     <div class="journal-wrap journal-listing container mx-auto px-4">
       {featured && (
-        <section class="journal-feature" aria-labelledby="featured-title">
+        <section
+          class="journal-feature"
+          aria-labelledby="featured-title"
+          data-agent-skip
+        >
           <div class="journal-feature-marker">
             <span>{copy.featured}</span>
             <span aria-hidden="true">§</span>
@@ -90,11 +107,11 @@ const hasSamples = articles.some((article) => article.data.sample)
         <div class="journal-library-heading">
           <h2 id="articles-title">
             {copy.articles}
-            <span class="journal-total">
+            <span class="journal-total" data-agent-skip>
               {String(articles.length).padStart(2, '0')}
             </span>
           </h2>
-          <div class="journal-search" data-controls hidden>
+          <div class="journal-search" data-controls data-agent-skip hidden>
             <label for="article-search" class="sr-only">
               {copy.search}
             </label>
@@ -123,6 +140,7 @@ const hasSamples = articles.some((article) => article.data.sample)
           role="group"
           aria-label={lang === 'pt' ? 'Filtrar por tema' : 'Filter by topic'}
           data-controls
+          data-agent-skip
           hidden
         >
           <button type="button" data-filter="" aria-pressed="true">
@@ -140,13 +158,19 @@ const hasSamples = articles.some((article) => article.data.sample)
           aria-live="polite"
           aria-atomic="true"
           data-results
+          data-agent-skip
         ></p>
         <div class="journal-grid">
           {articles.map((article) => (
             <ArticleCard article={article} />
           ))}
         </div>
-        <div class="journal-empty" data-empty hidden={articles.length > 0}>
+        <div
+          class="journal-empty"
+          data-empty
+          data-agent-skip={articles.length > 0}
+          hidden={articles.length > 0}
+        >
           <h3>{copy.empty}</h3>
           <p>{copy.emptyHint}</p>
           <button
@@ -160,7 +184,7 @@ const hasSamples = articles.some((article) => article.data.sample)
             <span aria-hidden="true">↗</span>
           </button>
         </div>
-        <div class="journal-load">
+        <div class="journal-load" data-agent-skip>
           <button type="button" class="journal-button" data-more hidden>
             {copy.more}
             <span aria-hidden="true">↓</span>
@@ -178,10 +202,7 @@ const hasSamples = articles.some((article) => article.data.sample)
           <h2>{copy.contactTitle}</h2>
           <p>{copy.contactText}</p>
         </div>
-        <a
-          class="journal-button"
-          href={lang === 'pt' ? '/contact' : '/en/contact'}
-        >
+        <a class="journal-button" href={translatePath(lang, 'contact')}>
           {copy.contact}
           <span aria-hidden="true">↗</span>
         </a>

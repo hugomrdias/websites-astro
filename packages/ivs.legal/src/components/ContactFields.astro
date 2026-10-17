@@ -1,5 +1,5 @@
 ---
-import { getLangFromUrl, useTranslations } from '../i18n/utils'
+import { getLangFromUrl, useTranslations, translatePath } from '../i18n/utils'
 import { TURNSTILE_SITE_KEY } from 'astro:env/client'
 import { CONTACTS } from '@consts'
 interface Props {
@@ -174,7 +174,7 @@ const t = useTranslations(lang)
         <>
           {t('contact.form.privacy.prefix')}{' '}
           <a
-            href={lang === 'pt' ? '/privacy' : '/en/privacy'}
+            href={translatePath(lang, 'privacy')}
             class="text-gold-800 hover:text-gold-900 underline"
           >
             {t('contact.form.privacy.link')}
