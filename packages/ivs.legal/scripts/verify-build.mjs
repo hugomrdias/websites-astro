@@ -1,4 +1,5 @@
 import console from 'node:console'
+import { URL } from 'node:url'
 import { readdir, readFile, stat } from 'node:fs/promises'
 import { resolve, join } from 'node:path'
 import assert from 'node:assert/strict'
@@ -20,31 +21,45 @@ async function files(dir) {
 }
 const all = await files(root)
 const index = await readFile(join(root, 'llms.txt'), 'utf8')
+const full = await readFile(join(root, 'llms-full.txt'), 'utf8')
+const site = 'https://ivs.legal'
 
-// The Markdown plugin can log generation failures without failing Astro's build.
 // Require a nonempty Markdown counterpart and index entry for every public page.
-// The error page is intentionally excluded from agent-facing content.
+// The error page is excluded, and noindex pages stay out of the indexes.
 for (const file of all.filter(
   (f) => f.endsWith('.html') && !f.endsWith('/404.html')
 )) {
-  const md = file.replace(/\.html$/, '.md')
-  assert((await stat(md)).size > 0, `Missing Markdown: ${md}`)
-  assert(index.includes(md.slice(root.length)), `Missing llms.txt entry: ${md}`)
+  const html = await readFile(file, 'utf8')
   // Notro renders an error box instead of failing when an article's MDX breaks.
   assert(
-    !(await readFile(file, 'utf8')).includes('[notro] MDX compilation error'),
+    !html.includes('[notro] MDX compilation error'),
     `Notion article failed to compile: ${file}`
+  )
+  const md = file.replace(/\.html$/, '.md')
+  const url = `${site}${md.slice(root.length)}`
+  // `_headers` advertises a twin for every page, including noindex ones.
+  assert((await stat(md)).size > 0, `Missing Markdown: ${md}`)
+  if (/<meta name="robots" content="noindex/i.test(html)) continue
+  assert(index.includes(`](${url})`), `Missing llms.txt entry: ${url}`)
+  assert(
+    full.includes(`url: "${url.replace(/index\.md$/, '')}"`),
+    `Missing llms-full.txt entry: ${url}`
   )
 }
 
-// Check the index in the other direction: every local link must resolve to a
+// Check the index in the other direction: every link must resolve to a
 // generated file, and API/error routes must not appear in the discovery index.
-for (const [, url] of index.matchAll(/\]\((\/[^)]+)\)/g)) {
+for (const [, url] of index.matchAll(/\]\(([^)]+)\)/g)) {
+  const { origin, pathname } = new URL(url)
+  assert.equal(origin, site, `External index entry: ${url}`)
   assert(
-    !url.includes('/api/') && !url.includes('404'),
+    !pathname.includes('/api/') && !pathname.includes('404'),
     `Invalid index entry: ${url}`
   )
-  assert((await stat(join(root, url))).isFile(), `Broken Markdown link: ${url}`)
+  assert(
+    (await stat(join(root, pathname))).isFile(),
+    `Broken Markdown link: ${url}`
+  )
 }
 
 // Catch output-path regressions that would drop icons, PWA retirement assets,
@@ -60,6 +75,8 @@ for (const name of [
   'safari-pinned-tab.svg',
   'manifest.webmanifest',
   '404.html',
+  'ivs-legal.vcf',
+  '.well-known/security.txt',
 ])
   await stat(join(root, name))
 

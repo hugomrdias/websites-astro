@@ -7,7 +7,7 @@ import icon from 'astro-icon'
 import favicons from 'astro-favicons'
 import react from '@astrojs/react'
 import cloudflare from '@astrojs/cloudflare'
-import markdownForAgents from '@puralex/astro-markdown-for-agents'
+import agentMarkdown from './src/lib/agent-markdown'
 import { notro } from 'notro-loader/integration'
 
 export default defineConfig({
@@ -21,6 +21,7 @@ export default defineConfig({
     '/en/politica-privacidade': '/en/privacy/',
     '/en/termos-condicoes': '/en/terms/',
     '/en/sobre': '/en/about/',
+    '/sitemap.xml': '/sitemap-index.xml',
   },
   adapter: cloudflare({
     prerenderEnvironment: 'node',
@@ -55,9 +56,9 @@ export default defineConfig({
   },
   integrations: [
     notro(),
-    markdownForAgents({
-      siteTitle: 'IVS Legal',
-      siteDescription:
+    agentMarkdown({
+      title: 'IVS Legal',
+      description:
         'Informação jurídica e serviços de advocacia em Portugal. / Legal information and services in Portugal.',
     }),
     umami({

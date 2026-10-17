@@ -30,11 +30,12 @@ const categoryLabel = articleCategoryLabel(category, lang)
   <div class="journal-card-bottom">
     <div class="journal-meta">
       <time datetime={publishedAt.toISOString()}>{articleDate(article)}</time>
-      <span>
+      <span data-agent-skip>
         {readingTime(article)} {copy.minute}
       </span>
     </div>
     <a
+      data-agent-skip
       class="journal-arrow"
       href={articleUrl(article)}
       aria-label={`${copy.read}: ${title}`}

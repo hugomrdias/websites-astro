@@ -23,9 +23,14 @@ export function getRouteFromUrl(url: URL): string {
   return pathname
 }
 
+// Pages are served from directories, so link to the slashed URL directly
+// instead of taking a redirect on every hop. A `#fragment` stays after it.
 export function translatePath(
   lang: keyof typeof ui,
   path: string = ''
 ): string {
-  return lang === defaultLang ? `/${path}` : `/${lang}/${path}`
+  const [, route, hash] = path.match(/^([^#]*)(.*)$/s)!
+  const prefix = lang === defaultLang ? '/' : `/${lang}/`
+  const slashed = route.replace(/^\/+|\/+$/g, '')
+  return `${prefix}${slashed && `${slashed}/`}${hash}`
 }

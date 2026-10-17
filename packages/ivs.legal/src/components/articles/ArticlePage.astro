@@ -6,7 +6,10 @@ import ArticleLink from './ArticleLink.astro'
 import { articleCategoryLabel } from '../../lib/article-categories'
 import { normalizeArticleMarkdown } from '../../lib/article-markdown'
 import { buildArticleJsonLd } from '../../lib/article-jsonld'
+import { ogImageUrl } from '../../lib/og-image'
+import { ui } from '../../i18n/ui'
 import Layout from '../../layouts/Layout.astro'
+import { translatePath } from '../../i18n/utils'
 import Header from '../Header.astro'
 import Footer from '../Footer.astro'
 import ArticleCard from './ArticleCard.astro'
@@ -47,13 +50,26 @@ const related = articles
       Number(a.data.category === category)
   )
   .slice(0, 2)
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href
+const breadcrumbs = [
+  {
+    name: ui[lang]['nav.home'],
+    url: new URL(translatePath(lang), Astro.site).href,
+  },
+  {
+    name: ui[lang]['nav.articles'],
+    url: new URL(articlesUrl(lang), Astro.site).href,
+  },
+  { name: title, url: canonicalUrl },
+]
 const jsonLd = buildArticleJsonLd(
   article,
-  new URL(Astro.url.pathname, Astro.site).href,
+  canonicalUrl,
+  await ogImageUrl(Astro.site),
   translation
     ? {
         article: translation,
-        url: new URL(`${articleUrl(translation)}/`, Astro.site).href,
+        url: new URL(articleUrl(translation), Astro.site).href,
       }
     : undefined
 )
@@ -65,6 +81,7 @@ const jsonLd = buildArticleJsonLd(
   description={description}
   type="article"
   noindex={sample}
+  breadcrumbs={breadcrumbs}
   alternatePaths={{
     [lang]: articleUrl(article),
     ...(translation && !translation.data.sample
@@ -93,16 +110,16 @@ const jsonLd = buildArticleJsonLd(
       <header class="journal-hero">
         <div class="container mx-auto px-4">
           <div class="journal-article-header">
-            <a class="journal-back" href={articlesUrl(lang)}>
+            <a class="journal-back" href={articlesUrl(lang)} data-agent-skip>
               <span aria-hidden="true">←</span>
               {copy.back}
             </a>
-            <p class="journal-eyebrow">
+            <p class="journal-eyebrow" data-agent-skip>
               {articleCategoryLabel(category, lang)}
             </p>
             <h1>{title}</h1>
             <p class="journal-lead">{description}</p>
-            <div class="journal-byline">
+            <div class="journal-byline" data-agent-skip>
               <span>{author}</span>
               <span>
                 {copy.published}:
@@ -157,10 +174,7 @@ const jsonLd = buildArticleJsonLd(
           <h2>{copy.contactTitle}</h2>
           <p>{copy.contactText}</p>
         </div>
-        <a
-          class="journal-button"
-          href={lang === 'pt' ? '/contact' : '/en/contact'}
-        >
+        <a class="journal-button" href={translatePath(lang, 'contact')}>
           {copy.contact}
           <span aria-hidden="true">↗</span>
         </a>

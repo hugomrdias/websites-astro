@@ -20,8 +20,9 @@ export const SITE = {
   NAME: 'IVS Legal',
   DESCRIPTION:
     'IVS Legal: escritório de advocacia em Matosinhos. Apoio jurídico em direito civil, trabalho, imobiliário, imigração, sociedades comerciais e direito penal.',
+  DESCRIPTION_EN:
+    'IVS Legal is a law firm in Matosinhos, Portugal, advising on civil, employment, real estate, immigration, corporate and criminal law.',
   URL: 'https://ivs.legal',
-  IMAGE: 'https://ivs.legal/og.png',
   LOGO: 'https://ivs.legal/favicon.png',
   KEYWORDS:
     'advocacia, advogados, direito, Portugal, consultoria jurídica, imigração',
@@ -29,4 +30,12 @@ export const SITE = {
 
 export const SAME_AS = ['https://x.com/ivslegal'] as const
 
-export const FOUNDERS = ['Isabel Veiga', 'Luísa Pinho de Sousa'] as const
+// `id` is the profile anchor on the About pages and the Person JSON-LD `@id`.
+export const FOUNDERS = [
+  { id: 'isabel-veiga', name: 'Isabel Veiga' },
+  { id: 'luisa-pinho-de-sousa', name: 'Luísa Pinho de Sousa' },
+] as const
+
+export type Founder = (typeof FOUNDERS)[number]
+
+export const VCARD_PATH = '/ivs-legal.vcf'
