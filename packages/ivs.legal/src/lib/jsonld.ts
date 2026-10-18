@@ -6,6 +6,7 @@ import {
   VCARD_PATH,
   type Founder,
 } from '../consts'
+import { articleCategoryLabel } from './article-categories'
 import { ui } from '../i18n/ui'
 import { translatePath } from '../i18n/utils'
 
@@ -53,6 +54,8 @@ function practiceCopy(lang: SiteLang, area: PracticeArea) {
 }
 
 export function founderNode(founder: Founder, lang: SiteLang) {
+  const areas = founder.areas.map((area) => articleCategoryLabel(area, lang))
+
   return {
     '@type': 'Person' as const,
     // One identity across languages; `url` is the localized profile anchor.
@@ -60,6 +63,11 @@ export function founderNode(founder: Founder, lang: SiteLang) {
     name: founder.name,
     url: new URL(translatePath(lang, `about#${founder.id}`), SITE.URL).href,
     jobTitle: lang === 'pt' ? 'Advogada' : 'Lawyer',
+    description:
+      lang === 'pt'
+        ? `Advogada na IVS Legal, em Matosinhos. Áreas de prática: ${areas.join(', ')}.`
+        : `Lawyer at IVS Legal in Matosinhos, Portugal. Practice areas: ${areas.join(', ')}.`,
+    knowsAbout: areas,
     worksFor: { '@id': organizationId },
     identifier: {
       '@type': 'PropertyValue',
@@ -87,7 +95,8 @@ function organizationNode(lang: SiteLang, image: string) {
   const copy = ui[lang]
 
   return {
-    '@type': 'LegalService',
+    // Scanners that look for an Organization skip subtypes like LegalService.
+    '@type': ['LegalService', 'Organization'],
     '@id': organizationId,
     name: SITE.NAME,
     description: lang === 'pt' ? SITE.DESCRIPTION : SITE.DESCRIPTION_EN,

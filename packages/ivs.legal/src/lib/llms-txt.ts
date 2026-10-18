@@ -52,7 +52,13 @@ export function markdownUrl(page: AgentPage) {
 
 export function llmsTxt(
   groups: Section[],
-  options: { title: string; description: string; site: URL }
+  options: {
+    title: string
+    description: string
+    site: URL
+    // Tells agents which jobs the site is for and how to act on them.
+    whenToUse?: string[]
+  }
 ) {
   const lines = [
     `# ${options.title}`,
@@ -61,6 +67,10 @@ export function llmsTxt(
     '',
     `Each page links to its Markdown version. The full text of every page is in ${new URL('llms-full.txt', options.site).href}.`,
   ]
+  if (options.whenToUse) {
+    lines.push('', '## When to use', '')
+    for (const item of options.whenToUse) lines.push(`- ${item}`)
+  }
   for (const { name, pages } of groups) {
     lines.push('', `## ${name}`, '')
     for (const page of pages) {

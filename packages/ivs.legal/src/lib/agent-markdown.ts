@@ -118,6 +118,7 @@ export function pageMarkdown(html: string, path: string) {
 export default function agentMarkdown(options: {
   title: string
   description: string
+  whenToUse?: string[]
 }): AstroIntegration {
   let site: URL
   return {
@@ -142,6 +143,16 @@ export default function agentMarkdown(options: {
           await writeFile(new URL('index.md', file), page.markdown, 'utf8')
           if (!page.noindex) pages.push(page)
         }
+        // The Markdown 404 that src/worker.ts serves to agents for missing pages.
+        const notFound = pageMarkdown(
+          await readFile(new URL('404.html', dir), 'utf8'),
+          '/404/'
+        )
+        await writeFile(
+          new URL('404.md', dir),
+          `${notFound.markdown}\nFind every page in ${new URL('llms.txt', site).href} or ${new URL('sitemap-index.xml', site).href}.\n`,
+          'utf8'
+        )
         const groups = groupPages(pages)
         await writeFile(
           new URL('llms.txt', dir),

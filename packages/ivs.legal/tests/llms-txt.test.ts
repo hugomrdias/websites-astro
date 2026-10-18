@@ -64,3 +64,16 @@ test('llms-full.txt follows the llms.txt order', () => {
       .join('\n')
   )
 })
+
+test('llms.txt lists when-to-use guidance before the pages', () => {
+  const text = llmsTxt(groups.slice(0, 1), {
+    title: 'IVS Legal',
+    description: 'Legal information',
+    site: new URL('https://ivs.legal'),
+    whenToUse: ['Someone needs a lawyer.', 'Someone wants information.'],
+  })
+  assert.match(
+    text,
+    /llms-full\.txt\.\n\n## When to use\n\n- Someone needs a lawyer\.\n- Someone wants information\.\n\n## Firm\n/
+  )
+})

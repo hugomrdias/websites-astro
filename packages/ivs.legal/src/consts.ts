@@ -1,3 +1,5 @@
+import type { ArticleCategory } from './lib/article-categories'
+
 export const CONTACTS = {
   NAME: 'IVS Legal',
   ADDRESS: 'Travessa Henrique Schreck 96, 4450-578 Matosinhos, Portugal',
@@ -33,14 +35,31 @@ export const SAME_AS = ['https://x.com/ivslegal'] as const
 // `id` is the profile anchor on the About pages and the Person JSON-LD `@id`.
 // `cedula` is the Ordem dos Advogados registration number, as listed in its
 // public directory (https://portal.oa.pt/advogados/pesquisa-de-advogados/).
+// `areas` repeat the practice tags on the About pages, for the Person JSON-LD.
 export const FOUNDERS = [
-  { id: 'isabel-veiga', name: 'Isabel Veiga', cedula: '57095P' },
+  {
+    id: 'isabel-veiga',
+    name: 'Isabel Veiga',
+    cedula: '57095P',
+    areas: [
+      'corporate-law',
+      'employment-law',
+      'real-estate-law',
+      'immigration-law',
+    ],
+  },
   {
     id: 'luisa-pinho-de-sousa',
     name: 'Luísa Pinho de Sousa',
     cedula: '61059P',
+    areas: ['civil-law', 'employment-law', 'criminal-law', 'immigration-law'],
   },
-] as const
+] as const satisfies ReadonlyArray<{
+  id: string
+  name: string
+  cedula: string
+  areas: readonly ArticleCategory[]
+}>
 
 export type Founder = (typeof FOUNDERS)[number]
 
