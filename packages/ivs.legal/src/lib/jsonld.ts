@@ -58,6 +58,21 @@ export function founderNode(founder: Founder, lang: SiteLang) {
     url: new URL(translatePath(lang, `about#${founder.id}`), SITE.URL).href,
     jobTitle: lang === 'pt' ? 'Advogada' : 'Lawyer',
     worksFor: { '@id': organizationId },
+    identifier: {
+      '@type': 'PropertyValue',
+      propertyID: 'Cédula profissional (Ordem dos Advogados)',
+      value: founder.cedula,
+    },
+    hasCredential: {
+      '@type': 'EducationalOccupationalCredential',
+      credentialCategory: lang === 'pt' ? 'Cédula profissional' : 'Bar licence',
+      identifier: founder.cedula,
+      recognizedBy: {
+        '@type': 'Organization',
+        name: 'Ordem dos Advogados',
+        url: 'https://portal.oa.pt/',
+      },
+    },
   }
 }
 

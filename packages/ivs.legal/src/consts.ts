@@ -31,9 +31,15 @@ export const SITE = {
 export const SAME_AS = ['https://x.com/ivslegal'] as const
 
 // `id` is the profile anchor on the About pages and the Person JSON-LD `@id`.
+// `cedula` is the Ordem dos Advogados registration number, as listed in its
+// public directory (https://portal.oa.pt/advogados/pesquisa-de-advogados/).
 export const FOUNDERS = [
-  { id: 'isabel-veiga', name: 'Isabel Veiga' },
-  { id: 'luisa-pinho-de-sousa', name: 'Luísa Pinho de Sousa' },
+  { id: 'isabel-veiga', name: 'Isabel Veiga', cedula: '57095P' },
+  {
+    id: 'luisa-pinho-de-sousa',
+    name: 'Luísa Pinho de Sousa',
+    cedula: '61059P',
+  },
 ] as const
 
 export type Founder = (typeof FOUNDERS)[number]
