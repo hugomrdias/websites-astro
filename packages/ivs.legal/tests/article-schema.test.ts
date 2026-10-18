@@ -20,7 +20,6 @@ test('blank slugs use the accented title and optional fields receive defaults', 
     const article = articleMetadataSchema.parse({ ...metadata, slug })
     assert.equal(article.slug, 'protecao-de-dados-o-que-muda')
     assert.equal(article.author, 'IVS Legal')
-    assert.equal(article.sample, false)
     assert.equal(article.publishedAt.toISOString(), '2026-09-20T00:00:00.000Z')
   }
 })

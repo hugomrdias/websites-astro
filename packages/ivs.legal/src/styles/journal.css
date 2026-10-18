@@ -318,23 +318,6 @@
   font-size: 16px;
   color: var(--color-gray-600);
 }
-.journal-sample {
-  display: flex;
-  align-items: baseline;
-  gap: 24px;
-  padding: 20px 24px;
-  border-left: 3px solid var(--color-gold-500);
-  border-radius: 6px;
-  background: var(--color-gold-50);
-  font-size: 13px;
-  line-height: 1.8;
-  color: var(--color-gray-600);
-}
-.journal-sample > span {
-  color: var(--color-navy-900);
-  font-weight: 600;
-  flex-shrink: 0;
-}
 .journal-contact {
   display: flex;
   justify-content: space-between;
@@ -560,10 +543,6 @@ article-contents {
   }
   .journal-toc nav {
     padding: 20px;
-  }
-  .journal-sample {
-    flex-direction: column;
-    gap: 4px;
   }
   .journal-contact {
     padding: 32px;

@@ -14,7 +14,6 @@ export const articleMetadataSchema = z
     author: z.string().default('IVS Legal'),
     featured: z.boolean().default(false),
     draft: z.boolean().default(false),
-    sample: z.boolean().default(false),
   })
   .transform((article) => ({
     ...article,

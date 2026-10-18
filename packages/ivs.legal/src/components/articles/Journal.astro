@@ -26,7 +26,6 @@ const copy = journalCopy[lang]
 const articles = await getArticles(lang)
 const featured =
   articles.find((article) => article.data.featured) ?? articles[0]
-const hasSamples = articles.some((article) => article.data.sample)
 const itemList = {
   '@type': 'ItemList',
   numberOfItems: articles.length,
@@ -43,9 +42,6 @@ const itemList = {
   lang={lang}
   title={`${lang === 'pt' ? 'Artigos' : 'Articles'} — IVS Legal`}
   description={copy.description}
-  noindex={
-    articles.length > 0 && articles.every((article) => article.data.sample)
-  }
   pageType="CollectionPage"
   mainEntity={itemList}
 >
@@ -184,12 +180,6 @@ const itemList = {
           </button>
         </div>
       </section>
-      {hasSamples && (
-        <aside class="journal-sample">
-          <span>{copy.sample}</span>
-          <p>{copy.sampleNote}</p>
-        </aside>
-      )}
       <section class="journal-contact">
         <div>
           <h2>{copy.contactTitle}</h2>

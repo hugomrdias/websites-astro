@@ -27,8 +27,7 @@ interface Props {
   article: Article
 }
 const { article } = Astro.props
-const { title, description, lang, category, author, publishedAt, sample } =
-  article.data
+const { title, description, lang, category, author, publishedAt } = article.data
 const copy = journalCopy[lang]
 const articles = await getArticles()
 const translation = articles.find(
@@ -80,13 +79,10 @@ const jsonLd = buildArticleJsonLd(
   title={`${title} — IVS Legal`}
   description={description}
   type="article"
-  noindex={sample}
   breadcrumbs={breadcrumbs}
   alternatePaths={{
     [lang]: articleUrl(article),
-    ...(translation && !translation.data.sample
-      ? { [translation.data.lang]: articleUrl(translation) }
-      : {}),
+    ...(translation && { [translation.data.lang]: articleUrl(translation) }),
   }}
 >
   <Fragment slot="head">
@@ -144,12 +140,6 @@ const jsonLd = buildArticleJsonLd(
         </div>
       </header>
       <div class="journal-wrap journal-reading-wrap container mx-auto px-4">
-        {sample && (
-          <aside class="journal-sample">
-            <span>{copy.sample}</span>
-            <p>{copy.sampleNote}</p>
-          </aside>
-        )}
         <div class="journal-reading-layout">
           <aside class="journal-toc">
             <ArticleContents label={copy.contents} />
