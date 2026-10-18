@@ -70,7 +70,7 @@ jobs:
           retention-days: 7
 
   deploy:
-    name: Deploy ${{ inputs.environment }}
+    name: Deploy
     needs: check
     if: inputs.publish && inputs.environment != 'preview'
     runs-on: ubuntu-latest
@@ -132,7 +132,12 @@ jobs:
             | {site: $site, url: .preview_urls[0], deployment_url: .deployment_urls[0]}' \
             "$WRANGLER_OUTPUT_FILE_PATH" > "$RUNNER_TEMP/preview.json"
           cat "$RUNNER_TEMP/preview.json"
-          echo "url=$(jq -r .url "$RUNNER_TEMP/preview.json")" >> "$GITHUB_OUTPUT"
+          url=$(jq -r '.url // empty' "$RUNNER_TEMP/preview.json")
+          if [ -z "$url" ]; then
+            echo "::error::Preview has no URL. Enable preview_urls on the top-level Worker in wrangler.jsonc and deploy it (staging)."
+            exit 1
+          fi
+          echo "url=$url" >> "$GITHUB_OUTPUT"
       - uses: actions/upload-artifact@v7
         with:
           name: preview-${{ inputs.site }}
