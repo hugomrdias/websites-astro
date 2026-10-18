@@ -1,3 +1,6 @@
+/* Astro's responsive image styles (height: auto) must lose to Tailwind
+   utilities such as h-12, whichever stylesheet loads first. */
+@layer astro.images;
 @import 'tailwindcss';
 
 @theme {

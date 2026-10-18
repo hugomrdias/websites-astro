@@ -12,8 +12,12 @@ const lang = getLangFromUrl(Astro.url)
 const t = useTranslations(lang)
 const currentPath = Astro.url.pathname
 
-// Get the route without language prefix for comparison
-const route = currentPath.replace(/^\/(en|pt)/, '') || '/'
+// Get the route without language prefix or trailing slash for comparison
+const route =
+  currentPath.replace(/^\/(en|pt)(?=\/|$)/, '').replace(/\/+$/, '') || '/'
+const inArticles = `${currentPath.replace(/\/+$/, '')}/`.startsWith(
+  articlesUrl(lang)
+)
 ---
 
 <header class="bg-white shadow-sm sticky top-0 z-40">
@@ -34,7 +38,6 @@ const route = currentPath.replace(/^\/(en|pt)/, '') || '/'
           <p class="text-xl font-serif font-semibold text-navy-900">
             {t('footer.company')}
           </p>
-          <!-- <p class="text-sm text-gold-800">{t('footer.tagline')}</p> -->
         </div>
       </a>
 
@@ -48,7 +51,7 @@ const route = currentPath.replace(/^\/(en|pt)/, '') || '/'
         </a>
         <a
           href={articlesUrl(lang)}
-          class={`hover:text-gold-800 transition-colors ${currentPath === articlesUrl(lang) || currentPath.startsWith(`${articlesUrl(lang)}/`) ? 'text-gold-800 font-medium' : 'text-navy-700'}`}
+          class={`hover:text-gold-800 transition-colors ${inArticles ? 'text-gold-800 font-medium' : 'text-navy-700'}`}
         >
           {t('nav.articles')}
         </a>
@@ -58,9 +61,6 @@ const route = currentPath.replace(/^\/(en|pt)/, '') || '/'
         >
           {t('nav.about')}
         </a>
-        <!-- <a href={translatePath(lang, 'areas-pratica')} class={`hover:text-gold-800 transition-colors ${route === '/areas-pratica' ? 'text-gold-800 font-medium' : 'text-navy-700'}`}>
-          {t('nav.practice-areas')}
-        </a> -->
         <a
           href={translatePath(lang, 'contact')}
           class="bg-gold-500 hover:bg-gold-600 text-navy-900 px-6 py-2 rounded-md font-medium transition-colors"

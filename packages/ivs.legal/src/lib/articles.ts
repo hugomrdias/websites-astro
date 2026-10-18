@@ -22,11 +22,11 @@ export async function getArticles(lang?: Language) {
 }
 
 export function articleUrl(article: Article) {
-  return `${articlesUrl(article.data.lang)}/${article.data.slug}`
+  return `${articlesUrl(article.data.lang)}${article.data.slug}/`
 }
 
 export function articlesUrl(lang: Language) {
-  return lang === 'en' ? '/en/articles' : '/articles'
+  return lang === 'en' ? '/en/articles/' : '/articles/'
 }
 
 export function articleDate(article: Article, date = article.data.publishedAt) {
@@ -60,9 +60,6 @@ export const journalCopy = {
     empty: 'Não encontrámos artigos.',
     emptyHint: 'Experimente outra pesquisa ou escolha um tema diferente.',
     reset: 'Limpar filtros',
-    sample: 'Conteúdo de demonstração',
-    sampleNote:
-      'Estes textos ilustram a futura secção de artigos. Não constituem informação ou aconselhamento jurídico.',
     back: 'Todos os artigos',
     contents: 'Neste artigo',
     related: 'Continue a leitura',
@@ -91,9 +88,6 @@ export const journalCopy = {
     empty: 'No articles found.',
     emptyHint: 'Try another search or choose a different topic.',
     reset: 'Clear filters',
-    sample: 'Sample content',
-    sampleNote:
-      'These texts illustrate the future articles section. They do not provide legal information or advice.',
     back: 'All articles',
     contents: 'In this article',
     related: 'Continue reading',

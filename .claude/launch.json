@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "ivs-dev",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "ivs.legal", "dev", "--port", "4321"],
+      "port": 4321
+    },
+    {
+      "name": "ivs-preview",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "ivs.legal", "preview", "--port", "4329"],
+      "port": 4329
+    }
+  ]
+}

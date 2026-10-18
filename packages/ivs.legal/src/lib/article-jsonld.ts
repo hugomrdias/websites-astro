@@ -1,20 +1,23 @@
 import { SITE } from '../consts'
 import { articleCategoryLabel } from './article-categories'
 import type { Article } from './articles'
+import { founderByName, founderNode, organizationId, siteUrl } from './jsonld'
 
 export function buildArticleJsonLd(
   article: Article,
   canonicalUrl: string,
+  image: string,
   translation?: { article: Article; url: string }
 ) {
   const data = article.data
   const publisher = {
     '@type': 'Organization',
-    '@id': `${SITE.URL}/#organization`,
+    '@id': organizationId,
     name: SITE.NAME,
-    url: SITE.URL,
+    url: siteUrl,
     logo: { '@type': 'ImageObject', url: SITE.LOGO },
   }
+  const founder = founderByName(data.author)
   const version = (entry: Article, url: string) => ({
     '@type': 'Article',
     '@id': `${url}#article`,
@@ -27,14 +30,18 @@ export function buildArticleJsonLd(
     '@context': 'https://schema.org',
     ...version(article, canonicalUrl),
     description: data.description,
+    image,
     datePublished: data.publishedAt.toISOString(),
     dateModified: data.last_edited_time,
+    // Founders link to their profile on the About page; other names stay plain.
     author:
       data.author === SITE.NAME
         ? publisher
-        : { '@type': 'Person', name: data.author },
+        : founder
+          ? founderNode(founder, data.lang)
+          : { '@type': 'Person', name: data.author },
     publisher,
-    mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
+    mainEntityOfPage: { '@id': `${canonicalUrl}#webpage` },
     about: {
       '@type': 'Thing',
       name: articleCategoryLabel(data.category, data.lang),

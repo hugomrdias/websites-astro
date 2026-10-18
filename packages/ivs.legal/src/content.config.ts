@@ -30,7 +30,6 @@ const articles = defineCollection({
         author: notroProperties.richText.optional(),
         featured: notroProperties.checkbox.optional(),
         draft: notroProperties.checkbox,
-        sample: notroProperties.checkbox.optional(),
       }),
     })
     .transform((page) => {
@@ -51,7 +50,6 @@ const articles = defineCollection({
             undefined,
           featured: p.featured?.checkbox,
           draft: p.draft.checkbox,
-          sample: p.sample?.checkbox,
         }),
       }
     }),

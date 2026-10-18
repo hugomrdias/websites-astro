@@ -18,13 +18,8 @@ export const ui = {
     'hero.title.highlight': 'balança',
     'hero.title.location': ' que equilibra a sociedade."',
     'hero.subtitle': 'F. Scott Fitzgerald',
-    'hero.quote': 'A justiça é a balança que equilibra a sociedade.',
-    'hero.quote.author': 'F. Scott Fitzgerald',
     'hero.cta.consultation': 'Consulta',
     'hero.cta.about': 'Conheça-nos',
-    'hero.stats.experience': 'Anos de Experiência',
-    'hero.stats.cases': 'Casos Resolvidos',
-    'hero.stats.success': 'Taxa de Sucesso',
     'practice.title': 'Áreas de',
     'practice.title.highlight': 'Atuação',
     'practice.subtitle':
@@ -48,10 +43,6 @@ export const ui = {
     'practice.tax.description':
       'Assessoria jurídica para obtenção de vistos, autorizações de residência, reagrupamento familiar e processos de nacionalidade.',
     'practice.cta': 'Ver Todas as Áreas',
-    'testimonials.title': 'O que dizem os nossos',
-    'testimonials.title.highlight': 'Clientes',
-    'testimonials.subtitle':
-      'A confiança dos nossos clientes é o nosso maior património. Veja o que dizem sobre os nossos serviços.',
     'contact.title': 'Contacte-nos',
     'contact.title.highlight': '',
     'contact.subtitle':
@@ -138,13 +129,8 @@ export const ui = {
     'hero.title.highlight': 'scale',
     'hero.title.location': ' that balances society."',
     'hero.subtitle': 'F. Scott Fitzgerald',
-    'hero.quote': 'The law is the balance that balances society.',
-    'hero.quote.author': 'F. Scott Fitzgerald',
     'hero.cta.consultation': 'Consultation',
     'hero.cta.about': 'About Us',
-    'hero.stats.experience': 'Years of Experience',
-    'hero.stats.cases': 'Cases Resolved',
-    'hero.stats.success': 'Success Rate',
     'practice.title': 'Areas of',
     'practice.title.highlight': 'Practice',
     'practice.subtitle': 'We offer legal services in various areas of law.',
@@ -167,10 +153,6 @@ export const ui = {
     'practice.tax.description':
       'Legal advice for obtaining visas, residence permits, family reunification and nationality processes.',
     'practice.cta': 'View All Areas',
-    'testimonials.title': 'What our',
-    'testimonials.title.highlight': 'Clients',
-    'testimonials.subtitle':
-      "Our clients' trust is our greatest asset. See what they say about our services.",
     'contact.title': 'Contact',
     'contact.title.highlight': '',
     'contact.subtitle':

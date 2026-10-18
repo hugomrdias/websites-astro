@@ -8,6 +8,7 @@ import logo from '../assets/mono-queen.png'
 ---
 
 <Layout
+  pageType="AboutPage"
   title="Sobre Nós - IVS Legal"
   description="Conheça Isabel Veiga e Luísa Pinho de Sousa, as advogadas da IVS Legal em Matosinhos, e os valores que orientam o acompanhamento de cada cliente."
 >
@@ -162,15 +163,11 @@ import logo from '../assets/mono-queen.png'
           <h2 class="text-4xl font-serif font-bold text-navy-900 mb-4">
             A Nossa <span class="text-gold-800">Equipa</span>
           </h2>
-          <!-- <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-            Profissionais experientes e especializados, unidos pela paixão 
-            pelo direito e pelo compromisso com a excelência.
-          </p> -->
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
           <!-- Team Member 1 -->
-          <div class="text-center group">
+          <div id="isabel-veiga" class="text-center group scroll-mt-24">
             <div class="relative mb-6">
               <div class="w-48 h-48 bg-gradient-to-br from-gold-100 to-gold-200 rounded-full mx-auto flex items-center justify-center">
                 <div class="w-32 h-32 bg-gold-500 rounded-full flex items-center justify-center">
@@ -181,7 +178,6 @@ import logo from '../assets/mono-queen.png'
             <h3 class="text-xl font-semibold text-navy-900 mb-2">
               Isabel Veiga
             </h3>
-            <!-- <p class="text-gold-600 font-medium mb-3">Sócia</p> -->
             <p class="text-gray-600 text-sm mb-4">
               Mestrado em Direito do Trabalho pela Universidade Católica
               Portuguesa - Porto.
@@ -203,7 +199,7 @@ import logo from '../assets/mono-queen.png'
           </div>
 
           <!-- Team Member 2 -->
-          <div class="text-center group">
+          <div id="luisa-pinho-de-sousa" class="text-center group scroll-mt-24">
             <div class="relative mb-6">
               <div class="w-48 h-48 bg-gradient-to-br from-gold-100 to-gold-200 rounded-full mx-auto flex items-center justify-center">
                 <div class="w-32 h-32 bg-gold-500 rounded-full flex items-center justify-center">
@@ -214,7 +210,6 @@ import logo from '../assets/mono-queen.png'
             <h3 class="text-xl font-semibold text-navy-900 mb-2">
               Luísa Pinho de Sousa
             </h3>
-            <!-- <p class="text-gold-600 font-medium mb-3">Sócia</p> -->
             <p class="text-gray-600 text-sm mb-4">
               Mestrado em Direito do Trabalho pela Universidade Católica
               Portuguesa - Porto.
@@ -237,126 +232,6 @@ import logo from '../assets/mono-queen.png'
         </div>
       </div>
     </section>
-
-    <!-- History -->
-    <!-- <section class="py-20 bg-navy-900 text-white">
-      <div class="container mx-auto px-4">
-        <div class="max-w-4xl mx-auto">
-          <div class="text-center mb-16">
-            <h2 class="text-4xl font-serif font-bold mb-4">
-              A Nossa <span class="text-gold-400">História</span>
-            </h2>
-          </div>
-
-          <div class="space-y-12">
-            <div class="flex items-start space-x-6">
-              <div class="flex-shrink-0 w-16 h-16 bg-gold-500 rounded-full flex items-center justify-center">
-                <span class="text-white font-bold">2003</span>
-              </div>
-              <div>
-                <h3 class="text-xl font-semibold text-gold-400 mb-2">Fundação</h3>
-                <p class="text-gray-300">
-                  A IVS Legal foi fundada pelo Dr. Vítor Santos com o objetivo de prestar 
-                  serviços jurídicos de excelência, focados nas necessidades específicas de cada cliente.
-                </p>
-              </div>
-            </div>
-
-            <div class="flex items-start space-x-6">
-              <div class="flex-shrink-0 w-16 h-16 bg-gold-500 rounded-full flex items-center justify-center">
-                <span class="text-white font-bold">2010</span>
-              </div>
-              <div>
-                <h3 class="text-xl font-semibold text-gold-400 mb-2">Expansão</h3>
-                <p class="text-gray-300">
-                  Integração da Dra. Ana Silva como sócia, expandindo as áreas de especialização 
-                  para Direito do trabalho e Direito penal, consolidando a posição no mercado jurídico.
-                </p>
-              </div>
-            </div>
-
-            <div class="flex items-start space-x-6">
-              <div class="flex-shrink-0 w-16 h-16 bg-gold-500 rounded-full flex items-center justify-center">
-                <span class="text-white font-bold">2018</span>
-              </div>
-              <div>
-                <h3 class="text-xl font-semibold text-gold-400 mb-2">Modernização</h3>
-                <p class="text-gray-300">
-                  Implementação de tecnologias avançadas e processos digitais, 
-                  mantendo sempre o foco na qualidade do atendimento personalizado.
-                </p>
-              </div>
-            </div>
-
-            <div class="flex items-start space-x-6">
-              <div class="flex-shrink-0 w-16 h-16 bg-gold-500 rounded-full flex items-center justify-center">
-                <span class="text-white font-bold">2024</span>
-              </div>
-              <div>
-                <h3 class="text-xl font-semibold text-gold-400 mb-2">Presente</h3>
-                <p class="text-gray-300">
-                  Mais de 20 anos de experiência, centenas de casos resolvidos com sucesso 
-                  e uma reputação sólida como referência em excelência jurídica.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section> -->
-
-    <!-- Certifications -->
-    <!-- <section class="py-20 bg-gray-50">
-      <div class="container mx-auto px-4">
-        <div class="text-center mb-16">
-          <h2 class="text-4xl font-serif font-bold text-navy-900 mb-4">
-            Certificações e <span class="text-gold-600">Membros</span>
-          </h2>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div class="text-center p-6 bg-white rounded-xl shadow-sm">
-            <div class="w-16 h-16 bg-gold-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg class="w-8 h-8 text-gold-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
-              </svg>
-            </div>
-            <h3 class="font-semibold text-navy-900 mb-2">Ordem dos Advogados</h3>
-            <p class="text-sm text-gray-600">Membros registados e em pleno exercício</p>
-          </div>
-
-          <div class="text-center p-6 bg-white rounded-xl shadow-sm">
-            <div class="w-16 h-16 bg-gold-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg class="w-8 h-8 text-gold-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2V6"></path>
-              </svg>
-            </div>
-            <h3 class="font-semibold text-navy-900 mb-2">ISO 9001</h3>
-            <p class="text-sm text-gray-600">Certificação de qualidade em serviços</p>
-          </div>
-
-          <div class="text-center p-6 bg-white rounded-xl shadow-sm">
-            <div class="w-16 h-16 bg-gold-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg class="w-8 h-8 text-gold-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-              </svg>
-            </div>
-            <h3 class="font-semibold text-navy-900 mb-2">UIA</h3>
-            <p class="text-sm text-gray-600">União Internacional de Advogados</p>
-          </div>
-
-          <div class="text-center p-6 bg-white rounded-xl shadow-sm">
-            <div class="w-16 h-16 bg-gold-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg class="w-8 h-8 text-gold-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
-            </div>
-            <h3 class="font-semibold text-navy-900 mb-2">CCILA</h3>
-            <p class="text-sm text-gray-600">Câmara de Comércio Luso-Alemã</p>
-          </div>
-        </div>
-      </div>
-    </section> -->
   </main>
 
   <Footer />
