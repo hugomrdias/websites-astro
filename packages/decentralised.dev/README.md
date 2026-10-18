@@ -1,12 +1,11 @@
-# hugodias.me
+# decentralised.dev
 
 This is a [Astro](https://astro.build/) project.
 
 ## Usage
 
 ```bash
-pnpm  install
-pnpx playwright install --with-deps chromium
+pnpm install
 ```
 
 ## Icons

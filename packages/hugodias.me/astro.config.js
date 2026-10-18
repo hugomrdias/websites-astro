@@ -49,13 +49,8 @@ export default defineConfig({
     embeds(),
     expressiveCode({
       plugins: [
-        ecTwoSlash({
-          twoslashOptions: {
-            compilerOptions: {
-              lib: ['ES2022', 'DOM'],
-            },
-          },
-        }),
+        // Its defaults already include the ES2022 and DOM type libraries.
+        ecTwoSlash(),
       ],
       themes: ['slack-dark', 'one-light'],
       styleOverrides: {

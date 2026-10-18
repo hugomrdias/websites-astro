@@ -3,7 +3,7 @@ import { Image } from 'astro:assets'
 import { JSDOM, VirtualConsole } from 'jsdom'
 
 const virtualConsole = new VirtualConsole()
-virtualConsole.sendTo(console, { omitJSDOMErrors: true })
+virtualConsole.forwardTo(console, { jsdomErrors: 'none' })
 
 type Meta = { title: string; description: string }
 
