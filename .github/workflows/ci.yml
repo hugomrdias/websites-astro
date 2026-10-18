@@ -2,23 +2,32 @@ name: CI
 
 on:
   pull_request:
-    paths-ignore:
-      - 'packages/ivs.legal/**'
-      - '.github/workflows/ivs-legal.yml'
+    types: [opened, synchronize, reopened, closed]
   push:
     branches:
       - master
-    paths-ignore:
-      - 'packages/ivs.legal/**'
-      - '.github/workflows/ivs-legal.yml'
   workflow_dispatch:
-  # Notion (and other) webhook deploys
+    inputs:
+      site:
+        description: Site to build and deploy
+        type: choice
+        options: [all, hugodias.me, decentralised.dev, ivs.legal]
+        default: all
+      environment:
+        description: Deployment environment
+        type: choice
+        options: [production, staging]
+        default: production
+  # Notion webhook deploys
   repository_dispatch:
     types:
       - webhook
+      - ivs-legal-webhook
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  # Pull requests cancel stale runs. Other triggers queue in their own group,
+  # so a webhook run never replaces a pending push run.
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || format('{0}-{1}', github.ref, github.event.action || github.event_name) }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions:
@@ -27,68 +36,170 @@ permissions:
 env:
   CI: true
   FORCE_COLOR: 1
-  NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
-  NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
-  WEB3FORMS: ${{ secrets.WEB3FORMS }}
-  HCAPTCHA: ${{ secrets.HCAPTCHA }}
-  GOOGLE_MAPS: ${{ secrets.GOOGLE_MAPS }}
 
 jobs:
-  check:
-    name: Check
+  plan:
+    name: Plan
+    if: github.event.action != 'closed'
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 10
+    permissions:
+      actions: read
+      contents: read
+    outputs:
+      sites: ${{ steps.plan.outputs.sites }}
+      environment: ${{ steps.plan.outputs.environment }}
+      publish: ${{ steps.plan.outputs.publish }}
     steps:
       - uses: actions/checkout@v7
+        with:
+          # turbo --affected needs the history between base and head.
+          fetch-depth: 0
+          filter: blob:none
       - uses: pnpm/setup@v3
         with:
           cache: true
-      - name: Install Playwright Chromium
-        run: pnpm --filter hugodias.me exec playwright install --with-deps chromium
-      - run: pnpm --filter hugodias.me test
-      - run: pnpm --filter hugodias.me --filter decentralised.dev lint
-      - run: pnpm --filter hugodias.me --filter decentralised.dev build
-      - name: Upload hugodias.me
-        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
-        uses: actions/upload-artifact@v7
-        with:
-          name: hugodias.me
-          path: packages/hugodias.me/dist
-          retention-days: 1
-      - name: Upload decentralised.dev
-        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
-        uses: actions/upload-artifact@v7
-        with:
-          name: decentralised.dev
-          path: packages/decentralised.dev/dist
-          retention-days: 1
+      - id: plan
+        name: Pick sites
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EVENT: ${{ github.event_name }}
+          ACTION: ${{ github.event.action }}
+          INPUT_SITE: ${{ inputs.site }}
+          INPUT_ENVIRONMENT: ${{ inputs.environment }}
+          SAME_REPO: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
+        run: |
+          set -o pipefail
+          all='["decentralised.dev","hugodias.me","ivs.legal"]'
+          affected() {
+            pnpm -s turbo ls --affected --output=json 2>/dev/null |
+              jq -c '[.packages.items[].name]'
+          }
+          environment=production
+          publish=false
+          case "$EVENT" in
+            pull_request)
+              sites=$(affected)
+              environment=preview
+              publish=$SAME_REPO
+              ;;
+            push)
+              # Diff against the last successful push run, so changes from a
+              # failed or cancelled run still deploy.
+              base=$(gh run list --workflow ci.yml --branch master --event push \
+                --status success --limit 1 --json headSha --jq '.[0].headSha // ""')
+              if [ -n "$base" ] && git cat-file -e "$base^{commit}" 2>/dev/null; then
+                sites=$(TURBO_SCM_BASE=$base affected)
+              else
+                sites=$all
+              fi
+              publish=true
+              ;;
+            repository_dispatch)
+              case "$ACTION" in
+                webhook) sites='["decentralised.dev","hugodias.me"]' ;;
+                ivs-legal-webhook) sites='["ivs.legal"]' ;;
+              esac
+              publish=true
+              ;;
+            workflow_dispatch)
+              if [ "$INPUT_SITE" = all ]; then
+                sites=$all
+              else
+                sites=$(jq -cn --arg site "$INPUT_SITE" '[$site]')
+              fi
+              environment=$INPUT_ENVIRONMENT
+              if [ "$GITHUB_REF" = refs/heads/master ] || [ "$environment" = staging ]; then
+                publish=true
+              fi
+              ;;
+          esac
+          {
+            echo "sites=$sites"
+            echo "environment=$environment"
+            echo "publish=$publish"
+          } | tee -a "$GITHUB_OUTPUT"
 
-  deploy:
-    name: Deploy ${{ matrix.site }}
-    needs: check
-    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
+  site:
+    name: ${{ matrix.site }}
+    needs: plan
+    if: needs.plan.outputs.sites != '[]'
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - site: hugodias.me
-            dir: packages/hugodias.me
-          - site: decentralised.dev
-            dir: packages/decentralised.dev
+        site: ${{ fromJSON(needs.plan.outputs.sites) }}
+    uses: ./.github/workflows/site.yml
+    with:
+      site: ${{ matrix.site }}
+      environment: ${{ needs.plan.outputs.environment }}
+      publish: ${{ needs.plan.outputs.publish == 'true' }}
+    secrets: inherit
+
+  comment:
+    name: Comment previews
+    needs: [plan, site]
+    if: ${{ !cancelled() && needs.plan.outputs.environment == 'preview' && needs.plan.outputs.publish == 'true' && needs.plan.outputs.sites != '[]' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          pattern: preview-*
+          path: previews
+      - name: Upsert pull request comment
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+          SHA: ${{ github.event.pull_request.head.sha }}
+          SITES: ${{ needs.plan.outputs.sites }}
+        run: |
+          marker='<!-- worker-previews -->'
+          {
+            echo "$marker"
+            echo '### Worker Previews'
+            echo
+            echo '| Site | Preview | This commit |'
+            echo '| --- | --- | --- |'
+            for site in $(jq -r '.[]' <<< "$SITES"); do
+              file="previews/preview-$site/preview.json"
+              if [ -f "$file" ]; then
+                jq -r '"| \(.site) | \(.url) | \(.deployment_url) |"' "$file"
+              else
+                echo "| $site | Failed, see the run logs | |"
+              fi
+            done
+            echo
+            echo "Built from $SHA. Previews are public and are deleted when this pull request closes."
+          } > comment.md
+          id=$(gh api "repos/$GH_REPO/issues/$PR/comments" --paginate \
+            --jq ".[] | select(.user.login == \"github-actions[bot]\" and (.body | startswith(\"$marker\"))) | .id" | head -n 1)
+          if [ -n "$id" ]; then
+            gh api --method PATCH "repos/$GH_REPO/issues/comments/$id" -F body=@comment.md > /dev/null
+          else
+            gh pr comment "$PR" --body-file comment.md
+          fi
+
+  cleanup:
+    name: Delete previews
+    if: github.event.action == 'closed' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v7
       - uses: pnpm/setup@v3
         with:
           cache: true
-      - uses: actions/download-artifact@v8
-        with:
-          name: ${{ matrix.site }}
-          path: ${{ matrix.dir }}/dist
-      - name: Deploy to Cloudflare Workers
-        working-directory: ${{ matrix.dir }}
-        run: pnpm exec wrangler deploy --env production
+      - name: Delete Worker Previews
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          PREVIEW_NAME: pr-${{ github.event.pull_request.number }}
+        run: |
+          # A site the pull request never touched has no Preview to delete.
+          for dir in packages/*/; do
+            (cd "$dir" && pnpm exec wrangler preview delete --name "$PREVIEW_NAME" --skip-confirmation) ||
+              echo "::notice::No $PREVIEW_NAME Preview deleted for $dir"
+          done

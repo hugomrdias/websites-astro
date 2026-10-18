@@ -12,7 +12,9 @@
     "astro": "astro",
     "lint": "astro check && biome check . && prettier --check '**/*.astro' --ignore-path ../../.gitignore",
     "lint:fix": "biome check --write . && prettier --write '**/*.astro' --ignore-path ../../.gitignore",
-    "favicons": "pwa-assets-generator"
+    "favicons": "pwa-assets-generator",
+    "wrangler:deploy": "wrangler deploy",
+    "wrangler:preview": "wrangler preview"
   },
   "dependencies": {
     "@astrojs/mdx": "catalog:",

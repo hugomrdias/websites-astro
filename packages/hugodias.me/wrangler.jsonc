@@ -8,6 +8,8 @@
   },
   "preview_urls": true,
   "workers_dev": true,
+  // Pull request Previews (`wrangler preview`) live under this Worker.
+  "previews": {},
   "env": {
     "production": {
       "name": "hugodias-me",
