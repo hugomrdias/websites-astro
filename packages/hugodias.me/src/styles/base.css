@@ -1,11 +1,11 @@
 :root {
   --font-sans:
-    ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-    'Segoe UI Symbol', 'Noto Color Emoji';
-  --font-serif: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
+    ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
   --font-mono:
-    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
-    'Courier New', monospace;
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
   --animation-duration: 0.3s;
   --border-radius: 6px;
 
@@ -235,12 +235,12 @@ a:hover {
  */
 button,
 select,
-input[type='submit'],
-input[type='reset'],
-input[type='button'],
-input[type='checkbox'],
-input[type='range'],
-input[type='radio'] {
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+input[type="checkbox"],
+input[type="range"],
+input[type="radio"] {
   cursor: pointer;
 }
 
@@ -266,9 +266,9 @@ select {
 
 button,
 a.button,
-input[type='submit'],
-input[type='reset'],
-input[type='button'] {
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
   background-color: var(--button-base);
   color: var(--text-accent);
   display: inline-flex;
@@ -283,42 +283,42 @@ input[type='button'] {
 
 button:hover,
 a.button:hover,
-input[type='submit']:hover,
-input[type='reset']:hover,
-input[type='button']:hover {
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+input[type="button"]:hover {
   background: var(--button-hover);
 }
 
-input[type='color'] {
+input[type="color"] {
   min-height: 2.5rem;
   padding: 8px;
   cursor: pointer;
 }
 /* checkbox and radio button style */
-input[type='checkbox'],
-input[type='radio'] {
+input[type="checkbox"],
+input[type="radio"] {
   vertical-align: middle;
   position: relative;
   width: min-content;
 }
 
-input[type='checkbox'] + label,
-input[type='radio'] + label {
+input[type="checkbox"] + label,
+input[type="radio"] + label {
   display: inline-block;
 }
 
-input[type='radio'] {
+input[type="radio"] {
   border-radius: 100%;
 }
 
-input[type='checkbox']:checked,
-input[type='radio']:checked {
+input[type="checkbox"]:checked,
+input[type="radio"]:checked {
   background-color: var(--form-accent);
 }
 
-input[type='checkbox']:checked::after {
+input[type="checkbox"]:checked::after {
   /* Creates a rectangle with colored right and bottom borders which is rotated to look like a check mark */
-  content: ' ';
+  content: " ";
   width: 0.18em;
   height: 0.32em;
   border-radius: 0;
@@ -331,9 +331,9 @@ input[type='checkbox']:checked::after {
   font-size: 2.5em;
   transform: rotate(45deg);
 }
-input[type='radio']:checked::after {
+input[type="radio"]:checked::after {
   /* creates a colored circle for the checked radio button  */
-  content: ' ';
+  content: " ";
   width: 0.25em;
   height: 0.25em;
   border-radius: 100%;
@@ -385,7 +385,7 @@ select:not([multiple]) {
   background-repeat: no-repeat;
   padding-inline-end: 25px;
 }
-*[dir='rtl'] select:not([multiple]) {
+*[dir="rtl"] select:not([multiple]) {
   background-position: 10px, 15px;
 }
 
@@ -418,12 +418,12 @@ textarea:focus {
   box-shadow: 0 0 0 2px var(--form-focus);
 }
 
-input[type='checkbox']:active,
-input[type='radio']:active,
-input[type='submit']:active,
-input[type='reset']:active,
-input[type='button']:active,
-input[type='range']:active,
+input[type="checkbox"]:active,
+input[type="radio"]:active,
+input[type="submit"]:active,
+input[type="reset"]:active,
+input[type="button"]:active,
+input[type="range"]:active,
 a.button:active,
 button:active {
   transform: translateY(2px);
@@ -431,7 +431,7 @@ button:active {
 
 input:disabled,
 select:disabled,
-a.button[aria-disabled='true'],
+a.button[aria-disabled="true"],
 button:disabled,
 textarea:disabled {
   cursor: not-allowed;
@@ -457,7 +457,7 @@ legend {
 }
 
 /*********** Baseline, reset styles ***********/
-input[type='range'] {
+input[type="range"] {
   appearance: none;
   background: transparent;
   cursor: pointer;
@@ -465,20 +465,20 @@ input[type='range'] {
 }
 
 /* Removes default focus */
-input[type='range']:focus {
+input[type="range"]:focus {
   outline: none;
 }
 
 /******** Chrome, Safari, Opera and Edge Chromium styles ********/
 /* slider track */
-input[type='range']::-webkit-slider-runnable-track {
+input[type="range"]::-webkit-slider-runnable-track {
   background-color: var(--form-background);
   border-radius: 0.5rem;
   height: 0.5rem;
 }
 
 /* slider thumb */
-input[type='range']::-webkit-slider-thumb {
+input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none; /* Override default look */
   appearance: none;
   margin-top: -4px; /* Centers thumb on the track */
@@ -488,20 +488,20 @@ input[type='range']::-webkit-slider-thumb {
   width: 1rem;
   transition: background-color var(--animation-duration) linear;
 }
-input[type='range']:hover::-webkit-slider-thumb {
+input[type="range"]:hover::-webkit-slider-thumb {
   background-color: var(--form-accent);
 }
 
 /*********** Firefox styles ***********/
 /* slider track */
-input[type='range']::-moz-range-track {
+input[type="range"]::-moz-range-track {
   background-color: var(--form-accent);
   border-radius: 0.5rem;
   height: 0.5rem;
 }
 
 /* slider thumb */
-input[type='range']::-moz-range-thumb {
+input[type="range"]::-moz-range-thumb {
   background-color: var(--form-accent);
   border: none; /*Removes extra border that FF applies*/
   border-radius: 0.5rem;
@@ -509,7 +509,7 @@ input[type='range']::-moz-range-thumb {
   width: 1rem;
   transition: background-color var(--animation-duration) linear;
 }
-input[type='range']:hover::-moz-range-thumb {
+input[type="range"]:hover::-moz-range-thumb {
   background-color: var(--form-accent);
 }
 
@@ -614,18 +614,18 @@ th {
   word-wrap: break-word;
 }
 
-td[align='right'],
-th[align='right'] {
+td[align="right"],
+th[align="right"] {
   text-align: right;
 }
 
-td[align='center'],
-th[align='center'] {
+td[align="center"],
+th[align="center"] {
   text-align: center;
 }
 
-td[align='left'],
-th[align='left'] {
+td[align="left"],
+th[align="left"] {
   text-align: left;
 }
 
@@ -686,6 +686,7 @@ summary {
   cursor: pointer;
   outline: none;
   width: fill-available;
+  /* biome-ignore lint/suspicious/noDuplicateProperties: vendor fallback */
   width: -webkit-fill-available;
 }
 

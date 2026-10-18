@@ -2,7 +2,6 @@
 import '@fontsource-variable/inter'
 import '@fontsource-variable/playfair-display'
 import { ClientRouter } from 'astro:transitions'
-import { localizedHTML as faviconHead } from 'astro-favicons/middleware'
 import type { ImageMetadata } from 'astro'
 import '../styles/global.css'
 
@@ -147,7 +146,13 @@ const googleMapsUrl = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS
       type="font/woff2"
       crossorigin="anonymous"
     />
-    <Fragment set:html={faviconHead(lang)} />
+
+    <!-- Icons: run `pnpm favicons` to regenerate them from public/favicon.png -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="theme-color" content="#B99A4B" />
+    <meta name="apple-mobile-web-app-title" content="IVS Legal" />
     <ClientRouter />
 
     {jsonLd && (

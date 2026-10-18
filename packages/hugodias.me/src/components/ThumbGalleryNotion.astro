@@ -22,7 +22,7 @@ for (const file of images) {
 
     imagesProcessed.push({ original, thumbnail })
   } catch {
-    continue
+    // Skip images that fail to load.
   }
 }
 ---

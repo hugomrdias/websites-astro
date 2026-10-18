@@ -274,7 +274,6 @@ h6:hover > .header-anchor {
 
 .Item:hover {
   background-color: var(--background-alt);
-  border-color: var(--gray-7);
   text-decoration: none;
   color: var(--text-bright);
   border: none;

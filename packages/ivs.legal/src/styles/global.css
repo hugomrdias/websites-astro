@@ -1,7 +1,7 @@
 /* Astro's responsive image styles (height: auto) must lose to Tailwind
    utilities such as h-12, whichever stylesheet loads first. */
 @layer astro.images;
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @theme {
   --color-gold-50: #fefdf8;
@@ -28,14 +28,14 @@
   --color-navy-900: #191918;
   --color-navy-950: #111110;
 
-  --font-serif: 'Playfair Display Variable', serif;
-  --font-sans: 'Inter Variable', sans-serif;
+  --font-serif: "Playfair Display Variable", serif;
+  --font-sans: "Inter Variable", sans-serif;
 }
 
 select:required:invalid {
   color: var(--color-gray-600);
 }
-option[value=''][disabled] {
+option[value=""][disabled] {
   display: none;
 }
 

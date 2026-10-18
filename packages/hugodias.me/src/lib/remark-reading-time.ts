@@ -1,8 +1,8 @@
 import getReadingTime from 'reading-time'
-import { toString } from 'mdast-util-to-string'
+import { toString as mdastToString } from 'mdast-util-to-string'
 
 export function remarkReadingTime() {
-  return function (
+  return (
     tree: unknown,
     file: {
       data: {
@@ -14,8 +14,10 @@ export function remarkReadingTime() {
         }
       }
     }
-  ) {
-    const textOnPage = toString(tree as Parameters<typeof toString>[0])
+  ) => {
+    const textOnPage = mdastToString(
+      tree as Parameters<typeof mdastToString>[0]
+    )
     const readingTime = getReadingTime(textOnPage)
 
     // readingTime.text will give us minutes read as a friendly string,

@@ -9,7 +9,13 @@
   Cache-Control: immutable
 
 /favicon.ico
+  ! cache-control
   cache-control: public,max-age=3600
+
+# Retired service worker: browsers must always get the latest copy.
+/sw.js
+  ! cache-control
+  cache-control: no-cache
 
 https://:project.pages.dev/*
   X-Robots-Tag: noindex

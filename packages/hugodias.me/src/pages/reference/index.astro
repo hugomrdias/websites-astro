@@ -120,11 +120,17 @@ import lighthouse from '../../images/lighthouse.png'
 
   <Picture src={lighthouse} alt="A description of my image." />
   <h2>Links and Buttons</h2>
-  <button>I'm a button</button>
-  <button class="Button-variant">Variant</button>
-  <button class="Button-variant Button--small">Variant</button>
+  <button type="button">I'm a button</button>
+  <button type="button" class="Button-variant">
+    Variant
+  </button>
+  <button type="button" class="Button-variant Button--small">
+    Variant
+  </button>
   <br />
-  <button disabled>I'm a disabled button</button>
+  <button type="button" disabled>
+    I'm a disabled button
+  </button>
   <br />
 
   <a class="button" href="https://example.com">
@@ -140,13 +146,15 @@ import lighthouse from '../../images/lighthouse.png'
   <br />
 
   <h2>Dialog and Popover</h2>
-  <button popovertarget="dialog-1">Open Dialog</button>
+  <button type="button" popovertarget="dialog-1">
+    Open Dialog
+  </button>
   <dialog id="dialog-1" popover>
     <header>This is a sample dialog</header>
     <p>This is a dialog box.</p>
     <input />
     <footer>
-      <button popovertarget="dialog-1" popovertargetaction="hide">
+      <button type="button" popovertarget="dialog-1" popovertargetaction="hide">
         Close
       </button>
     </footer>
@@ -291,9 +299,11 @@ import lighthouse from '../../images/lighthouse.png'
         </progress>
       </p>
 
-      <button>Send</button>
+      <button type="submit">Send</button>
       <button type="reset">Reset</button>
-      <button disabled="disabled">Disabled</button>
+      <button type="button" disabled="disabled">
+        Disabled
+      </button>
     </form>
   </fieldset>
   <section class="Section animate">

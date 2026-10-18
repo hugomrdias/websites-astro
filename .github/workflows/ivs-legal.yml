@@ -48,7 +48,7 @@ jobs:
       GOOGLE_MAPS: ${{ secrets.GOOGLE_MAPS }}
     steps:
       - uses: actions/checkout@v7
-      - uses: pnpm/setup@v2
+      - uses: pnpm/setup@v3
         with:
           cache: true
       - name: Validate Notion configuration
@@ -67,6 +67,8 @@ jobs:
         with:
           name: ivs.legal
           path: packages/ivs.legal/dist
+          # Keep .well-known/security.txt and .assetsignore.
+          include-hidden-files: true
           if-no-files-found: error
           retention-days: 7
 
@@ -78,7 +80,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v7
-      - uses: pnpm/setup@v2
+      - uses: pnpm/setup@v3
         with:
           cache: true
       - uses: actions/download-artifact@v8

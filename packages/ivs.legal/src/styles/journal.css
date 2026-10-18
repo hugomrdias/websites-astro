@@ -212,7 +212,7 @@
   background: var(--color-gold-50);
   border-color: var(--color-gold-300);
 }
-.journal-filters button[aria-pressed='true'] {
+.journal-filters button[aria-pressed="true"] {
   color: var(--color-navy-900);
   background: var(--color-gold-500);
   border-color: var(--color-gold-500);

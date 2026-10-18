@@ -12,7 +12,10 @@ import { translatePath } from '../i18n/utils'
 type SiteLang = keyof typeof ui
 
 export type PageType =
-  'WebPage' | 'AboutPage' | 'ContactPage' | 'CollectionPage'
+  | 'WebPage'
+  | 'AboutPage'
+  | 'ContactPage'
+  | 'CollectionPage'
 
 export interface Breadcrumb {
   name: string

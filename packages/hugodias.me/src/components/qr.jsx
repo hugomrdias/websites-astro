@@ -1,31 +1,22 @@
 import { Cuer } from 'cuer'
 import VCard from 'vcard-creator'
 
-// @ts-ignore
-const _vCard = VCard.default
-
-// Define a new vCard
-/** @type {VCard} */
-const myVCard = new _vCard()
-myVCard.addName('Dias', 'Hugo')
-myVCard.addEmail('hugomrdias@gmail.com')
-myVCard.addPhoneNumber('+351 932 219 810', 'CELL')
-myVCard.addURL('https://hugodias.me', 'WORK')
-myVCard.addAddress(
-  undefined,
-  undefined,
-  'Praça António Nogueira da Silva 104',
-  'Leça da Palmeira',
-  'Porto',
-  '4450-236',
-  'Portugal',
-  'HOME'
-)
-
-const vCardString = myVCard.toString()
+const vCardString = new VCard()
+  .addName({ givenName: 'Hugo', familyName: 'Dias' })
+  .addEmail({ address: 'hugomrdias@gmail.com' })
+  .addPhoneNumber({ number: '+351 932 219 810', type: ['cell'] })
+  .addUrl({ url: 'https://hugodias.me', type: ['work'] })
+  .addAddress({
+    street: 'Praça António Nogueira da Silva 104',
+    locality: 'Leça da Palmeira',
+    region: 'Porto',
+    postalCode: '4450-236',
+    country: 'Portugal',
+    type: ['home'],
+  })
+  .toString()
 
 export default function QR({ value = vCardString }) {
-  // @ts-ignore
   return (
     <Cuer
       color="white"
@@ -33,6 +24,7 @@ export default function QR({ value = vCardString }) {
       arena={
         <img
           src="/favicon.png"
+          alt="Hugo Dias"
           width={24}
           height={24}
           style={{ borderRadius: '9999px' }}

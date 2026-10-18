@@ -7,28 +7,28 @@
   "assets": {
     "binding": "ASSETS",
     "not_found_handling": "404-page",
-    "run_worker_first": ["/api/*"],
+    "run_worker_first": ["/api/*"]
   },
   "routes": [
     {
       "pattern": "dev.ivs.legal",
-      "custom_domain": true,
-    },
+      "custom_domain": true
+    }
   ],
   "preview_urls": false,
   "observability": {
-    "enabled": true,
+    "enabled": true
   },
   "vars": {
     "CONTACT_ENV": "staging",
-    "CONTACT_ORIGIN": "https://dev.ivs.legal",
+    "CONTACT_ORIGIN": "https://dev.ivs.legal"
   },
   "send_email": [
     {
       "name": "EMAIL",
       "allowed_sender_addresses": ["website@ivs.legal"],
-      "allowed_destination_addresses": ["geral@ivs.legal"],
-    },
+      "allowed_destination_addresses": ["geral@ivs.legal"]
+    }
   ],
   "ratelimits": [
     {
@@ -36,9 +36,9 @@
       "namespace_id": "2026092001",
       "simple": {
         "limit": 5,
-        "period": 60,
-      },
-    },
+        "period": 60
+      }
+    }
   ],
   "env": {
     "production": {
@@ -46,19 +46,19 @@
       "routes": [
         {
           "pattern": "ivs.legal",
-          "custom_domain": true,
-        },
+          "custom_domain": true
+        }
       ],
       "vars": {
         "CONTACT_ENV": "production",
-        "CONTACT_ORIGIN": "https://ivs.legal",
+        "CONTACT_ORIGIN": "https://ivs.legal"
       },
       "send_email": [
         {
           "name": "EMAIL",
           "allowed_sender_addresses": ["website@ivs.legal"],
-          "allowed_destination_addresses": ["geral@ivs.legal"],
-        },
+          "allowed_destination_addresses": ["geral@ivs.legal"]
+        }
       ],
       "ratelimits": [
         {
@@ -66,16 +66,16 @@
           "namespace_id": "2026092002",
           "simple": {
             "limit": 5,
-            "period": 60,
-          },
-        },
+            "period": 60
+          }
+        }
       ],
       "secrets": {
-        "required": ["TURNSTILE_SECRET_KEY"],
-      },
-    },
+        "required": ["TURNSTILE_SECRET_KEY"]
+      }
+    }
   },
   "secrets": {
-    "required": ["TURNSTILE_SECRET_KEY"],
-  },
+    "required": ["TURNSTILE_SECRET_KEY"]
+  }
 }

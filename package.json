@@ -3,50 +3,32 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "packageManager": "pnpm@12.4.1+sha512.LoHjmdc/6DkNqyXgaqeIq3pZCCSNL1o3D4K0gRR6ano2e/gEj5pv22Rg8hpm8FQt7bi5TKLIcjWWdBkgsWVtTA==",
+  "packageManager": "pnpm@12.14.0+sha512.wYum2HmT09Fky16JSPMrLAbuhUSH4GzY2GeBNC+z5btGNDZwNHEehoArqpw3vqkGzhkprQjXCITJfYAd8TOJpg==",
   "engines": {
     "node": "^24.21.0",
-    "pnpm": "^12.4.1"
+    "pnpm": "^12.14.0"
   },
   "devEngines": {
     "runtime": {
       "name": "node",
-      "version": "^24.21.0",
+      "version": "^24.22.0",
       "onFail": "download"
     }
   },
-  "workspaces": [
-    "packages/*"
-  ],
   "scripts": {
-    "format": "prettier --write '**/*.{js,ts,yml,json,tsx,jsx,astro}' --ignore-path .gitignore",
-    "format:check": "prettier --check '**/*.{js,ts,yml,json,tsx,jsx,astro}' --ignore-path .gitignore",
+    "format": "biome format --write . && prettier --write '**/*.{astro,yml}' --ignore-path .gitignore",
+    "format:check": "biome format . && prettier --check '**/*.{astro,yml}' --ignore-path .gitignore",
     "clean": "rm -rf node_modules pnpm-lock.yaml packages/*/{pnpm-lock.yaml,.astro,dist,node_modules}",
     "lint": "pnpm -r --if-present run lint",
     "build": "pnpm -r --if-present run build"
   },
   "devDependencies": {
+    "@biomejs/biome": "catalog:",
     "astro": "catalog:",
-    "depcheck": "^1.4.3",
-    "eslint": "catalog:",
-    "@eslint/js": "catalog:",
-    "eslint-config-prettier": "catalog:",
-    "eslint-plugin-astro": "catalog:",
-    "eslint-plugin-jsx-a11y": "catalog:",
-    "eslint-plugin-mdx": "catalog:",
-    "lint-staged": "^16.1.6",
+    "depcheck": "^1.4.7",
     "prettier": "catalog:",
     "prettier-plugin-astro": "catalog:",
-    "simple-git-hooks": "^2.13.1",
     "typescript": "catalog:",
-    "typescript-eslint": "catalog:",
     "wrangler": "catalog:"
-  },
-  "simple-git-hooks": {
-    "pre-commit": "pnpm exec lint-staged"
-  },
-  "lint-staged": {
-    "*.{js,ts,yml,json}": "prettier --write",
-    "*.{js,ts,jsx,tsx,astro}": "eslint --fix"
   }
 }

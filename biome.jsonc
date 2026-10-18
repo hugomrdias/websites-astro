@@ -1,0 +1,48 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.15/schema.json",
+  "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
+  "files": {
+    "includes": [
+      "**",
+      "!**/public",
+      "!**/worker-configuration.d.ts",
+      "!**/*.svg"
+    ]
+  },
+  "formatter": {
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 80
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "semicolons": "asNeeded",
+      "trailingCommas": "es5"
+    }
+  },
+  "css": {
+    "parser": { "tailwindDirectives": true }
+  },
+  "html": {
+    // Lint Astro frontmatter, scripts and templates together.
+    "experimentalFullSupportEnabled": true,
+    // Prettier formats .astro files: Biome's HTML formatter can change
+    // whitespace that Astro renders.
+    "formatter": { "enabled": false }
+  },
+  "linter": {
+    "rules": {
+      "preset": "recommended",
+      // Stylistic rules that ESLint did not enforce here.
+      "style": {
+        "noNonNullAssertion": "off",
+        "noDescendingSpecificity": "off"
+      },
+      "complexity": { "noImportantStyles": "off" }
+    }
+  },
+  "assist": {
+    "actions": { "source": { "organizeImports": "off" } }
+  }
+}

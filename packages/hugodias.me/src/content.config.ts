@@ -91,7 +91,7 @@ const speaking = defineCollection({
         }) => {
           const imgs = []
           for (const file of f.files) {
-            let url
+            let url: string | undefined
             switch (file?.type) {
               case 'external':
                 url = file.external?.url
