@@ -36,4 +36,4 @@ console.log(`IPFS CID: ${cid}`)
 console.log(`Gateway URL: https://dweb.link/ipfs/${cid}`)
 ```
 
-See https://web3.storage/docs/#quickstart for a guide to using the js client for the first time.
+See the [web3.storage quickstart (archived)](https://web.archive.org/web/20241217185501/https://web3.storage/docs/#quickstart) for a guide to using the js client for the first time.

@@ -185,6 +185,12 @@ catalogs:
     '@iconify-json/lucide':
       specifier: ^1.2.145
       version: 1.2.145
+    '@types/hast':
+      specifier: ^3.0.5
+      version: 3.0.5
+    '@types/mdast':
+      specifier: ^4.0.4
+      version: 4.0.4
     '@types/mdx':
       specifier: ^2.0.14
       version: 2.0.14
@@ -212,6 +218,27 @@ catalogs:
     cuer:
       specifier: ^0.0.3
       version: 0.0.3
+    hast-util-from-html:
+      specifier: ^2.0.3
+      version: 2.0.3
+    hast-util-select:
+      specifier: ^6.0.4
+      version: 6.0.4
+    hast-util-to-mdast:
+      specifier: ^10.1.2
+      version: 10.1.2
+    hast-util-to-string:
+      specifier: ^3.0.1
+      version: 3.0.1
+    mdast-util-gfm-strikethrough:
+      specifier: ^2.0.1
+      version: 2.0.1
+    mdast-util-gfm-table:
+      specifier: ^2.0.0
+      version: 2.0.0
+    mdast-util-to-markdown:
+      specifier: ^2.2.0
+      version: 2.2.0
     modern-normalize:
       specifier: ^3.0.1
       version: 3.0.1
@@ -420,9 +447,15 @@ importers:
       '@biomejs/biome':
         specifier: 'catalog:'
         version: 2.5.15
+      '@types/hast':
+        specifier: 'catalog:'
+        version: 3.0.5
       '@types/jsdom':
         specifier: ^30.0.0
         version: 30.0.0
+      '@types/mdast':
+        specifier: 'catalog:'
+        version: 4.0.4
       '@types/mdx':
         specifier: 'catalog:'
         version: 2.0.14
@@ -447,12 +480,33 @@ importers:
       github-slugger:
         specifier: ^2.0.0
         version: 2.0.0
+      hast-util-from-html:
+        specifier: 'catalog:'
+        version: 2.0.3
+      hast-util-select:
+        specifier: 'catalog:'
+        version: 6.0.4
+      hast-util-to-mdast:
+        specifier: 'catalog:'
+        version: 10.1.2
+      hast-util-to-string:
+        specifier: 'catalog:'
+        version: 3.0.1
       hastscript:
         specifier: ^9.0.1
         version: 9.0.1
       jsdom:
         specifier: ^30.1.3
         version: 30.1.3(@noble/hashes@1.8.0)
+      mdast-util-gfm-strikethrough:
+        specifier: 'catalog:'
+        version: 2.0.1(supports-color@10.2.0)
+      mdast-util-gfm-table:
+        specifier: 'catalog:'
+        version: 2.0.0(supports-color@10.2.0)
+      mdast-util-to-markdown:
+        specifier: 'catalog:'
+        version: 2.2.0
       modern-normalize:
         specifier: 'catalog:'
         version: 3.0.1
@@ -511,25 +565,25 @@ importers:
         specifier: 'catalog:'
         version: 0.0.3(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(typescript@6.0.3)
       hast-util-from-html:
-        specifier: ^2.0.3
+        specifier: 'catalog:'
         version: 2.0.3
       hast-util-select:
-        specifier: ^6.0.4
+        specifier: 'catalog:'
         version: 6.0.4
       hast-util-to-mdast:
-        specifier: ^10.1.2
+        specifier: 'catalog:'
         version: 10.1.2
       hast-util-to-string:
-        specifier: ^3.0.1
+        specifier: 'catalog:'
         version: 3.0.1
       mdast-util-gfm-strikethrough:
-        specifier: ^2.0.1
+        specifier: 'catalog:'
         version: 2.0.1(supports-color@10.2.0)
       mdast-util-gfm-table:
-        specifier: ^2.0.0
+        specifier: 'catalog:'
         version: 2.0.0(supports-color@10.2.0)
       mdast-util-to-markdown:
-        specifier: ^2.2.0
+        specifier: 'catalog:'
         version: 2.2.0
       notro-loader:
         specifier: 0.4.0
@@ -566,10 +620,10 @@ importers:
         specifier: 'catalog:'
         version: 1.2.145
       '@types/hast':
-        specifier: ^3.0.5
+        specifier: 'catalog:'
         version: 3.0.5
       '@types/mdast':
-        specifier: ^4.0.4
+        specifier: 'catalog:'
         version: 4.0.4
       '@types/node':
         specifier: 'catalog:'
@@ -4217,9 +4271,6 @@ packages:
 
   mdast-util-gfm-footnote@2.1.0:
     resolution: {integrity: sha512-sqpDWlsHn7Ac9GNZQMeUzPQSMzR6Wv0WKRNvQRg0KqHh02fpTz69Qc1QSseNX29bhz1ROIyNyxExfawVKTm1GQ==}
-
-  mdast-util-gfm-strikethrough@2.0.0:
-    resolution: {integrity: sha512-mKKb915TF+OC5ptj5bJ7WFRPdYtuHv0yTRxK2tJvi+BDqbkiG7h7u/9SI89nRAYcmap2xHQL9D+QG/6wSrTtXg==}
 
   mdast-util-gfm-strikethrough@2.0.1:
     resolution: {integrity: sha512-OuJHqvr455pwu2OaOrir7dbzqs4jlWKOtlu9L6GjcIjjQwNyw02VntQsr/Ek6/A13vgnXfUhBekWRUP1OkNivw==}
@@ -9957,14 +10008,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  mdast-util-gfm-strikethrough@2.0.0(supports-color@10.2.0):
-    dependencies:
-      '@types/mdast': 4.0.4
-      mdast-util-from-markdown: 2.0.3(supports-color@10.2.0)
-      mdast-util-to-markdown: 2.2.0
-    transitivePeerDependencies:
-      - supports-color
-
   mdast-util-gfm-strikethrough@2.0.1(supports-color@10.2.0):
     dependencies:
       '@types/mdast': 4.0.4
@@ -9997,7 +10040,7 @@ snapshots:
       mdast-util-from-markdown: 2.0.3(supports-color@10.2.0)
       mdast-util-gfm-autolink-literal: 2.0.1
       mdast-util-gfm-footnote: 2.1.0(supports-color@10.2.0)
-      mdast-util-gfm-strikethrough: 2.0.0(supports-color@10.2.0)
+      mdast-util-gfm-strikethrough: 2.0.1(supports-color@10.2.0)
       mdast-util-gfm-table: 2.0.0(supports-color@10.2.0)
       mdast-util-gfm-task-list-item: 2.0.0(supports-color@10.2.0)
       mdast-util-to-markdown: 2.2.0

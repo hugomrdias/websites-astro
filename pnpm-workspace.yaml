@@ -8,6 +8,8 @@ catalog:
   '@astrojs/ts-plugin': ^1.10.12
   '@biomejs/biome': 2.5.15
   '@iconify-json/lucide': ^1.2.145
+  '@types/hast': ^3.0.5
+  '@types/mdast': ^4.0.4
   '@types/mdx': ^2.0.14
   '@types/node': ^24.13.5
   '@types/react': ^19.3.0
@@ -17,6 +19,13 @@ catalog:
   astro: ^7.4.0
   astro-icon: ^1.2.0
   cuer: ^0.0.3
+  hast-util-from-html: ^2.0.3
+  hast-util-select: ^6.0.4
+  hast-util-to-mdast: ^10.1.2
+  hast-util-to-string: ^3.0.1
+  mdast-util-gfm-strikethrough: ^2.0.1
+  mdast-util-gfm-table: ^2.0.0
+  mdast-util-to-markdown: ^2.2.0
   modern-normalize: ^3.0.1
   prettier: 3.9.10
   prettier-plugin-astro: ^1.1.1

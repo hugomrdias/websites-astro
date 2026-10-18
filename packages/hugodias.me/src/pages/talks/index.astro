@@ -22,7 +22,11 @@ const speaking = (
 )
 ---
 
-<PageLayout title={TALKS.TITLE} description={TALKS.DESCRIPTION}>
+<PageLayout
+  title={TALKS.TITLE}
+  description={TALKS.DESCRIPTION}
+  pageType="CollectionPage"
+>
   <h1 class="animate">Talks</h1>
   <ul class="Items gap-2">
     {speaking.map((entry) => (

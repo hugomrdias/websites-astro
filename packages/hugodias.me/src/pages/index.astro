@@ -46,8 +46,12 @@ const speaking = (
   .slice(0, SITE.NUM_TALKS_ON_HOMEPAGE)
 ---
 
-<PageLayout title={HOME.TITLE} description={HOME.DESCRIPTION}>
-  <h3 class="animate">Hi, I'm Hugo Dias 👋🏻</h3>
+<PageLayout
+  title={HOME.TITLE}
+  description={HOME.DESCRIPTION}
+  pageType="ProfilePage"
+>
+  <h1 class="animate Hello">Hi, I'm Hugo Dias 👋🏻</h1>
   <section class="Section animate">
     <article>
       <intro.Content />
@@ -57,7 +61,7 @@ const speaking = (
   <section class="animate Section">
     <div class="Section-header">
       <h3 class="m-0">Latest posts</h3>
-      <Link href="/blog"> See all posts </Link>
+      <Link href="/blog/"> See all posts </Link>
     </div>
     <ul class="Items">
       {blog.map((post) => (
@@ -71,7 +75,7 @@ const speaking = (
   <section class="animate Section">
     <div class="Section-header">
       <h3 class="m-0">Recent projects</h3>
-      <Link href="/projects"> See all projects </Link>
+      <Link href="/projects/"> See all projects </Link>
     </div>
     <ul class="Items">
       {projects.map((project) => (
@@ -85,7 +89,7 @@ const speaking = (
   <section class="animate Section">
     <div class="Section-header">
       <h3 class="m-0">Latest work</h3>
-      <Link href="/work"> See all work </Link>
+      <Link href="/work/"> See all work </Link>
     </div>
     <ul class="Items gap-2">
       {work.map((entry) => (
@@ -97,7 +101,7 @@ const speaking = (
   <section class="animate Section">
     <div class="Section-header">
       <h3 class="m-0">Latest talks</h3>
-      <Link href="/talks"> See all talks </Link>
+      <Link href="/talks/"> See all talks </Link>
     </div>
     <ul class="Items gap-2">
       {speaking.map((entry) => (
@@ -140,7 +144,7 @@ const speaking = (
         </li>
       ))}
       <li>
-        <Link href="/vcard">vCard</Link>
+        <Link href="/vcard/">vCard</Link>
       </li>
     </ul>
     <p>

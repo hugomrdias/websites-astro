@@ -1,7 +1,6 @@
 import { defineConfig, envField } from 'astro/config'
 import { unified } from '@astrojs/markdown-remark'
 import mdx from '@astrojs/mdx'
-import sitemap from '@astrojs/sitemap'
 import { h } from 'hastscript'
 import { remarkReadingTime } from './src/lib/remark-reading-time.js'
 import expressiveCode from 'astro-expressive-code'
@@ -17,6 +16,8 @@ import umami from '@yeskunall/astro-umami'
 import rehypeMermaid from 'rehype-mermaid'
 import icon from 'astro-icon'
 import react from '@astrojs/react'
+import agentMarkdown from './src/lib/agent-markdown'
+import sitemap from './src/lib/sitemap'
 
 // https://astro.build/config
 
@@ -63,6 +64,11 @@ export default defineConfig({
       },
     }),
     mdx(),
+    agentMarkdown({
+      title: 'Hugo Dias',
+      description:
+        'Software engineer in Porto, Portugal, writing open source code for Web3: Filecoin, IPFS, libp2p and UCAN.',
+    }),
     sitemap(),
     icon(),
     react(),

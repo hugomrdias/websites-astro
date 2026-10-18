@@ -45,6 +45,7 @@ jobs:
           cache: true
       - name: Install Playwright Chromium
         run: pnpm --filter hugodias.me exec playwright install --with-deps chromium
+      - run: pnpm --filter hugodias.me test
       - run: pnpm --filter hugodias.me --filter decentralised.dev lint
       - run: pnpm --filter hugodias.me --filter decentralised.dev build
       - name: Upload hugodias.me

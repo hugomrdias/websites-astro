@@ -17,6 +17,11 @@ type Props = CollectionEntry<'blog'>
 const post = Astro.props
 
 const { Content, remarkPluginFrontmatter } = await render(post)
+const breadcrumbs = [
+  { name: 'Home', url: new URL('/', Astro.site).href },
+  { name: 'Blog', url: new URL('/blog/', Astro.site).href },
+  { name: post.data.title, url: new URL(Astro.url.pathname, Astro.site).href },
+]
 ---
 
 <PageLayout
@@ -24,6 +29,12 @@ const { Content, remarkPluginFrontmatter } = await render(post)
   description={post.data.description}
   image={post.data.cover}
   type="article"
+  breadcrumbs={breadcrumbs}
+  article={{
+    type: 'BlogPosting',
+    datePublished: post.data.date,
+    dateModified: post.data.updated,
+  }}
 >
   <section class="Section">
     <h1>{post.data.title}</h1>
@@ -35,6 +46,6 @@ const { Content, remarkPluginFrontmatter } = await render(post)
   <article class="animate Section">
     <Content />
   </article>
-  <BackToPrev href="/blog"> Back to blog </BackToPrev>
+  <BackToPrev href="/blog/"> Back to blog </BackToPrev>
   <ShareButton title={post.data.title} text={post.data.description} />
 </PageLayout>

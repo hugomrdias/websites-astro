@@ -9,10 +9,10 @@ type Props = {
 const { entry } = Astro.props
 ---
 
-<a href={`/${entry.collection}/${entry.id}`} class="Item">
+<a href={`/${entry.collection}/${entry.id}/`} class="Item">
   {entry.data && 'cover' in entry.data && entry.data.cover && (
     <div class="Item-cover">
-      <Image src={entry.data.cover} alt={entry.data.title} height={92 * 2} />
+      <Image src={entry.data.cover} alt="" aria-hidden="true" height={92 * 2} />
     </div>
   )}
   <div class="Item-content">

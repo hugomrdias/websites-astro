@@ -25,6 +25,8 @@ const blog = defineCollection({
       title: z.string(),
       description: z.string(),
       date: z.coerce.date(),
+      // Last meaningful edit, for dateModified and the sitemap lastmod.
+      updated: z.coerce.date().optional(),
       draft: z.boolean().optional(),
       cover: image().optional(),
     }),
@@ -53,6 +55,8 @@ const projects = defineCollection({
       title: z.string(),
       description: z.string(),
       date: z.coerce.date(),
+      // Last meaningful edit, for dateModified and the sitemap lastmod.
+      updated: z.coerce.date().optional(),
       draft: z.boolean().optional(),
       demoURL: z.string().optional(),
       repoURL: z.string().optional(),

@@ -16,7 +16,7 @@ libp2p is the product of a long and arduous quest to understand the evolution of
 We are in the process of writing better documentation, blog posts, tutorials and a formal specification. Today you can find:
 
 - [libp2p.io](https://libp2p.io/)
-- [docs.libp2p.io](https://docs.libp2p.io/)
+- [docs.libp2p.io (archived)](https://web.archive.org/web/20250102190802/https://docs.libp2p.io/)
 - [Specification (WIP)](https://github.com/libp2p/specs)
 - [Discussion Forums](https://discuss.libp2p.io/)
 - Talks

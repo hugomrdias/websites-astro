@@ -2,20 +2,49 @@
   cache-control: public,max-age=300
   X-Frame-Options: SAMEORIGIN
   X-XSS-Protection: 1; mode=block
+  Strict-Transport-Security: max-age=31536000
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+  Content-Security-Policy: frame-ancestors 'self'
 
+# Pages are directories: send a charset and point agents at the Markdown twin.
+/
+  Content-Type: text/html; charset=utf-8
+  Link: <index.md>; rel="alternate"; type="text/markdown"
+
+/*/
+  Content-Type: text/html; charset=utf-8
+  Link: <index.md>; rel="alternate"; type="text/markdown"
+
+# Replace, rather than join, the site-wide cache-control.
 /_astro/*
-  Cache-Control: public
-  Cache-Control: max-age=31536000
-  Cache-Control: immutable
+  ! cache-control
+  Cache-Control: public, max-age=31536000, immutable
 
 /favicon.ico
   ! cache-control
-  cache-control: public,max-age=3600
+  Cache-Control: public, max-age=3600
+
+/*.md
+  Content-Type: text/markdown; charset=utf-8
+
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
+
+/llms-full.txt
+  Content-Type: text/plain; charset=utf-8
+
+/*.vcf
+  Content-Type: text/vcard; charset=utf-8
 
 # Retired service worker: browsers must always get the latest copy.
 /sw.js
   ! cache-control
-  cache-control: no-cache
+  Cache-Control: no-cache
+
+https://:version.:subdomain.workers.dev/*
+  X-Robots-Tag: noindex
 
 https://:project.pages.dev/*
   X-Robots-Tag: noindex
