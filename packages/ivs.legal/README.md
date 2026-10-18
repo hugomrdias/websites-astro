@@ -76,11 +76,9 @@ After artifact preparation, the read-only `scripts/verify-build.mjs` verifies ge
 
 ## Icons and retired service worker
 
-[`astro-favicons`](https://github.com/ACP-CODE/astro-favicons) generates favicons and platform metadata from `public/favicon.png` during development and builds, and supplies their head tags through `localizedHTML` in the shared layout. Explicit rendering avoids relying on its middleware’s route-header detection during Astro prerendering. To update the icons, replace that source and rebuild; no separate generation command or checked-in generated assets are needed.
+`pnpm favicons` runs [`@vite-pwa/assets-generator`](https://vite-pwa-org.netlify.app/assets-generator/) with `pwa-assets.config.ts` to generate the icons from `public/favicon.png` into `public/`: a 48 px `favicon.ico`, transparent 64, 192 and 512 px PNGs, a 512 px maskable icon and a 180 px `apple-touch-icon.png`. The Apple and maskable icons sit on the `#222221` background. The icons are committed; rerun the command only when the logo changes.
 
-The integration provides ICO, PNG and SVG favicon outputs, Apple touch and Safari pinned-tab icons, Android icons referenced by the web manifest, and Windows/Yandex assets with their metadata. SVG output from the PNG source remains raster-based; use a vector source if true scalable artwork is needed. The configuration preserves theme colour `#B99A4B`, background `#222221`, and the IVS Legal name. Head reordering is disabled. The manifest uses browser display mode; no service worker is registered and no offline caching is installed.
-
-This replaces issue #16's original standalone-generator/checked-in-assets approach. The manifest is retained for platform icon discovery independently of service-worker retirement.
+`public/manifest.webmanifest` is written by hand. It keeps theme colour `#B99A4B`, background `#222221` and the IVS Legal name, and uses browser display mode; no service worker is registered and no offline caching is installed. The shared layout links the icons and manifest and sets `theme-color`.
 
 `public/sw.js` preserves the former Vite PWA retirement worker. Keep serving it at **`/sw.js` indefinitely**, including after future hosting or routing changes. It must return HTTP 200 JavaScript directly, never a redirect, HTML fallback, or 404. Returning visitors may still have the original caching worker: the browser must be able to update it at the same URL to unregister it, clear old caches, and reload its clients. The retirement worker has no fetch handler or caching logic. Do not register it from new pages.
 

@@ -11,7 +11,8 @@
     "lint": "wrangler types && astro check && eslint . && prettier --check '**/*.{js,ts,yml,json,tsx,jsx,astro}' --ignore-path ../../.gitignore --ignore-path .gitignore",
     "lint:fix": "eslint . --fix && prettier --write '**/*.{js,ts,yml,json,tsx,jsx,astro}' --ignore-path ../../.gitignore",
     "types": "wrangler types",
-    "test": "node --test tests/*.test.ts"
+    "test": "node --test tests/*.test.ts",
+    "favicons": "pwa-assets-generator"
   },
   "dependencies": {
     "@astrojs/cloudflare": "14.3.2",
@@ -22,7 +23,6 @@
     "@tailwindcss/vite": "^4.3.3",
     "@yeskunall/astro-umami": "catalog:",
     "astro": "catalog:",
-    "astro-favicons": "3.1.6",
     "cuer": "catalog:",
     "hast-util-from-html": "^2.0.3",
     "hast-util-select": "^6.0.4",
@@ -49,6 +49,7 @@
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
+    "@vite-pwa/assets-generator": "^2.0.0",
     "astro-icon": "catalog:",
     "eslint": "catalog:",
     "eslint-config-prettier": "catalog:",

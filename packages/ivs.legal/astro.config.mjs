@@ -4,7 +4,6 @@ import tailwindcss from '@tailwindcss/vite'
 import umami from '@yeskunall/astro-umami'
 import articleSitemap from './src/lib/article-sitemap'
 import icon from 'astro-icon'
-import favicons from 'astro-favicons'
 import react from '@astrojs/react'
 import cloudflare from '@astrojs/cloudflare'
 import agentMarkdown from './src/lib/agent-markdown'
@@ -68,20 +67,6 @@ export default defineConfig({
     }),
     articleSitemap(),
     icon(),
-    favicons({
-      input: 'public/favicon.png',
-      name: 'IVS Legal',
-      short_name: 'IVS Legal',
-      themes: ['#B99A4B', '#B99A4B'],
-      background: '#222221',
-      manifest: {
-        display: 'browser',
-        display_override: ['browser'],
-        start_url: '/',
-        lang: 'pt',
-      },
-      withCapo: false,
-    }),
     react(),
   ],
   i18n: {
