@@ -4,7 +4,7 @@ The Portuguese `/articles` and English `/en/articles` share templates in `src/co
 
 ## Content
 
-`src/content.config.ts` defines the `articles` collection, loaded from Notion at build time using the public `notro-loader` package. The old Markdown samples in `src/content/articles/{pt,en}` are reference content only and are no longer loaded. Sample articles and listings containing only samples have `noindex` metadata.
+`src/content.config.ts` defines the `articles` collection, loaded from Notion at build time using the public `notro-loader` package. Sample articles and listings containing only samples have `noindex` metadata.
 
 Required article metadata: `title`, `description`, `lang` (`pt` or `en`), `translationKey`, `category`, `publishedAt` (ISO date). Optional fields: `slug` (generated from the title when omitted or blank), `author` (defaults to IVS Legal), `featured`, `draft`, `sample` (all default to false).
 
