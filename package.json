@@ -15,9 +15,6 @@
       "onFail": "download"
     }
   },
-  "workspaces": [
-    "packages/*"
-  ],
   "scripts": {
     "format": "prettier --write '**/*.{js,ts,yml,json,tsx,jsx,astro}' --ignore-path .gitignore",
     "format:check": "prettier --check '**/*.{js,ts,yml,json,tsx,jsx,astro}' --ignore-path .gitignore",
