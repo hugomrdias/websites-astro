@@ -68,18 +68,21 @@ jobs:
           INPUT_SITE: ${{ inputs.site }}
           INPUT_ENVIRONMENT: ${{ inputs.environment }}
           SAME_REPO: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
         run: |
           set -o pipefail
           all='["decentralised.dev","hugodias.me","ivs.legal"]'
           affected() {
-            pnpm -s turbo ls --affected --output=json 2>/dev/null |
+            pnpm -s turbo ls --affected --output=json |
               jq -c '[.packages.items[].name]'
           }
           environment=production
           publish=false
           case "$EVENT" in
             pull_request)
-              sites=$(affected)
+              # The checkout has no local base branch for turbo to resolve
+              # from GITHUB_BASE_REF, so it would assume every site changed.
+              sites=$(TURBO_SCM_BASE=$PR_BASE_SHA affected)
               environment=preview
               publish=$SAME_REPO
               ;;
