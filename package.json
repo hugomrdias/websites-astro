@@ -23,27 +23,18 @@
     "build": "pnpm -r --if-present run build"
   },
   "devDependencies": {
+    "@eslint/js": "catalog:",
     "astro": "catalog:",
     "depcheck": "^1.4.3",
     "eslint": "catalog:",
-    "@eslint/js": "catalog:",
     "eslint-config-prettier": "catalog:",
     "eslint-plugin-astro": "catalog:",
     "eslint-plugin-jsx-a11y": "catalog:",
     "eslint-plugin-mdx": "catalog:",
-    "lint-staged": "^16.1.6",
     "prettier": "catalog:",
     "prettier-plugin-astro": "catalog:",
-    "simple-git-hooks": "^2.13.1",
     "typescript": "catalog:",
     "typescript-eslint": "catalog:",
     "wrangler": "catalog:"
-  },
-  "simple-git-hooks": {
-    "pre-commit": "pnpm exec lint-staged"
-  },
-  "lint-staged": {
-    "*.{js,ts,yml,json}": "prettier --write",
-    "*.{js,ts,jsx,tsx,astro}": "eslint --fix"
   }
 }

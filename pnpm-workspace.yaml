@@ -46,7 +46,6 @@ minimumReleaseAgeExclude:
 onlyBuiltDependencies:
   - esbuild
   - sharp
-  - simple-git-hooks
   - workerd
 peerDependencyRules:
   allowedVersions:
@@ -58,5 +57,4 @@ overrides:
 allowBuilds:
   esbuild: true
   sharp: true
-  simple-git-hooks: true
   workerd: true
