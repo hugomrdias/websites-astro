@@ -214,6 +214,11 @@ h6:hover > .header-anchor {
   border-bottom: none;
 }
 
+/* The homepage greeting is its h1, sized like the section headings. */
+.Hello {
+  font-size: 1.17em;
+}
+
 /** Section **/
 .Section {
   margin-bottom: 4rem;

@@ -1,8 +1,31 @@
 ---
 import PageLayout from '@layouts/PageLayout.astro'
 import QR from '@components/qr'
+import { CONTACTS, SITE, VCARD_PATH } from '@consts'
 ---
 
-<PageLayout title="vCard" description="vCard">
+<PageLayout
+  title="vCard"
+  description="Hugo Dias's contact card: scan the QR code or download the vCard."
+  pageType="ContactPage"
+>
+  <h1 class="animate">vCard</h1>
+  <p>Scan the code to add {SITE.NAME} to your contacts.</p>
   <QR />
+  <ul>
+    <li>
+      <strong>{SITE.NAME}</strong>, {SITE.JOB_TITLE}
+    </li>
+    <li>
+      <a href={`mailto:${SITE.EMAIL}`}>{SITE.EMAIL}</a>
+    </li>
+    <li>
+      {CONTACTS.LOCALITY}, {CONTACTS.REGION}, {CONTACTS.COUNTRY}
+    </li>
+  </ul>
+  <p>
+    <a class="button" href={VCARD_PATH} download>
+      Download vCard (.vcf)
+    </a>
+  </p>
 </PageLayout>

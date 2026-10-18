@@ -18,6 +18,14 @@ type Props = CollectionEntry<'projects'>
 
 const project = Astro.props
 const { Content, remarkPluginFrontmatter } = await render(project)
+const breadcrumbs = [
+  { name: 'Home', url: new URL('/', Astro.site).href },
+  { name: 'Projects', url: new URL('/projects/', Astro.site).href },
+  {
+    name: project.data.title,
+    url: new URL(Astro.url.pathname, Astro.site).href,
+  },
+]
 ---
 
 <PageLayout
@@ -25,6 +33,14 @@ const { Content, remarkPluginFrontmatter } = await render(project)
   description={project.data.description}
   image={project.data.cover}
   type="article"
+  breadcrumbs={breadcrumbs}
+  article={{
+    type: 'CreativeWork',
+    datePublished: project.data.date,
+    dateModified: project.data.updated,
+    repoURL: project.data.repoURL,
+    demoURL: project.data.demoURL,
+  }}
 >
   <section class="Section">
     <h1>{project.data.title}</h1>
@@ -51,5 +67,5 @@ const { Content, remarkPluginFrontmatter } = await render(project)
   <article class="animate Section">
     <Content />
   </article>
-  <BackToPrev href="/projects"> Back to projects </BackToPrev>
+  <BackToPrev href="/projects/"> Back to projects </BackToPrev>
 </PageLayout>

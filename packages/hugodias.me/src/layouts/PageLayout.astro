@@ -4,26 +4,26 @@ import Header from '@components/Header.astro'
 import Footer from '@components/Footer.astro'
 import BackToTop from '@components/BackToTop.astro'
 import { SITE } from '@consts'
+import type { Article, Breadcrumb, PageType } from '../lib/jsonld'
 
 type Props = {
   title: string
   description: string
   image?: ImageMetadata
   type?: 'article' | 'website'
+  noindex?: boolean
+  pageType?: PageType
+  breadcrumbs?: Breadcrumb[]
+  article?: Article
 }
 
-const { title, description, image, type } = Astro.props
+const { title, ...props } = Astro.props
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <Head
-      title={`${title} | ${SITE.NAME}`}
-      description={description}
-      image={image}
-      type={type}
-    />
+    <Head title={`${title} | ${SITE.NAME}`} name={title} {...props} />
   </head>
   <body>
     <Header />

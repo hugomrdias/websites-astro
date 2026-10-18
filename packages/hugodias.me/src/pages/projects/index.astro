@@ -9,7 +9,11 @@ const projects = (await getCollection('projects'))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
 ---
 
-<PageLayout title={PROJECTS.TITLE} description={PROJECTS.DESCRIPTION}>
+<PageLayout
+  title={PROJECTS.TITLE}
+  description={PROJECTS.DESCRIPTION}
+  pageType="CollectionPage"
+>
   <div class="Section">
     <h1>Projects</h1>
     <ul class="Items">

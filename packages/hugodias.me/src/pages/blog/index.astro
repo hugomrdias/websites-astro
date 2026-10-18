@@ -26,7 +26,11 @@ const years = Object.keys(posts).sort(
 )
 ---
 
-<PageLayout title={BLOG.TITLE} description={BLOG.DESCRIPTION}>
+<PageLayout
+  title={BLOG.TITLE}
+  description={BLOG.DESCRIPTION}
+  pageType="CollectionPage"
+>
   <div class="Section">
     <h1>Blog</h1>
     {years.map((year) => (

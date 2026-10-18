@@ -3,6 +3,11 @@ import type { Metadata, Site, Socials } from '@types'
 export const SITE: Site = {
   NAME: 'Hugo Dias',
   EMAIL: 'hugomrdias@gmail.com',
+  URL: 'https://hugodias.me',
+  DESCRIPTION:
+    'Hugo Dias is a software engineer in Porto, Portugal, writing open source code for Web3: Filecoin, IPFS, libp2p and UCAN.',
+  JOB_TITLE: 'Software Engineer',
+  IMAGE: 'https://hugodias.me/favicon.png',
   NUM_POSTS_ON_HOMEPAGE: 3,
   NUM_WORKS_ON_HOMEPAGE: 2,
   NUM_PROJECTS_ON_HOMEPAGE: 3,
@@ -50,3 +55,22 @@ export const SOCIALS: Socials = [
     HREF: 'https://www.linkedin.com/in/hugomrdias',
   },
 ]
+
+// Profiles that identify the same person, for the Person JSON-LD `sameAs`.
+export const SAME_AS = [
+  'https://github.com/hugomrdias',
+  'https://x.com/hugomrdias',
+  'https://www.linkedin.com/in/hugomrdias',
+  'https://www.npmjs.com/~hugomrdias',
+] as const
+
+export const CONTACTS = {
+  PHONE: '+351 932 219 810',
+  STREET: 'Praça António Nogueira da Silva 104',
+  LOCALITY: 'Leça da Palmeira',
+  REGION: 'Porto',
+  POSTAL_CODE: '4450-236',
+  COUNTRY: 'Portugal',
+} as const
+
+export const VCARD_PATH = '/hugo-dias.vcf'

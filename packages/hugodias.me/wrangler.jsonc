@@ -4,7 +4,7 @@
   "compatibility_date": "2025-06-16",
   "assets": {
     "directory": "./dist",
-    "not_found_handling": "single-page-application"
+    "not_found_handling": "404-page"
   },
   "preview_urls": true,
   "workers_dev": true,
@@ -14,7 +14,7 @@
       "compatibility_date": "2025-06-16",
       "assets": {
         "directory": "./dist",
-        "not_found_handling": "single-page-application"
+        "not_found_handling": "404-page"
       },
       "routes": [
         {

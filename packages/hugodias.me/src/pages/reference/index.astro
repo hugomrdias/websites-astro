@@ -6,7 +6,7 @@ import * as mdx from '@content/mdx.mdx'
 import lighthouse from '../../images/lighthouse.png'
 ---
 
-<PageLayout title="Reference" description="HTML Reference">
+<PageLayout title="Reference" description="HTML Reference" noindex>
   <h1 class="animate">HTML Reference</h1>
 
   <h2>Tables</h2>
@@ -152,7 +152,7 @@ import lighthouse from '../../images/lighthouse.png'
   <dialog id="dialog-1" popover>
     <header>This is a sample dialog</header>
     <p>This is a dialog box.</p>
-    <input />
+    <input aria-label="Dialog input" />
     <footer>
       <button type="button" popovertarget="dialog-1" popovertargetaction="hide">
         Close
@@ -196,7 +196,7 @@ import lighthouse from '../../images/lighthouse.png'
       </p>
 
       <p>
-        <select>
+        <select name="title" aria-label="Title">
           <option selected="selected" value="1">
             Title
           </option>
@@ -213,18 +213,30 @@ import lighthouse from '../../images/lighthouse.png'
           type="text"
           id="first_name"
           name="first_name"
+          autocomplete="given-name"
           placeholder="John Doe"
         />
       </p>
 
       <p>
         <label for="surname">Surname</label>
-        <input type="text" id="surname" name="surname" />
+        <input
+          type="text"
+          id="surname"
+          name="surname"
+          autocomplete="family-name"
+        />
       </p>
 
       <p>
         <label for="email">Email</label>
-        <input type="email" id="email" name="email" required="" />
+        <input
+          type="email"
+          id="email"
+          name="email"
+          autocomplete="email"
+          required=""
+        />
       </p>
 
       <p>
@@ -243,7 +255,7 @@ import lighthouse from '../../images/lighthouse.png'
 
       <p>
         <label for="message">Message</label>
-        <textarea id="message" rows="6"></textarea>
+        <textarea id="message" name="message" rows="6"></textarea>
       </p>
 
       <p>
@@ -258,17 +270,17 @@ import lighthouse from '../../images/lighthouse.png'
 
       <p>
         <label for="color">Color:</label>
-        <input type="color" />
+        <input type="color" id="color" name="color" />
       </p>
 
       <p>
         <label for="file">File:</label>
-        <input type="file" />
+        <input type="file" id="file" name="file" />
       </p>
 
       <p>
         <label for="range">Range:</label>
-        <input type="range" name="volume" min="0" max="11" />
+        <input type="range" id="range" name="volume" min="0" max="11" />
       </p>
 
       <p>
@@ -286,15 +298,15 @@ import lighthouse from '../../images/lighthouse.png'
 
       <p>
         <label>
-          <input type="checkbox" id="checkbox" value="terms" />I agree to the{' '}
-          <a href="#terms">terms and conditions</a>
+          <input type="checkbox" id="checkbox" name="terms" value="terms" />I
+          agree to the <a href="#terms">terms and conditions</a>
         </label>
       </p>
 
       <p>
-        <label for="file">File progress:</label>
+        <label for="file-progress">File progress:</label>
 
-        <progress id="file" max="100" value="70">
+        <progress id="file-progress" max="100" value="70">
           70%
         </progress>
       </p>

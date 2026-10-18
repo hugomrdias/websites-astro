@@ -20,6 +20,6 @@ The InterPlanetary File System (IPFS) is a set of composable, peer-to-peer proto
 - Look into the [examples](https://github.com/ipfs-examples/js-ipfs-examples/tree/master) to learn how to spawn an IPFS node in Node.js and in the Browser
 - Consult the [Core API docs](https://github.com/ipfs/js-ipfs/tree/master/docs/core-api) to see what you can do with an IPFS node
 - Head over to [https://proto.school](https://proto.school/) to take the [IPFS course](https://proto.school/course/ipfs) that covers core IPFS concepts and JS APIs
-- Check out [https://docs.ipfs.io](https://docs.ipfs.io/) for [glossary](https://docs.ipfs.io/concepts/glossary), tips, how-tos and more
+- Check out [https://docs.ipfs.tech](https://docs.ipfs.tech/) for [glossary](https://docs.ipfs.tech/concepts/glossary/), tips, how-tos and more
 - Need help? Please ask 'How do I?' questions on [https://discuss.ipfs.io](https://discuss.ipfs.io/)
-- Find out about chat channels, the IPFS newsletter, the IPFS blog, and more in the [IPFS community space](https://docs.ipfs.io/community/).
+- Find out about chat channels, the IPFS newsletter, the IPFS blog, and more in the [IPFS community space](https://docs.ipfs.tech/community/).
