@@ -16,25 +16,19 @@
     }
   },
   "scripts": {
-    "format": "prettier --write '**/*.{js,ts,yml,json,tsx,jsx,astro}' --ignore-path .gitignore",
-    "format:check": "prettier --check '**/*.{js,ts,yml,json,tsx,jsx,astro}' --ignore-path .gitignore",
+    "format": "biome format --write . && prettier --write '**/*.{astro,yml}' --ignore-path .gitignore",
+    "format:check": "biome format . && prettier --check '**/*.{astro,yml}' --ignore-path .gitignore",
     "clean": "rm -rf node_modules pnpm-lock.yaml packages/*/{pnpm-lock.yaml,.astro,dist,node_modules}",
     "lint": "pnpm -r --if-present run lint",
     "build": "pnpm -r --if-present run build"
   },
   "devDependencies": {
-    "@eslint/js": "catalog:",
+    "@biomejs/biome": "catalog:",
     "astro": "catalog:",
     "depcheck": "^1.4.3",
-    "eslint": "catalog:",
-    "eslint-config-prettier": "catalog:",
-    "eslint-plugin-astro": "catalog:",
-    "eslint-plugin-jsx-a11y": "catalog:",
-    "eslint-plugin-mdx": "catalog:",
     "prettier": "catalog:",
     "prettier-plugin-astro": "catalog:",
     "typescript": "catalog:",
-    "typescript-eslint": "catalog:",
     "wrangler": "catalog:"
   }
 }

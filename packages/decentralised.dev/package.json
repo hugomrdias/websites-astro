@@ -10,8 +10,8 @@
     "preview": "astro preview",
     "preview:network": "astro preview --host",
     "astro": "astro",
-    "lint": "astro check && eslint . && prettier --check '**/*.{js,ts,yml,json,tsx,jsx,astro}' --ignore-path ../../.gitignore",
-    "lint:fix": "eslint . --fix && prettier --write '**/*.{js,ts,yml,json,tsx,jsx,astro}' --ignore-path ../../.gitignore",
+    "lint": "astro check && biome check . && prettier --check '**/*.astro' --ignore-path ../../.gitignore",
+    "lint:fix": "biome check --write . && prettier --write '**/*.astro' --ignore-path ../../.gitignore",
     "favicons": "pwa-assets-generator"
   },
   "dependencies": {
@@ -28,25 +28,19 @@
   "devDependencies": {
     "@astrojs/check": "catalog:",
     "@astrojs/ts-plugin": "catalog:",
-    "@eslint/js": "catalog:",
+    "@biomejs/biome": "catalog:",
     "@types/jsdom": "catalog:",
     "@types/mdx": "catalog:",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@vite-pwa/assets-generator": "catalog:",
-    "eslint": "catalog:",
-    "eslint-config-prettier": "catalog:",
-    "eslint-plugin-astro": "catalog:",
-    "eslint-plugin-jsx-a11y": "catalog:",
-    "eslint-plugin-mdx": "catalog:",
     "jsdom": "catalog:",
     "modern-normalize": "catalog:",
     "playwright": "catalog:",
     "prettier": "catalog:",
     "prettier-plugin-astro": "catalog:",
     "typescript": "catalog:",
-    "typescript-eslint": "catalog:",
     "wrangler": "catalog:"
   }
 }

@@ -131,6 +131,7 @@ const itemList = {
             />
           </div>
         </div>
+        {/* biome-ignore lint/a11y/useSemanticElements: a toolbar of toggle buttons, not a form fieldset */}
         <div
           class="journal-filters"
           role="group"
@@ -227,12 +228,11 @@ const itemList = {
       cards.forEach((card) => {
         card.hidden = !matches.slice(0, visible).includes(card)
       })
-      buttons.forEach((button) =>
+      for (const button of buttons)
         button.setAttribute(
           'aria-pressed',
           String(button.dataset.filter === category)
         )
-      )
       empty.hidden = matches.length > 0
       more.hidden = matches.length <= visible
       const shown = Math.min(visible, matches.length)
@@ -253,13 +253,12 @@ const itemList = {
       visible = pageSize
       update()
     })
-    buttons.forEach((button) =>
+    for (const button of buttons)
       button.addEventListener('click', () => {
         category = button.dataset.filter ?? ''
         visible = pageSize
         update()
       })
-    )
     more.addEventListener('click', () => {
       visible += pageSize
       update(true)

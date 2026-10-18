@@ -9,8 +9,8 @@ export function formatDate(date: Date) {
 export function dateRange(startDate: Date, endDate?: Date | string): string {
   const startMonth = startDate.toLocaleString('default', { month: 'short' })
   const startYear = startDate.getFullYear().toString()
-  let endMonth
-  let endYear
+  let endMonth: string | undefined
+  let endYear: string | undefined
 
   if (endDate) {
     if (typeof endDate === 'string') {

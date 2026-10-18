@@ -5,7 +5,7 @@ import type { Nodes } from 'mdast'
 import { fromHtml } from 'hast-util-from-html'
 import { select, selectAll } from 'hast-util-select'
 import { toMdast } from 'hast-util-to-mdast'
-import { toString } from 'hast-util-to-string'
+import { toString as hastToString } from 'hast-util-to-string'
 import { gfmStrikethroughToMarkdown } from 'mdast-util-gfm-strikethrough'
 import { gfmTableToMarkdown } from 'mdast-util-gfm-table'
 import { toMarkdown } from 'mdast-util-to-markdown'
@@ -72,9 +72,10 @@ export function pageTitle(title: string) {
 export function pageMarkdown(html: string, path: string) {
   const tree = fromHtml(html)
   const article = selectAll('script[type="application/ld+json"]', tree)
-    .map((script) => JSON.parse(toString(script)))
+    .map((script) => JSON.parse(hastToString(script)))
     .find((data) => data['@type'] === 'Article')
-  const title = article?.headline ?? pageTitle(toString(select('title', tree)!))
+  const title =
+    article?.headline ?? pageTitle(hastToString(select('title', tree)!))
   const description =
     property(tree, 'meta[name="description"]', 'content') ?? ''
   const url = property(tree, 'link[rel="canonical"]', 'href') ?? path

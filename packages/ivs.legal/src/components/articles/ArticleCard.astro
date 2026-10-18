@@ -34,12 +34,10 @@ const categoryLabel = articleCategoryLabel(category, lang)
         {readingTime(article)} {copy.minute}
       </span>
     </div>
-    <a
-      data-agent-skip
-      class="journal-arrow"
-      href={articleUrl(article)}
-      aria-label={`${copy.read}: ${title}`}
-    >
+    <a data-agent-skip class="journal-arrow" href={articleUrl(article)}>
+      <span class="sr-only">
+        {copy.read}: {title}
+      </span>
       <span aria-hidden="true">↗</span>
     </a>
   </div>

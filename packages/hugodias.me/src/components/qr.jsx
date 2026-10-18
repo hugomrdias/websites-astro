@@ -1,7 +1,7 @@
 import { Cuer } from 'cuer'
 import VCard from 'vcard-creator'
 
-// @ts-ignore
+// @ts-expect-error
 const _vCard = VCard.default
 
 // Define a new vCard
@@ -25,7 +25,6 @@ myVCard.addAddress(
 const vCardString = myVCard.toString()
 
 export default function QR({ value = vCardString }) {
-  // @ts-ignore
   return (
     <Cuer
       color="white"
@@ -33,6 +32,7 @@ export default function QR({ value = vCardString }) {
       arena={
         <img
           src="/favicon.png"
+          alt="Hugo Dias"
           width={24}
           height={24}
           style={{ borderRadius: '9999px' }}

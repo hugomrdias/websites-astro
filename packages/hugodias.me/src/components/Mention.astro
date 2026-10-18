@@ -106,7 +106,7 @@ let meta: { title: string; description: string } | undefined
 // github
 if (type === 'gh') {
   _text = selector
-  _href = 'https://github.com/' + selector
+  _href = `https://github.com/${selector}`
   const idParts = selector.split('/')
   meta = await fetchMetaTags(_href)
   _title = meta.title
@@ -121,15 +121,15 @@ if (type === 'npm') {
 
   if (parts.length === 1 && selector.startsWith('@')) {
     // org
-    _href = 'https://www.npmjs.com/org/' + selector.replace('@', '')
+    _href = `https://www.npmjs.com/org/${selector.replace('@', '')}`
     _title = `${selector} | npm org`
   } else if (parts.length === 1 && selector.startsWith('~')) {
     // user
-    _href = 'https://www.npmjs.com/' + selector
+    _href = `https://www.npmjs.com/${selector}`
     _title = `${selector} | npm user`
   } else {
     // package — npmjs.com HTML is blocked for scrapers (403)
-    _href = 'https://www.npmjs.com/package/' + selector
+    _href = `https://www.npmjs.com/package/${selector}`
     meta = await fetchNpmMeta(selector)
     _title = meta.description
       ? `${meta.title} | ${meta.description}`

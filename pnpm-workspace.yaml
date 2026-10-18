@@ -7,7 +7,7 @@ catalog:
   '@astrojs/rss': ^4.0.19
   '@astrojs/sitemap': ^3.7.4
   '@astrojs/ts-plugin': ^1.10.12
-  '@eslint/js': ^10.0.1
+  '@biomejs/biome': 2.5.15
   '@iconify-json/lucide': ^1.2.134
   '@types/jsdom': ^21.1.7
   '@types/mdx': ^2.0.14
@@ -19,11 +19,6 @@ catalog:
   astro: ^7.3.3
   astro-icon: ^1.2.0
   cuer: ^0.0.3
-  eslint: ^10.10.0
-  eslint-config-prettier: ^10.1.8
-  eslint-plugin-astro: ^3.2.1
-  eslint-plugin-jsx-a11y: ^6.10.2
-  eslint-plugin-mdx: ^3.8.1
   jsdom: ^26.1.0
   modern-normalize: ^3.0.1
   playwright: ^1.63.0
@@ -33,7 +28,6 @@ catalog:
   react-dom: ^19.3.0
   sharp: ^0.35.5
   typescript: 6.0.3
-  typescript-eslint: ^8.70.0
   vcard-creator: ^0.7.2
   wrangler: ^4.135.0
 allowBuilds:

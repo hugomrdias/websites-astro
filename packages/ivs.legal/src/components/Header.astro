@@ -87,8 +87,14 @@ const inArticles = `${currentPath.replace(/\/+$/, '')}/`.startsWith(
       </div>
 
       <!-- Mobile Menu Button -->
-      <button id="mobile-menu-btn" class="lg:hidden p-2" title="Menu">
+      <button
+        type="button"
+        id="mobile-menu-btn"
+        class="lg:hidden p-2"
+        title="Menu"
+      >
         <svg
+          aria-hidden="true"
           class="w-6 h-6"
           fill="none"
           stroke="currentColor"
