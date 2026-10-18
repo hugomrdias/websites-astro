@@ -12,7 +12,6 @@ const config = [
       'dist/',
       'node_modules/',
       'public/',
-      'dev-dist/',
       '.astro/',
       '.wrangler/',
       'worker-configuration.d.ts',

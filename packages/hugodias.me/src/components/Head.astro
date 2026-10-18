@@ -1,10 +1,6 @@
 ---
 import '../styles/global.css'
 import { ClientRouter } from 'astro:transitions'
-// @ts-expect-error - no types
-import { pwaInfo } from 'virtual:pwa-info'
-// @ts-expect-error - no types
-import { pwaAssetsHead } from 'virtual:pwa-assets/head'
 import { SITE } from '@consts'
 import type { ImageMetadata } from 'astro'
 import defaultOgImage from '../images/og-image2.jpg'
@@ -75,19 +71,11 @@ const ogImage = await getImage({
   href={new URL('rss.xml', Astro.site)}
 />
 
-<!-- PWA -->
-{pwaAssetsHead.themeColor && (
-  <meta name="theme-color" content={pwaAssetsHead.themeColor.content} />
-)}
-{pwaAssetsHead.links.map(
-  (
-    link: astroHTML.JSX.IntrinsicAttributes & astroHTML.JSX.LinkHTMLAttributes
-  ) => (
-    <link {...link} />
-  )
-)}
-{pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
-<script src="/src/lib/pwa.ts"></script>
+<!-- Icons: run `pnpm favicons` to regenerate them -->
+<link rel="icon" href="/favicon.ico" sizes="48x48" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/manifest.webmanifest" />
+<meta name="theme-color" content="#25201a" />
 <ClientRouter />
 
 <script>

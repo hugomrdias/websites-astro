@@ -14,8 +14,7 @@ catalog:
   '@types/node': ^24.13.5
   '@types/react': ^19.3.0
   '@types/react-dom': ^19.3.0
-  '@vite-pwa/assets-generator': ^1.0.4
-  '@vite-pwa/astro': ^1.2.0
+  '@vite-pwa/assets-generator': ^2.0.0
   '@yeskunall/astro-umami': 0.0.9
   astro: ^7.3.3
   astro-icon: ^1.2.0
@@ -36,7 +35,6 @@ catalog:
   typescript: 6.0.3
   typescript-eslint: ^8.70.0
   vcard-creator: ^0.7.2
-  workbox-window: ^7.4.1
   wrangler: ^4.135.0
 allowBuilds:
   esbuild: true

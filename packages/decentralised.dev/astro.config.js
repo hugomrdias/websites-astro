@@ -1,7 +1,6 @@
 import { defineConfig } from 'astro/config'
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
-import AstroPWA from '@vite-pwa/astro'
 import icon from 'astro-icon'
 import react from '@astrojs/react'
 
@@ -18,33 +17,7 @@ export default defineConfig({
       },
     ],
   },
-  integrations: [
-    mdx(),
-    sitemap(),
-    icon(),
-    AstroPWA({
-      /* your pwa options */
-      registerType: 'autoUpdate',
-      manifest: {
-        name: 'Decentralised Experience',
-        short_name: 'Decentralised Experience',
-        theme_color: '#25201a',
-        background_color: '#191918',
-      },
-      includeAssets: ['*.webp', '*.png', '*.jpg', '*.svg'],
-      workbox: {
-        navigateFallback: '/',
-        globPatterns: ['**/*.{css,js,html,svg,png,ico,webp,jpg,txt,xml}'],
-      },
-      pwaAssets: {
-        image: 'public/logo.png',
-      },
-      devOptions: {
-        enabled: false,
-      },
-    }),
-    react(),
-  ],
+  integrations: [mdx(), sitemap(), icon(), react()],
   vite: {
     preview: {
       allowedHosts: ['.trycloudflare.com'],

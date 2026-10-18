@@ -7,14 +7,7 @@ import tseslint from 'typescript-eslint'
 /** @type {import('eslint').Linter.Config[]} */
 const config = [
   {
-    ignores: [
-      '.vscode/',
-      'dist/',
-      'node_modules/',
-      'public/',
-      'dev-dist/',
-      '.astro/',
-    ],
+    ignores: ['.vscode/', 'dist/', 'node_modules/', 'public/', '.astro/'],
   },
   {
     languageOptions: {

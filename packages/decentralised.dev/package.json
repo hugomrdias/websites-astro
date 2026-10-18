@@ -11,7 +11,8 @@
     "preview:network": "astro preview --host",
     "astro": "astro",
     "lint": "astro check && eslint . && prettier --check '**/*.{js,ts,yml,json,tsx,jsx,astro}' --ignore-path ../../.gitignore",
-    "lint:fix": "eslint . --fix && prettier --write '**/*.{js,ts,yml,json,tsx,jsx,astro}' --ignore-path ../../.gitignore"
+    "lint:fix": "eslint . --fix && prettier --write '**/*.{js,ts,yml,json,tsx,jsx,astro}' --ignore-path ../../.gitignore",
+    "favicons": "pwa-assets-generator"
   },
   "dependencies": {
     "@astrojs/mdx": "catalog:",
@@ -34,7 +35,6 @@
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@vite-pwa/assets-generator": "catalog:",
-    "@vite-pwa/astro": "catalog:",
     "eslint": "catalog:",
     "eslint-config-prettier": "catalog:",
     "eslint-plugin-astro": "catalog:",
@@ -47,7 +47,6 @@
     "prettier-plugin-astro": "catalog:",
     "typescript": "catalog:",
     "typescript-eslint": "catalog:",
-    "workbox-window": "catalog:",
     "wrangler": "catalog:"
   }
 }
