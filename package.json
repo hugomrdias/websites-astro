@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "packageManager": "pnpm@12.4.1+sha512.LoHjmdc/6DkNqyXgaqeIq3pZCCSNL1o3D4K0gRR6ano2e/gEj5pv22Rg8hpm8FQt7bi5TKLIcjWWdBkgsWVtTA==",
+  "packageManager": "pnpm@12.14.0+sha512.wYum2HmT09Fky16JSPMrLAbuhUSH4GzY2GeBNC+z5btGNDZwNHEehoArqpw3vqkGzhkprQjXCITJfYAd8TOJpg==",
   "engines": {
     "node": "^24.21.0",
-    "pnpm": "^12.4.1"
+    "pnpm": "^12.14.0"
   },
   "devEngines": {
     "runtime": {
