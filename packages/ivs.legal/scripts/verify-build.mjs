@@ -74,6 +74,7 @@ for (const name of [
   'maskable-icon-512x512.png',
   'manifest.webmanifest',
   '404.html',
+  '404.md',
   'ivs-legal.vcf',
   '.well-known/security.txt',
 ])
