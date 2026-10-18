@@ -12,6 +12,24 @@
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["--filter", "ivs.legal", "preview", "--port", "4329"],
       "port": 4329
+    },
+    {
+      "name": "hugodias-preview",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "hugodias.me", "preview", "--port", "4331"],
+      "port": 4331
+    },
+    {
+      "name": "decentralised-preview",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "--filter",
+        "decentralised.dev",
+        "preview",
+        "--port",
+        "4332"
+      ],
+      "port": 4332
     }
   ]
 }

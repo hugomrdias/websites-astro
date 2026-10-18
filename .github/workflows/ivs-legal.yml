@@ -67,6 +67,8 @@ jobs:
         with:
           name: ivs.legal
           path: packages/ivs.legal/dist
+          # Keep .well-known/security.txt and .assetsignore.
+          include-hidden-files: true
           if-no-files-found: error
           retention-days: 7
 
