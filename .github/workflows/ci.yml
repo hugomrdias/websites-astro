@@ -54,6 +54,8 @@ jobs:
         with:
           name: hugodias.me
           path: packages/hugodias.me/dist
+          # Keep .well-known/security.txt.
+          include-hidden-files: true
           retention-days: 1
       - name: Upload decentralised.dev
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
@@ -61,6 +63,7 @@ jobs:
         with:
           name: decentralised.dev
           path: packages/decentralised.dev/dist
+          include-hidden-files: true
           retention-days: 1
 
   deploy:
