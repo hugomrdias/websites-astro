@@ -1,7 +1,7 @@
 # AGENTS.md
 
 - pnpm workspace of three independent Astro sites under `packages/`
-- Shared versions live in the pnpm catalog
+- Dependencies used by more than one package (the root counts) live in the pnpm catalog; the rest keep their version in their own `package.json`
 - Scope work to the site you are changing
 - For Astro APIs, search current docs (`search_astro_docs`) before guessing
 
