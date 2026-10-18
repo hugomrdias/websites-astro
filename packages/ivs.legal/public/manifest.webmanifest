@@ -1,9 +1,11 @@
 {
+  "id": "/",
   "name": "IVS Legal",
   "short_name": "IVS Legal",
+  "description": "Escritório de advocacia em Matosinhos. Apoio jurídico em direito civil, trabalho, imobiliário, imigração, sociedades comerciais e direito penal.",
   "display": "browser",
   "start_url": "/",
-  "lang": "pt",
+  "lang": "pt-PT",
   "theme_color": "#B99A4B",
   "background_color": "#222221",
   "icons": [
