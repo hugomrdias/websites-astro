@@ -1,0 +1,22 @@
+{
+  "$schema": "./node_modules/turbo/schema.json",
+  // Every package lints with these, so a change marks all packages affected.
+  "globalDependencies": [
+    ".gitignore",
+    "biome.jsonc",
+    "prettier.config.js",
+    "tsconfig.json"
+  ],
+  "globalPassThroughEnv": ["CI", "FORCE_COLOR", "PLAYWRIGHT_*"],
+  "tasks": {
+    "build": {
+      "outputs": ["dist/**"]
+    },
+    "lint": {},
+    "test": {},
+    "dev": {
+      "cache": false,
+      "persistent": true
+    }
+  }
+}

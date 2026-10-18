@@ -12,7 +12,9 @@
     "lint:fix": "biome check --write . && prettier --write '**/*.astro' --ignore-path ../../.gitignore --ignore-path .gitignore",
     "types": "wrangler types",
     "test": "node --test tests/*.test.ts",
-    "favicons": "pwa-assets-generator"
+    "favicons": "pwa-assets-generator",
+    "wrangler:deploy": "wrangler deploy --config dist/server/wrangler.json",
+    "wrangler:preview": "wrangler preview --config dist/server/wrangler.json"
   },
   "dependencies": {
     "@astrojs/cloudflare": "14.4.0",

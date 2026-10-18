@@ -1,0 +1,15 @@
+{
+  "$schema": "../../node_modules/turbo/schema.json",
+  "extends": ["//"],
+  "tasks": {
+    "build": {
+      // Notion content changes without a code change, so never replay a build.
+      "cache": false,
+      "env": ["NOTION_TOKEN", "NOTION_DATABASE_ID"]
+    },
+    "lint": {
+      // astro check syncs the Notion content collection.
+      "passThroughEnv": ["NOTION_TOKEN", "NOTION_DATABASE_ID"]
+    }
+  }
+}
