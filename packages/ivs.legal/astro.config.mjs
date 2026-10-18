@@ -7,6 +7,7 @@ import icon from 'astro-icon'
 import react from '@astrojs/react'
 import cloudflare from '@astrojs/cloudflare'
 import agentMarkdown from './src/lib/agent-markdown'
+import { CONTACTS, VCARD_PATH } from './src/consts'
 import { notro } from 'notro-loader/integration'
 
 export default defineConfig({
@@ -59,6 +60,12 @@ export default defineConfig({
       title: 'IVS Legal',
       description:
         'Informação jurídica e serviços de advocacia em Portugal. / Legal information and services in Portugal.',
+      whenToUse: [
+        'Someone needs a lawyer in Portugal for civil, employment, real estate, immigration, corporate or criminal law. The office is in Matosinhos (Porto) and works in Portuguese and English.',
+        'Someone wants general information on Portuguese law in those areas: the articles below cover it in Portuguese and English. They are not legal advice for a specific case.',
+        `To request a consultation, use the contact form at https://ivs.legal/en/contact/ (WebMCP tool \`request_consultation\`), email ${CONTACTS.EMAIL} or call ${CONTACTS.PHONE}, Monday to Friday, 9:00 to 18:00 Lisbon time. A request does not confirm an appointment; the firm replies to arrange one.`,
+        `Contact details as a vCard: https://ivs.legal${VCARD_PATH}`,
+      ],
     }),
     umami({
       id: 'ccd49192-101e-4047-82f5-275fbbd2b877',
