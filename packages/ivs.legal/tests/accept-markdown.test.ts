@@ -15,5 +15,13 @@ test('Markdown only when it ranks at least as high as HTML', () => {
     false
   )
   assert.equal(prefersMarkdown('*/*'), false)
+  // Wildcards rank HTML unless a more specific HTML range overrides them.
+  assert.equal(prefersMarkdown('text/markdown;q=0.5, */*;q=0.8'), false)
+  assert.equal(prefersMarkdown('text/markdown;q=0.5, text/*;q=0.8'), false)
+  assert.equal(
+    prefersMarkdown('text/markdown;q=0.5, text/html;q=0.1, */*;q=0.8'),
+    true
+  )
+  assert.equal(prefersMarkdown('text/markdown, */*;q=0.8'), true)
   assert.equal(prefersMarkdown(null), false)
 })

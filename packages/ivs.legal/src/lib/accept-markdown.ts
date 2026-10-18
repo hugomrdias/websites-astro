@@ -3,16 +3,26 @@ function quality(params: string[]) {
   return q === undefined ? 1 : Number(q.trim().slice(2)) || 0
 }
 
-// True when the Accept header ranks Markdown at least as high as HTML.
-// Browsers never list text/markdown, so they keep getting HTML.
+// The quality of the most specific range that matches, as RFC 9110 orders them.
+function qualityOf(ranges: Map<string, number>, type: string) {
+  return (
+    ranges.get(type) ??
+    ranges.get(`${type.split('/')[0]}/*`) ??
+    ranges.get('*/*') ??
+    0
+  )
+}
+
+// True when the Accept header names Markdown and ranks it at least as high as
+// HTML. Browsers never list text/markdown, so they keep getting HTML.
 export function prefersMarkdown(accept: string | null) {
-  let markdown = 0
-  let html = 0
+  const ranges = new Map<string, number>()
   for (const range of accept?.toLowerCase().split(',') ?? []) {
     const [type, ...params] = range.split(';')
-    if (type.trim() === 'text/markdown')
-      markdown = Math.max(markdown, quality(params))
-    if (type.trim() === 'text/html') html = Math.max(html, quality(params))
+    const name = type.trim()
+    ranges.set(name, Math.max(ranges.get(name) ?? 0, quality(params)))
   }
-  return markdown > 0 && markdown >= html
+  // A wildcard can make HTML acceptable, but only an explicit range asks for Markdown.
+  const markdown = ranges.get('text/markdown') ?? 0
+  return markdown > 0 && markdown >= qualityOf(ranges, 'text/html')
 }
