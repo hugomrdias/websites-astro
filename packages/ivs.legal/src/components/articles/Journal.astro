@@ -111,7 +111,7 @@ const itemList = {
               {String(articles.length).padStart(2, '0')}
             </span>
           </h2>
-          <div class="journal-search" data-controls data-agent-skip hidden>
+          <div class="journal-search" data-controls hidden>
             <label for="article-search" class="sr-only">
               {copy.search}
             </label>
@@ -140,7 +140,6 @@ const itemList = {
           role="group"
           aria-label={lang === 'pt' ? 'Filtrar por tema' : 'Filter by topic'}
           data-controls
-          data-agent-skip
           hidden
         >
           <button type="button" data-filter="" aria-pressed="true">
@@ -158,19 +157,13 @@ const itemList = {
           aria-live="polite"
           aria-atomic="true"
           data-results
-          data-agent-skip
         ></p>
         <div class="journal-grid">
           {articles.map((article) => (
             <ArticleCard article={article} />
           ))}
         </div>
-        <div
-          class="journal-empty"
-          data-empty
-          data-agent-skip={articles.length > 0}
-          hidden={articles.length > 0}
-        >
+        <div class="journal-empty" data-empty hidden={articles.length > 0}>
           <h3>{copy.empty}</h3>
           <p>{copy.emptyHint}</p>
           <button
@@ -184,7 +177,7 @@ const itemList = {
             <span aria-hidden="true">↗</span>
           </button>
         </div>
-        <div class="journal-load" data-agent-skip>
+        <div class="journal-load">
           <button type="button" class="journal-button" data-more hidden>
             {copy.more}
             <span aria-hidden="true">↓</span>

@@ -1,10 +1,6 @@
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
-import {
-  llmsTxt,
-  pageMarkdown,
-  stripSkipped,
-} from '../src/lib/agent-markdown.ts'
+import { pageMarkdown } from '../src/lib/agent-markdown.ts'
 
 const article = {
   '@type': 'Article',
@@ -22,23 +18,21 @@ const html = `<!doctype html><html lang="en"><head>
 <script type="application/ld+json">${JSON.stringify(article)}</script>
 </head><body><header><nav><a href="/en/">Home</a></nav></header><main>
 <a href="/en/articles/" data-agent-skip>All articles</a>
-<p data-agent-skip>Civil Law</p>
+<!-- <p>Commented-out draft</p> -->
 <h1>Burqa ban</h1>
 <div data-agent-skip><span>IVS Legal</span><div><span>Published</span></div></div>
+<aside><nav>In this article</nav></aside>
 <h2><strong>What changed?</strong></h2>
-<p>Text with <strong>bold</strong> words.</p>
+<p>Text with <strong>bold</strong> words<span aria-hidden="true">↗</span>.</p>
+<ul>
+  <li>One</li>
+  <li>Two</li>
+</ul>
+<div hidden><p>No results.</p></div>
+<form><label>Name <input name="name"></label><button>Send</button></form>
 </main></body></html>`
 
-test('page chrome marked data-agent-skip is removed, nesting included', () => {
-  assert.equal(
-    stripSkipped(
-      '<div data-agent-skip><div>a</div><div>b</div></div><p>keep</p><img data-agent-skip src="x" /><span data-agent-skip="true">x</span>end'
-    ),
-    '<p>keep</p>end'
-  )
-})
-
-test('article Markdown starts with front matter and the title heading', () => {
+test('article Markdown has front matter and only the readable content', () => {
   const page = pageMarkdown(html, '/en/articles/burqa-ban/')
   assert.equal(
     page.markdown,
@@ -58,58 +52,27 @@ dateModified: "2026-09-23T10:00:00.000Z"
 ## What changed?
 
 Text with **bold** words.
+
+- One
+- Two
 `
   )
   assert.equal(page.title, 'Burqa ban')
+  assert.equal(page.noindex, false)
 })
 
-test('llms.txt groups pages and uses absolute Markdown URLs', () => {
-  const page = (path: string, title: string) => ({
-    path,
-    title,
-    description: `${title} description`,
-    url: `https://ivs.legal${path}`,
-    lang: path.startsWith('/en/') ? 'en' : 'pt-PT',
-    markdown: '',
-  })
-  const index = llmsTxt(
-    [
-      page('/en/articles/burqa-ban/', 'Burqa ban'),
-      page('/terms/', 'Termos'),
-      page('/en/', 'IVS Legal'),
-      page('/', 'IVS Legal'),
-      page('/articles/', 'Artigos'),
-    ],
-    {
-      title: 'IVS Legal',
-      description: 'Legal information',
-      site: new URL('https://ivs.legal'),
-    }
+test('pages without article data use the title without the site name', () => {
+  const page = pageMarkdown(
+    `<html lang="pt-PT"><head><title>Sobre Nós - IVS Legal</title>
+<meta name="robots" content="noindex, follow"></head>
+<body><main><h1>Sobre</h1></main></body></html>`,
+    '/about/'
   )
-  assert.equal(
-    index,
-    `# IVS Legal
-
-> Legal information
-
-Each page links to its Markdown version. The full text of every page is in https://ivs.legal/llms-full.txt.
-
-## Firm
-
-- [IVS Legal](https://ivs.legal/index.md): IVS Legal description
-- [IVS Legal](https://ivs.legal/en/index.md): IVS Legal description
-
-## Articles (Português)
-
-- [Artigos](https://ivs.legal/articles/index.md): Artigos description
-
-## Articles (English)
-
-- [Burqa ban](https://ivs.legal/en/articles/burqa-ban/index.md): Burqa ban description
-
-## Legal
-
-- [Termos](https://ivs.legal/terms/index.md): Termos description
-`
+  assert.equal(page.title, 'Sobre Nós')
+  assert.equal(page.url, '/about/')
+  assert.equal(page.noindex, true)
+  assert.match(
+    page.markdown,
+    /^---\ntitle: "Sobre Nós"\nurl: "\/about\/"\nlang: "pt-PT"\n---\n\n# Sobre\n$/
   )
 })
