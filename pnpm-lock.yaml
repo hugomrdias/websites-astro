@@ -274,8 +274,6 @@ catalogs:
       version: 4.135.0
 
 overrides:
-  '@expressive-code/core': 0.41.7
-  expressive-code: 0.41.7
   sharp: ^0.35.4
 
 importers:
@@ -3863,7 +3861,6 @@ packages:
 
   concat-stream@2.0.0:
     resolution: {integrity: sha512-MWufYdFw53ccGjCA+Ol7XJYpAlW6/prSMzuPOTRnJGcGzuhLn4Scrz7qf6o8bROZ514ltazcIFJZevcfbo0x7A==}
-    engines: {'0': node >= 6.0}
 
   conf@14.0.0:
     resolution: {integrity: sha512-L6BuueHTRuJHQvQVc6YXYZRtN5vJUtOdCTLn0tRYYV5azfbAFcPghB5zEE40mVrV6w7slMTqUfkDomutIK14fw==}
@@ -4547,8 +4544,8 @@ packages:
   expressive-code-twoslash@0.5.3:
     resolution: {integrity: sha512-BcttA3taicvhesKpQ4TvRxoDHByDr2FH6bvjc6elxC8TXVU3GVZv0wHvdcNz9xrVEUcwbDbsprqsGF7M7Yq59A==}
     peerDependencies:
-      '@expressive-code/core': 0.41.7
-      expressive-code: 0.41.7
+      '@expressive-code/core': '>=0.40.0'
+      expressive-code: '>=0.40.0'
       typescript: ^5.7
 
   expressive-code@0.41.7:

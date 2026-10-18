@@ -7,6 +7,7 @@ catalog:
   '@astrojs/rss': ^4.0.19
   '@astrojs/sitemap': ^3.7.4
   '@astrojs/ts-plugin': ^1.10.12
+  '@eslint/js': ^10.0.1
   '@iconify-json/lucide': ^1.2.134
   '@types/jsdom': ^21.1.7
   '@types/mdx': ^2.0.14
@@ -19,7 +20,6 @@ catalog:
   astro: ^7.3.3
   astro-icon: ^1.2.0
   cuer: ^0.0.3
-  '@eslint/js': ^10.0.1
   eslint: ^10.10.0
   eslint-config-prettier: ^10.1.8
   eslint-plugin-astro: ^3.2.1
@@ -38,23 +38,14 @@ catalog:
   vcard-creator: ^0.7.2
   workbox-window: ^7.4.1
   wrangler: ^4.135.0
-minimumReleaseAgeExclude:
-  - '@iconify-json/lucide@1.2.134'
-  - miniflare@5.20260917.0-alpha
-  - prettier@3.9.8
-  - wrangler@4.135.0
-onlyBuiltDependencies:
-  - esbuild
-  - sharp
-  - workerd
-peerDependencyRules:
-  allowedVersions:
-    astro: '>=5'
-overrides:
-  '@expressive-code/core': 0.41.7
-  expressive-code: 0.41.7
-  sharp: ^0.35.4
 allowBuilds:
   esbuild: true
   sharp: true
   workerd: true
+overrides:
+  # astro-favicons would otherwise install a second, native sharp 0.33.
+  sharp: ^0.35.4
+peerDependencyRules:
+  allowedVersions:
+    # Several Astro integrations only declare peers up to Astro 5 or 6.
+    astro: '>=5'
