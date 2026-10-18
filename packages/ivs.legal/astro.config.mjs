@@ -46,10 +46,8 @@ export default defineConfig({
       TURNSTILE_SITE_KEY: envField.string({
         context: 'client',
         access: 'public',
-        default:
-          process.env.CLOUDFLARE_ENV === 'production'
-            ? undefined
-            : '1x00000000000000000000AA',
+        // CI passes a key; local builds get Turnstile's always-pass test key.
+        default: process.env.CI ? undefined : '1x00000000000000000000AA',
       }),
       GOOGLE_MAPS: envField.string({ context: 'client', access: 'public' }),
     },

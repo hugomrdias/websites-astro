@@ -13,7 +13,7 @@
     "lint": "astro check && biome check . && prettier --check '**/*.astro' --ignore-path ../../.gitignore",
     "lint:fix": "biome check --write . && prettier --write '**/*.astro' --ignore-path ../../.gitignore",
     "favicons": "pwa-assets-generator",
-    "wrangler:deploy": "wrangler deploy",
+    "wrangler:deploy": "wrangler deploy --env production",
     "wrangler:preview": "wrangler preview"
   },
   "dependencies": {

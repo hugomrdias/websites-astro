@@ -9,15 +9,10 @@ on:
   workflow_dispatch:
     inputs:
       site:
-        description: Site to build and deploy
+        description: Site to build and deploy to production
         type: choice
         options: [all, hugodias.me, decentralised.dev, ivs.legal]
         default: all
-      environment:
-        description: Deployment environment
-        type: choice
-        options: [production, staging]
-        default: production
   # Notion webhook deploys
   repository_dispatch:
     types:
@@ -66,7 +61,6 @@ jobs:
           EVENT: ${{ github.event_name }}
           ACTION: ${{ github.event.action }}
           INPUT_SITE: ${{ inputs.site }}
-          INPUT_ENVIRONMENT: ${{ inputs.environment }}
           SAME_REPO: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
           PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
         run: |
@@ -111,8 +105,7 @@ jobs:
               else
                 sites=$(jq -cn --arg site "$INPUT_SITE" '[$site]')
               fi
-              environment=$INPUT_ENVIRONMENT
-              if [ "$GITHUB_REF" = refs/heads/master ] || [ "$environment" = staging ]; then
+              if [ "$GITHUB_REF" = refs/heads/master ]; then
                 publish=true
               fi
               ;;

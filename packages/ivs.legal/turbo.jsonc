@@ -6,7 +6,6 @@
       // Notion content changes without a code change, so never replay a build.
       "cache": false,
       "env": [
-        "CLOUDFLARE_ENV",
         "GOOGLE_MAPS",
         "NOTION_DATA_SOURCE_ID",
         "NOTION_TOKEN",
@@ -17,7 +16,6 @@
       "outputs": ["worker-configuration.d.ts"],
       // astro check syncs the Notion content collection.
       "passThroughEnv": [
-        "CLOUDFLARE_ENV",
         "GOOGLE_MAPS",
         "NOTION_DATA_SOURCE_ID",
         "NOTION_TOKEN",

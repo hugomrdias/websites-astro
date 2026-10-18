@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "ivs-legal-staging",
+  "name": "ivs-legal",
   "main": "./src/worker.ts",
   "compatibility_date": "2026-09-20",
   "compatibility_flags": ["nodejs_compat"],
@@ -12,7 +12,7 @@
   },
   "routes": [
     {
-      "pattern": "dev.ivs.legal",
+      "pattern": "ivs.legal",
       "custom_domain": true
     }
   ],
@@ -23,8 +23,8 @@
     "enabled": true
   },
   "vars": {
-    "CONTACT_ENV": "staging",
-    "CONTACT_ORIGIN": "https://dev.ivs.legal"
+    "CONTACT_ENV": "production",
+    "CONTACT_ORIGIN": "https://ivs.legal"
   },
   "send_email": [
     {
@@ -36,7 +36,7 @@
   "ratelimits": [
     {
       "name": "CONTACT_LIMITER",
-      "namespace_id": "2026092001",
+      "namespace_id": "2026092002",
       "simple": {
         "limit": 5,
         "period": 60
@@ -44,13 +44,13 @@
     }
   ],
   // Pull request Previews (`wrangler preview`) live under this Worker.
-  // CONTACT_ORIGIN keeps dev.ivs.legal, so the contact API rejects requests
-  // from Preview hostnames before it reads the limiter, Turnstile or EMAIL.
+  // CONTACT_ORIGIN stays ivs.legal, so the contact API rejects requests from
+  // Preview hostnames before it reads the limiter, Turnstile or EMAIL.
   // EMAIL is left out on purpose: Previews cannot send mail.
   "previews": {
     "vars": {
       "CONTACT_ENV": "preview",
-      "CONTACT_ORIGIN": "https://dev.ivs.legal"
+      "CONTACT_ORIGIN": "https://ivs.legal"
     },
     "ratelimits": [
       {
@@ -62,42 +62,6 @@
         }
       }
     ]
-  },
-  "env": {
-    "production": {
-      "name": "ivs-legal",
-      "preview_urls": false,
-      "routes": [
-        {
-          "pattern": "ivs.legal",
-          "custom_domain": true
-        }
-      ],
-      "vars": {
-        "CONTACT_ENV": "production",
-        "CONTACT_ORIGIN": "https://ivs.legal"
-      },
-      "send_email": [
-        {
-          "name": "EMAIL",
-          "allowed_sender_addresses": ["website@ivs.legal"],
-          "allowed_destination_addresses": ["geral@ivs.legal"]
-        }
-      ],
-      "ratelimits": [
-        {
-          "name": "CONTACT_LIMITER",
-          "namespace_id": "2026092002",
-          "simple": {
-            "limit": 5,
-            "period": 60
-          }
-        }
-      ],
-      "secrets": {
-        "required": ["TURNSTILE_SECRET_KEY"]
-      }
-    }
   },
   "secrets": {
     "required": ["TURNSTILE_SECRET_KEY"]

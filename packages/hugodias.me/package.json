@@ -14,7 +14,7 @@
     "lint:fix": "biome check --write . && prettier --write '**/*.astro' --ignore-path ../../.gitignore",
     "favicons": "pwa-assets-generator",
     "test": "node --test tests/*.test.ts",
-    "wrangler:deploy": "wrangler deploy",
+    "wrangler:deploy": "wrangler deploy --env production",
     "wrangler:preview": "wrangler preview"
   },
   "dependencies": {
